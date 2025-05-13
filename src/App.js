@@ -27,7 +27,7 @@ function App() {
         Click Me
       </button>
     </div>*/
-    <div>
+    <div className="relative w-full h-screen">
       <Navbar/>
       <Hero onGetStartedClick={handleShowLogin} />
       {showLogin && <Login onClose={handleCloseLogin}  />}

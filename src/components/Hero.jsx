@@ -3,7 +3,7 @@ import bgimg from "../images/bgimg.png";
 function Hero({ onGetStartedClick }) {
   return (
     <section
-      className="h-screen w-full bg-cover"
+      className="h-full w-full bg-cover"
       style={{ backgroundImage: `url(${bgimg})` }}
     >
       <div className="text-left bg-black bg-opacity-50 pt-40 pl-10 text-white">
