@@ -1,4 +1,4 @@
-import logo from "../images/logo.png"
+import logo from "../../images/logo.png"
 function Navbar(){
     return (
         <nav className="flex items-center p-2 justify-between shadow-md" style={{backgroundColor:'rgb(242, 224, 201)'}}>

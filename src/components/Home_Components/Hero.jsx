@@ -1,4 +1,4 @@
-import bgimg from "../images/bgimg.png";
+import bgimg from "../../images/bgimg.png";
 //import login_signup from "./components/login_signup";
 function Hero({ onGetStartedClick }) {
   return (
