@@ -1,7 +1,9 @@
-import Home from "./pages/Home";
+//import Home from "./pages/Home";
+import SignUpAdopter from "./pages/SignUpAdopter";
 function App() {
   return (
-    <Home />
+    //<Home />
+    <SignUpAdopter />
   );
 }
 
