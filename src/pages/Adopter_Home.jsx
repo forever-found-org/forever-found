@@ -39,7 +39,7 @@ function Adopter_Home(){
         <div className="h-auto w-auto p-2 m-3 text-center">
             <h1 className="text-2xl font-bold capitalize font-serif">choose your nearest ngo! </h1>
         </div>
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3" style={{backgroundColor:'#E3F2FD'}}>
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4 p-4" style={{backgroundColor:'#E3F2FD'}}>
             {
                 ngoData.map((ngo,index)=>(
                     <NGOcard

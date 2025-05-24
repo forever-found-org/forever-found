@@ -1,5 +1,5 @@
 import logo from "../../images/logo.png"
-function Navbar(){
+function Navbar({onLoginClick}){
     return (
         <nav className="flex items-center p-2 justify-between shadow-md" style={{backgroundColor:'rgb(242, 224, 201)'}}>
             <div className="flex items-center gap-4">
@@ -16,7 +16,7 @@ function Navbar(){
             <div className="space-x-8 mr-4">
                 
                 <button className="text-blue-500 hover:underline">Home</button>
-                <button className="text-blue-500 hover:underline">Login</button>
+                <button className="text-blue-500 hover:underline" onClick={onLoginClick}>Login</button>
                 <button className="text-blue-500 hover:underline">Signup</button>
                 <button className="text-blue-500 hover:underline">About</button>
                 <button className="text-blue-500 hover:underline">Help</button>
