@@ -14,15 +14,15 @@ function App() {
 
 
     //<Home />
-    //<SignUpAdopter />
+    <SignUpAdopter />
 
-    <Router>
+    /*<Router>
       <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/adopter-home" element={<Adopter_Home />} />
       <Route path="/adopter-home/:name" element={<NgoDetails/>}/>      
       </Routes>
-    </Router>
+    </Router>*/
 
   );
 }
