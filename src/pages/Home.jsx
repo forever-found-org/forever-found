@@ -9,15 +9,16 @@ function Home() {
   const handleShowLogin = () => {
     setShowLogin(true);
   };
-  const handleCloseLogin = () => {
-    setShowLogin(false);
-  };
+  // const handleCloseLogin = () => {
+  //   setShowLogin(false);
+  // };
   
   return (
     <div className="relative w-full h-screen">
-      <Navbar/>
-      <Hero onGetStartedClick={handleShowLogin} />
-      {showLogin && <Login onClose={handleCloseLogin}  />}
+      <Navbar onLoginClick={handleShowLogin}/>
+      <Hero onGetStartedClick={handleShowLogin}  />
+
+      {showLogin && <Login />}
     </div>
   );
 }
