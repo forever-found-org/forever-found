@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PasswordInput from "../components/SignUpAdopterC/PasswordInput";
 import FormValidator from "../components/SignUpAdopterC/FormValidator";
+import { useNavigate } from "react-router-dom";
+
 
 function SignUpAdopter() {
     const [adopterData, setAdopterData] = useState({
@@ -33,14 +35,17 @@ function SignUpAdopter() {
             [name]: "",
         }));
     }
-
+    
+    const navigator=useNavigate();
     function handleClick(e) {
         e.preventDefault();
         const validationErrors = FormValidator(adopterData);
         setErrors(validationErrors);
 
-        if (Object.keys(validationErrors).length === 0)
+        if (Object.keys(validationErrors).length === 0){
             alert("Form submitted successfully!");
+            navigator("/adopter-home");
+        }
     }
 
     return (
