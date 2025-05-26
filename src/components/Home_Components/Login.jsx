@@ -14,13 +14,14 @@ function Login(){
 
     return(
        <>
-       <div className=" h-auto w-[23%] absolute top-32 right-8 p-4  border border-[#B0BEC5] rounded-2xl bg-white/90 backdrop-blur-md text-center">
+       <div className=" h-auto w-[25%] absolute top-32 right-8 p-4  border border-[#B0BEC5] rounded-2xl bg-white/90 backdrop-blur-md text-center">
         <form className="p-2 flex flex-col">
             <div className="flex flex-row mx-6">
                 <div className="py-2"> 
                     <label className="text-lg font-bold font-serif">Select role: </label>
                 </div>
                 <select className="text-md ml-2  rounded-lg border border-[#B0BEC5]">
+                    <option value="">None</option>
                     <option value="Adopter">Adopter</option>
                     <option value="NGO">NGO</option>
                 </select>
