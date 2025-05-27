@@ -7,7 +7,7 @@ function Home() {
   const [showLogin, setShowLogin] = useState(false);
 
   const handleShowLogin = () => {
-    setShowLogin(true);
+    setShowLogin(!showLogin);
   };
   // const handleCloseLogin = () => {
   //   setShowLogin(false);

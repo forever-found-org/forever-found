@@ -1,30 +1,112 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login(){
+
     const navigate=useNavigate();
+    const[role,setRole]=useState("");
+    const[user,setUser]=useState("");
+    const[pass,setPass]=useState("");
+    const[error,setError]=useState({role: "",user: "",pass: ""});
+
+    const validateLogIn=()=>{
+        let valid=true;
+        const tempErrors={role: "",user: "",pass: ""};
+
+        if(!role)
+        {
+            tempErrors.role="*Please select a role";
+            valid=false;
+        }
+        if(!user.trim())
+        {
+            tempErrors.user="*Username is required";
+            valid=false;    
+        }
+        if(!pass.trim())
+        {
+            tempErrors.pass="*Password is required";
+            valid=false;
+        }
+
+        setError(tempErrors);
+        return valid;
+    }
+
+    const validateRole=()=>{
+        if(!role)
+        {
+            setError({role: "*Please select a role",user: "",pass: ""});
+            return false;
+        }
+        setError({role: "",user: "",pass: ""});
+        return true;
+    }
+
     const handleLogin=(e)=>{
         e.preventDefault();
-        navigate('/adopter-home');
+        if(validateLogIn())
+        {
+            if(role==="Adopter")
+                navigate('/adopter-home');//another if for role as ngo for ngo home page
+        }
+            
     };
+
+    const handleAdopterSignUp=(e)=>{
+        e.preventDefault();
+        if(validateRole())
+        {
+            if(role==="Adopter")
+                navigate('/adopter-SignUp');//another if for role as ngo signup page
+        }
+    };
+
+
     return(
        <>
-       <div className=" h-auto w-[23%] absolute top-24 right-8 p-4  border border-[#B0BEC5] rounded-2xl bg-white/90 backdrop-blur-md text-center">
-        <form className="flex flex-col items-center">
-            <div className="p-2 flex flex-row justify-between">
-               <div className="py-2"> <label className="text-lg font-bold font-serif">select role: </label></div>
-                <select className="text-md ml-2  rounded-lg border border-[#B0BEC5]">
-                <option value="">Adopter</option>
-                <option value="">NGO</option>
-            </select>
+       <div className=" h-auto w-[25%] absolute top-32 right-8 p-4 shadow-md ring-1 ring-gray-300 rounded-xl bg-[#F9F4F1] backdrop-blur-md">
+        <form className="p-2">
+            <div className="flex flex-col">
+                <div className="flex flex-wrap justify-center">
+                    <div className="py-2"> 
+                    <label className="text-lg font-bold font-serif text-[#4B2E2E]">Select role: </label>
+                    </div>
+                    <select value={role} onChange={(e)=>setRole(e.target.value)} className="text-md ml-2 p-1 rounded-lg border border-[#DAB49D] font-serif">
+                        <option value="">None</option>
+                        <option value="Adopter">Adopter</option>
+                        <option value="NGO">NGO</option>
+                    </select>
+                </div>
+                
+                {error.role && <p className="text-red-600 ml-12 mt-0 text-sm">{error.role}</p>}
             </div>
 
-            <input className="text-md m-2 rounded-lg p-2 border border-[#B0BEC5]" placeholder="username"></input>
-            <input className="text-md m-2 rounded-lg p-2 border border-[#B0BEC5]" placeholder="password"></input>
-            <button className="font-serif border border-transparent m-3 p-2 rounded-lg bg-[#4CAF50] text-white hover:bg-[#1565C0] hover:shadow-md transition" onClick={handleLogin}>submit</button>
+            <div className="flex flex-col my-4 items-center">
+                <div>
+                    <label className="block text-base font-semibold text-[#4B2E2E]">Username</label>
+                    <input value={user} onChange={(e)=>setUser(e.target.value)} className="text-md mt-1 rounded-lg p-2 border border-[#DAB49D]" placeholder="username"></input>
+                    {error.user && <p className="text-red-600 ml-4 mt-0 text-sm">{error.user}</p>}
+                </div>
+                <div className="mt-2">
+                    <label className="block text-base font-semibold text-[#4B2E2E]">Password</label>
+                    <input value={pass} onChange={(e)=>setPass(e.target.value)} className="text-md mt-1 rounded-lg p-2 border border-[#DAB49D]" placeholder="password"></input>
+                    {error.pass && <p className="text-red-600 ml-4 mt-0 text-sm">{error.pass}</p>}
+                </div>
+            </div>
+
+            <div className="flex flex-col items-center">                
+                <button className="w-full font-serif border border-gray-400 m-3 p-1 rounded-lg font-semibold text-lg bg-white text-[#4B2E2E] hover:shadow-md hover:bg-blue-500 hover:text-white transition" onClick={handleLogin}>Log in</button>            
+                <button className="w-full font-serif flex items-center justify-center gap-2 border border-gray-400 m-3 p-1 rounded-lg font-semibold text-lg bg-white text-[#4B2E2E] hover:shadow-md hover:bg-blue-500 hover:text-white  transition">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
+                    <span>Sign in with Google</span>
+                </button>
             
-            <button className="font-serif border border-transparent m-3 p-2 rounded-lg bg-[#4CAF50] text-white hover:bg-[#1565C0] hover:shadow-md transition" >sign in with google</button>
+                <button className="w-full font-serif border border-gray-400 m-3 p-1 rounded-lg font-semibold text-lg bg-white text-[#4B2E2E] hover:shadow-md hover:bg-blue-500 hover:text-white transition" onClick={handleAdopterSignUp}>Manual Signup</button>
+                
+            </div>
+
             
-            <button className="font-serif border border-transparent m-3 p-2 rounded-lg bg-[#4CAF50] text-white hover:bg-[#1565C0] hover:shadow-md transition">custom signup</button>
         </form>
        </div>
        </>
