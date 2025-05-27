@@ -1,6 +1,6 @@
 import Adopter_Home from "./pages/Adopter_Home";
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-
+import Parenting_guide from "./pages/Parenting_guide";
 import Home from "./pages/Home";
 import NgoDetails from "./pages/NgoDetails";
 function App() {
@@ -10,7 +10,8 @@ function App() {
       <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/adopter-home" element={<Adopter_Home />} />
-      <Route path="/adopter-home/:name" element={<NgoDetails/>}/>      
+      <Route path="/adopter-home/:name" element={<NgoDetails/>}/>  
+      <Route path="/adopter-home/parenting-guide" element={<Parenting_guide/>}/>    
       </Routes>
     </Router>
   );

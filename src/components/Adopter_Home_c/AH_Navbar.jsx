@@ -16,7 +16,7 @@ function AH_Navbar(){
             <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white  hover:bg-white hover:text-black hover:font-bold capitalize" onClick={toHome} >home</button>
             <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold" >request history</button>
             <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold" >adoption history</button>
-            <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white  hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold">parenting guide</button>
+            <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white  hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold" onClick={()=>{navigate('/adopter-home/parenting-guide')}}>parenting guide</button>
             <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold" onClick={handleLogout}>logout</button>
         </div>
     );
