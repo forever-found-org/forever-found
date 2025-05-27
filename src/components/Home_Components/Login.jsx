@@ -96,13 +96,13 @@ function Login(){
             </div>
 
             <div className="flex flex-col items-center">                
-                <button className="w-full font-serif border border-gray-400 m-3 p-1 rounded-lg font-semibold text-lg bg-white text-[#4B2E2E] hover:shadow-md transition" onClick={handleLogin}>Log in</button>            
-                <button className="w-full font-serif flex items-center justify-center gap-2 border border-gray-400 m-3 p-1 rounded-lg font-semibold text-lg bg-white text-[#4B2E2E] hover:shadow-md transition">
+                <button className="w-full font-serif border border-gray-400 m-3 p-1 rounded-lg font-semibold text-lg bg-white text-[#4B2E2E] hover:shadow-md hover:bg-blue-500 hover:text-white transition" onClick={handleLogin}>Log in</button>            
+                <button className="w-full font-serif flex items-center justify-center gap-2 border border-gray-400 m-3 p-1 rounded-lg font-semibold text-lg bg-white text-[#4B2E2E] hover:shadow-md hover:bg-blue-500 hover:text-white  transition">
                     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
                     <span>Sign in with Google</span>
                 </button>
             
-                <button className="w-full font-serif border border-gray-400 m-3 p-1 rounded-lg font-semibold text-lg bg-white text-[#4B2E2E] hover:shadow-md transition" onClick={handleAdopterSignUp}>Manual Signup</button>
+                <button className="w-full font-serif border border-gray-400 m-3 p-1 rounded-lg font-semibold text-lg bg-white text-[#4B2E2E] hover:shadow-md hover:bg-blue-500 hover:text-white transition" onClick={handleAdopterSignUp}>Manual Signup</button>
                 
             </div>
 
