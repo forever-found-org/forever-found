@@ -1,7 +1,8 @@
 import logo from "../../images/logo.png"
-function Navbar({onLoginClick}){
+function Navbar({onLoginClick,onNGOaprClick}){
     return(
-        <nav className="flex items-center p-2 relative h-[105px] bg-[#F9F4F1]">
+        <nav className="flex items-center p-2 relative h-[105px] bg-[#F9F4F1] ">
+
             <div className="flex items-center mx-4">
                 <img
                     src={logo}
@@ -14,7 +15,7 @@ function Navbar({onLoginClick}){
                 <p className="text-2xl font-serif mt-2 ml-2 text-stone-500"><i>Every Child Deserves a Home</i></p>      
             </div>
             <div className="space-x-8 mr-4 absolute bottom-4 right-4">
-                <button className="text-blue-600  font-serif text-base hover:text-indigo-700 hover:underline">NGO Approval Status</button>   
+                <button className="text-blue-600  font-serif text-base hover:text-indigo-700 hover:underline" onClick={onNGOaprClick}>NGO Approval Status</button>   
                 <button className="text-blue-600  font-serif text-base hover:text-indigo-700 hover:underline" onClick={onLoginClick}>Login</button>
                 <button className="text-blue-600  font-serif text-base hover:text-indigo-700 hover:underline">About</button>
                 <button className="text-blue-600  font-serif text-base hover:text-indigo-700 hover:underline">Help</button>
