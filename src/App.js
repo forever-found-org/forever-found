@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import SignUpAdopter from "./pages/SignUpAdopter";
 import Adopter_Home from "./pages/Adopter_Home";
 import NgoDetails from "./pages/NgoDetails";
+import About from './pages/About';
+import Help from './pages/Help';
 
 function App() {
  
@@ -14,6 +16,9 @@ function App() {
     <Router>
       <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/about-Forever-Found" element={<About />} />
+      <Route path="/help-Forever-Found" element={<Help />} />
+      
       <Route path="/adopter-SignUp" element={<SignUpAdopter />} />
       <Route path="/adopter-home" element={<Adopter_Home />} />
 
