@@ -1,10 +1,9 @@
 import logo from "../../images/logo.png"
 import { useNavigate } from "react-router-dom";
-function AH_Navbar(){
+
+function AH_Navbar({onLogoutClick}){
     const navigate=useNavigate();
-    const handleLogout=()=>{
-        navigate('/');
-    }
+    
     const toHome=()=>{
         navigate('/adopter-home');
     }
@@ -17,7 +16,7 @@ function AH_Navbar(){
             <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold" >request history</button>
             <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold" >adoption history</button>
             <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white  hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold" onClick={()=>{navigate('/adopter-home/parenting-guide')}}>parenting guide</button>
-            <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold" onClick={handleLogout}>logout</button>
+            <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold" onClick={onLogoutClick}>logout</button>
             <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white  hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold">Profile</button>
         </div>
     );
