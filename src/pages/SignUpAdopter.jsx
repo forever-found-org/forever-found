@@ -46,6 +46,7 @@ function SignUpAdopter() {
             alert("Form submitted successfully!");
             navigator("/adopter-home");
         }
+        //also working for validationErrors.length===0 (check later)
     }
 
     return (

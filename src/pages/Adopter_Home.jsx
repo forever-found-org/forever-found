@@ -1,5 +1,7 @@
-import AH_Navbar from "../components/Adopter_Home_c/AH_Navbar";
+import MainLayout from "../components/Common_Components/MainLayout";
+
 import NGOcard from "../components/Adopter_Home_c/NGOcard";
+
 const ngoData = [
     {
       image: 'https://images.pexels.com/photos/7978484/pexels-photo-7978484.jpeg?auto=compress&cs=tinysrgb&w=600',
@@ -33,9 +35,10 @@ const ngoData = [
     }
   ];
 function Adopter_Home(){
+    
     return(
-        <>
-        <AH_Navbar/>
+        
+        <MainLayout>
         <div className="h-auto w-auto p-2 m-3 text-center">
             <h1 className="text-2xl font-bold capitalize font-serif">choose your nearest ngo! </h1>
         </div>
@@ -51,8 +54,7 @@ function Adopter_Home(){
                 ))
             }
         </div>
-
-        </>
+        </MainLayout>
         
     );
 }
