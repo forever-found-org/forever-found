@@ -6,9 +6,10 @@ function AH_Navbar({onLogoutClick}){
     
     const toHome=()=>{
         navigate('/adopter-home');
+        window.scrollTo(0,0);
     }
     return (
-        <div className="h-20  p-2 pr-20 flex justify-between" style={{backgroundColor:'#006D77'}}>
+        <div className="h-20  p-2 pr-20 flex justify-between sticky top-0 z-50" style={{backgroundColor:'#006D77'}}>
             <div className="h-auto w-[6%]">
                 <img className="" src={logo} alt="logo" />
             </div>

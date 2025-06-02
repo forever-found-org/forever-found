@@ -1,5 +1,5 @@
 
-function Hero({ onGetStartedClick }) {
+function Hero({ onGetStartedClick,onLearnMoreClick }) {
   return (
     <section
       className="h-full w-full bg-cover"
@@ -16,7 +16,7 @@ function Hero({ onGetStartedClick }) {
           <button className="p-2 bg-blue-500 rounded-lg text-md border-2 hover:bg-blue-700 hover:border-4" onClick={onGetStartedClick}>
             Get Started
           </button>
-          <button className="p-2 ml-3 mb-2 bg-transparent rounded-lg text-md border-2 hover:bg-blue-700 hover:text-white hover:border-4">
+          <button onClick={onLearnMoreClick} className="p-2 ml-3 mb-2 bg-transparent rounded-lg text-md border-2 hover:bg-blue-700 hover:text-white hover:border-4">
             Learn more
           </button>
         </div>

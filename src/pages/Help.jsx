@@ -1,69 +1,75 @@
+import { useNavigate } from "react-router-dom";
+import logo from "../images/logo.png";
+import Adopter_help from "../components/Home_Components/Help_Components/Adopter_help";
+import NGOs_help from "../components/Home_Components/Help_Components/NGOs_help";
+import General_help from "../components/Home_Components/Help_Components/General_help";
+import Troubleshooting from "../components/Home_Components/Help_Components/Troubleshooting";
+import Contact from "../components/Home_Components/Help_Components/Contact";
 
-import logo from "../images/logo.png"
-function Help()
-{
-    
-    return(<>
-        <div className="flex flex-wrap items-center justify-around bg-slate-600">
-            <img src={logo} alt="logo" className="h-20 p-2 -ml-10" />
-            <a href="#adopters">Adopter Help</a>
-            <a href="#ngos">Ngo Help</a>
-            <a href="#general">General</a>
-            <a href="#troubleshooting">Troubleshooting</a>
-            <a href="#contact">Contact</a>
-        </div>
-        <div className="bg-[#F9F4F1] min-h-screen">
-            <div>
-                <h1 className="text-center">Welcome to the Help Center</h1>
-                <p>This Help Center is designed to guide adopters, NGOs, and administrators through the features and workflows of our Child Adoption and Foster Care Support Platform. Select a section to find step-by-step guides, FAQs, and troubleshooting help.</p>
-            </div>
-            <section id="adopters">
-                <div>
-                    <h2 className="text-2xl font-serif font-bold text-gray-800">Getting Started</h2>
+function Help() {
+  const navigate = useNavigate();
+  const handleHome = () => {
+    navigate("/");
+    window.scrollTo(0, 0);
+  };
 
-                    <div>
-                        <h3 className="text-xl font-serif font-semibold text-gray-700">How to create an adopter account</h3>
-                        <h4 className="text-lg font-serif font-semibold text-gray-700">To create an adopter account:</h4>
-                        <ol className="list-decimal ml-6 text-gray-700 space-y-1">
-                            <li>Go to the Login Page.</li>
-                            <li>Select your role as "Adopter" from the dropdown or toggle option.</li>
-                            <li>Based on your selection, the corresponding Adopter Signup Form will be displayed.</li>
-                            <li>Fill in all required details and submit the form.</li>
-                            <li>You will be asked to verify your email to activate your account.</li>
-                        </ol>
-                    </div>
+  return (
+    <>
+      <div className="flex flex-col min-h-screen font-serif">
+        <header className="flex flex-wrap items-center justify-around bg-slate-700 text-white shadow-md py-3 px-6 sticky top-0 z-50">
+          <img src={logo} alt="logo" className="h-20 p-2 -ml-10" />
+          <a href="#adopters" className="hover:text-yellow-300 border border-white rounded-lg p-3 font-serif transition-colors duration-300 font-semibold">
+            Adopter Help</a>
+          <a href="#ngos" className="hover:text-yellow-300 border border-white rounded-lg p-3 font-serif transition-colors duration-300 font-semibold">
+            Ngo Help</a>
+          <a href="#general" className="hover:text-yellow-300 border border-white rounded-lg p-3 font-serif transition-colors duration-300 font-semibold">
+            General</a>
+          <a href="#troubleshooting" className="hover:text-yellow-300 border border-white rounded-lg p-3 font-serif transition-colors duration-300 font-semibold">Troubleshooting</a>
+          <a href="#contact" className="hover:text-yellow-300 border border-white rounded-lg p-3 font-serif transition-colors duration-300 font-semibold">
+            Contact</a>
+          <button onClick={handleHome}className="bg-yellow-400 border border-white rounded-lg p-3 font-serif text-slate-900 font-bold px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-300">Home</button>
+        </header>
 
-                    <div>
-                        <h3 className="text-xl font-serif font-semibold text-gray-700">Required information</h3>
-                        <h4 className="text-lg font-serif font-semibold text-gray-700">When signing up as an adopter, you'll need to provide:</h4>
-                        <ul className="list-disc ml-6 text-gray-700 space-y-1">
-                            <li>Full Name</li>
-                            <li>Email Address & Mobile Number</li>
-                            <li>Aadhaar Number (for identity verification)</li>
-                            <li>Occupation and Annual Income</li>
-                            <li>Residential Address</li>
-                            <li>Date of Birth</li>
-                            <li>Religion</li>
-                            <li>Marital Status</li>
-                        </ul>
-                        <p>This information helps NGOs and agencies assess eligibility for adoption under government guidelines.</p>
-                    </div>
+        <main className="flex-grow bg-[#F9F4F1] pb-10">
+          <div className="p-6 max-w-5xl mx-auto text-center">
+            <h1 className="text-4xl font-extrabold mb-4 text-slate-800">Welcome to the Help Center</h1>
+            <p className="text-xl font-semibold text-slate-700 max-w-3xl mx-auto mb-8 leading-relaxed">
+              This Help Center is designed to guide adopters, NGOs, and administrators
+              through the features and workflows of our Child Adoption and Foster Care
+              Support Platform. Select a section to find step-by-step guides, FAQs, and
+              troubleshooting help.</p>
+          </div>
 
-                    <div>
-                        <h3 className="text-xl font-serif font-semibold text-gray-700">Role selection</h3>
-                        <h4 className="text-lg font-serif font-semibold text-gray-700">Role selection happens on the login screen, before the signup form is shown:</h4>
-                        <ul className="list-disc ml-6 text-gray-700 space-y-1">
-                            <li>You choose either "Adopter" or "NGO".</li>
-                            <li>Based on your selection, the appropriate signup/login experience is presented.</li>
-                            <li>This helps streamline the form and ensure you only see relevant fields and dashboard features.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+          <section id="adopters" className="max-w-5xl mx-auto px-6 py-8 bg-white border border-[#E5E1DC] shadow-sm rounded-2xl mb-8"> 
+            <Adopter_help />
+          </section>
 
-        </div>
-        </>
-        
-    );
+          <section id="ngos"className="max-w-5xl mx-auto px-6 py-8 bg-white border border-[#E5E1DC] shadow-sm rounded-2xl mb-8">
+            <NGOs_help />
+          </section>
+
+          <section id="general" className="max-w-5xl mx-auto px-6 py-8 bg-white border border-[#E5E1DC] shadow-sm rounded-2xl mb-8">
+            <General_help />
+          </section>
+
+          <section id="troubleshooting" className="max-w-5xl mx-auto px-6 py-8 bg-white border border-[#E5E1DC] shadow-sm rounded-2xl mb-8">
+            <Troubleshooting />
+          </section>
+
+          <section id="contact" className="max-w-5xl mx-auto px-6 py-8 bg-white border border-[#E5E1DC] shadow-sm rounded-2xl">
+            <Contact />
+          </section>
+        </main>
+
+        <footer className="bg-slate-700 text-white text-center py-4">
+          <p className="max-w-3xl mx-auto px-4 text-sm">
+            All user interactions are secure. Data submitted is used solely for child
+            welfare and platform functioning.
+          </p>
+        </footer>
+      </div>
+    </>
+  );
 }
-export default Help
+
+export default Help;

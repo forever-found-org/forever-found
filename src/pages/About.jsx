@@ -6,10 +6,10 @@ function About()
     const handleHome=()=>{
         navigate("/");
     }
-    /*const onBegin=()=>{
+    const onBegin=()=>{
         navigate("/", { state: { showLogin: true } });
-        
-    }*/
+        window.scrollTo(0,0);
+    }
 
     return (
         <div className="min-h-screen bg-[#F9F4F1] py-10 px-4">
@@ -21,7 +21,7 @@ function About()
                     <button className="bg-[#d4b6a8] text-black font-serif text-base font-medium px-4 py-2 rounded-lg shadow-sm hover:bg-[#bb9a8a] hover:text-indigo-800 transition duration-200 mr-4" onClick={handleHome}>Home</button>
                 </div>
 
-                <div className="bg-white shadow-lg rounded-2xl p-6">
+                <div className="bg-white shadow-lg rounded-2xl p-6 text-lg">
                     <p className="text-gray-700 mb-4">
                         <b>Forever Found</b> is a purpose-driven platform created to build meaningful connections between children in need and loving families ready to provide them with a forever home. We partner with verified NGOs to bring transparency, trust, and structure to the child adoption and foster care process.
                     </p>
@@ -106,7 +106,7 @@ function About()
                     <button><span className="text-blue-700 hover:text-indigo-700 hover:underline">Contact us </span><span className="text-gray-700 font-semibold"> today to learn how you can be part of the change.</span></button>    
                 </div>
                 <div className="flex justify-center">
-                    <button className="bg-[#d4b6a8] text-gray-800 font-serif text-lg font-semibold px-6 py-2   rounded-xl shadow-md hover:bg-[#bb9a8a] hover:text-indigo-800 transition duration-300">
+                    <button onClick={onBegin} className="bg-[#d4b6a8] text-gray-800 font-serif text-lg font-semibold px-6 py-2   rounded-xl shadow-md hover:bg-[#bb9a8a] hover:text-indigo-800 transition duration-300">
                     Begin Your Journey
                     </button>
                 </div>

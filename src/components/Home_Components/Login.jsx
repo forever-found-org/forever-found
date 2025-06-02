@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PasswordInput from "../SignUpAdopterC/PasswordInput";
 
 function Login(){
 
@@ -8,6 +9,8 @@ function Login(){
     const[user,setUser]=useState("");
     const[pass,setPass]=useState("");
     const[error,setError]=useState({role: "",user: "",pass: ""});
+    const email_regex=/^\S+@\S+\.\S+$/;
+    const pass_regex=/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     const validateLogIn=()=>{
         let valid=true;
@@ -23,10 +26,20 @@ function Login(){
             tempErrors.user="*Username is required";
             valid=false;    
         }
+        else if(!email_regex.test(user))
+        {
+            tempErrors.user="*Invalid email format";
+            valid=false; 
+        }
         if(!pass.trim())
         {
             tempErrors.pass="*Password is required";
             valid=false;
+        }
+        else if(!pass_regex.test(pass))
+        {
+            tempErrors.pass="*Invalid password format";
+            valid=false; 
         }
 
         setError(tempErrors);
@@ -84,14 +97,14 @@ function Login(){
 
             <div className="flex flex-col my-4 items-center">
                 <div>
-                    <label className="block text-base font-semibold text-[#4B2E2E]">Username</label>
-                    <input value={user} onChange={(e)=>setUser(e.target.value)} className="text-md mt-1 rounded-lg p-2 border border-[#DAB49D]" placeholder="username"></input>
-                    {error.user && <p className="text-red-600 ml-4 mt-0 text-sm">{error.user}</p>}
+                    <label className="block text-base font-semibold text-[#4B2E2E]">Registered Email</label>
+                    <input value={user} onChange={(e)=>setUser(e.target.value)} className="text-md mt-1 rounded-lg p-2 border border-[#DAB49D]" placeholder="Email Address"></input>
+                    {error.user && <p className="text-red-600 ml-2 mt-1 text-sm">{error.user}</p>}
                 </div>
                 <div className="mt-2">
-                    <label className="block text-base font-semibold text-[#4B2E2E]">Password</label>
-                    <input value={pass} onChange={(e)=>setPass(e.target.value)} className="text-md mt-1 rounded-lg p-2 border border-[#DAB49D]" placeholder="password"></input>
-                    {error.pass && <p className="text-red-600 ml-4 mt-0 text-sm">{error.pass}</p>}
+                    <label className="block text-base font-semibold text-[#4B2E2E] -mb-4 ml-4">Password</label>
+                    <PasswordInput name="pass" value={pass} onChange={(e)=>setPass(e.target.value)} className="text-md mt-1 rounded-lg p-2 border border-[#DAB49D]" placeholder="password" />
+                    {error.pass && <p className="text-red-600 ml-5 -mt-3 text-sm">{error.pass}</p>}
                 </div>
             </div>
 

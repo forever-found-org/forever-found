@@ -8,6 +8,7 @@ function SignUpAdopter() {
     const [adopterData, setAdopterData] = useState({
         name: "",
         contact: "",
+        altcontact: "",
         email: "",
         address: "",
         dob: "",
@@ -17,6 +18,7 @@ function SignUpAdopter() {
         salary: "",
         occupation: "",
         aadhar: "",
+        aadharimg: null,
         bioChildren: "",
         pass: "",
     });
@@ -24,10 +26,10 @@ function SignUpAdopter() {
     const [errors, setErrors] = useState({});
 
     function handleChange(e) {
-        const { name, value } = e.target;
+        const { name, value, files } = e.target;
         setAdopterData((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: name==="aadharimg" ? files[0]: value,
         }));
 
         setErrors((prevErrors) => ({
@@ -43,8 +45,7 @@ function SignUpAdopter() {
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0){
-            alert("Form submitted successfully!");
-            navigator("/adopter-home");
+            navigator("/review-signup-form",{state: {formData: adopterData, role: "adopter"}});
         }
         //also working for validationErrors.length===0 (check later)
     }
@@ -86,7 +87,7 @@ function SignUpAdopter() {
                         <div>
                             <label className="block ml-6 text-sm font-medium text-[#3c3c3c]">Date Of Birth</label>
                             <input name="dob" value={adopterData.dob} onChange={handleChange} className="border border-gray-400 rounded-md p-2 focus:ring-2 focus:ring-[#5a8f7b]" placeholder="Date Of Birth" type="date" />
-                            {errors.dob && <p className="text-red-600 mt-0 text-sm">{errors.dob}</p>}
+                            {errors.dob && <p className="text-red-600 mt-0 text-sm whitespace-pre-line ml-1">{errors.dob}</p>}
                         </div>
 
                         <div>
@@ -119,11 +120,19 @@ function SignUpAdopter() {
                         </div>
                     </div>
 
-                    <div className="my-4">
-                        <label className="block ml-6 text-sm font-medium text-[#3c3c3c]">Address</label>
-                        <textarea name="address" value={adopterData.address} onChange={handleChange} className="border border-gray-400 rounded-md p-2 mx-4 focus:ring-2 focus:ring-[#5a8f7b]" placeholder="Address" />
-                        {errors.address && <p className="text-red-600 ml-4 mt-0 text-sm">{errors.address}</p>}
+                    <div className="flex my-4">
+                        <div>
+                            <label className="block ml-6 text-sm font-medium text-[#3c3c3c]">Address</label>
+                            <textarea name="address" value={adopterData.address} onChange={handleChange} className="border border-gray-400 rounded-md p-2 mx-4 focus:ring-2 focus:ring-[#5a8f7b]" placeholder="Address" />
+                            {errors.address && <p className="text-red-600 ml-4 mt-0 text-sm">{errors.address}</p>}
+                        </div>
+                        <div className="ml-4">
+                            <label className="block ml-6 text-sm font-medium text-[#3c3c3c]"> Alternate Contact Number</label>
+                            <input name="altcontact" value={adopterData.altcontact} onChange={handleChange} className="border border-gray-400 rounded-md p-2 mx-4 focus:ring-2 focus:ring-[#5a8f7b]" placeholder="Contact Number" />
+                            {errors.contact && <p className="text-red-600 ml-4 mt-0 text-sm">{errors.altcontact}</p>}
+                        </div>
                     </div>
+                    
                 </div>
 
                 <div className="border border-gray-300 rounded-md bg-[#f2e8cf] my-2 shadow-sm">
@@ -150,13 +159,22 @@ function SignUpAdopter() {
                             {errors.aadhar && <p className="text-red-600 ml-4 mt-0 text-sm">{errors.aadhar}</p>}
                         </div>
                     </div>
+                    <div>
+                        <label className="block ml-6 text-sm font-medium text-[#3c3c3c]">Upload Aadhar Image</label>
+                        <input name="aadharimg" type="file"  accept="image/png, image/jpeg, image/jpg" onChange={handleChange} className="file: border file:border-gray-400 file:rounded-lg file:mr-4 p-1 mx-4 my-1" />
+                        {errors.aadharimg && <p className="text-red-600 ml-5 mt-0 text-sm">{errors.aadharimg}</p>} 
+                        <div className="w-full">
+                            <p className="text-[#5c5c5c] font-medium ml-5 mt-1 text-xs">*Image should be of JPG,JPEG or PNG format.</p>
+                            <p className="text-[#5c5c5c] font-medium ml-5 mb-4 text-xs">*Image must be less than 2MB.</p>
+                        </div> 
+                        </div>
                 </div>
 
                 <div className="border border-gray-300 rounded-md bg-[#dbeaf3] my-2 shadow-sm">
                     <h3 className="text-lg underline font-semibold font-serif ml-4 mt-2">Account and Security</h3>
                     <div className="my-4">
                         <label className="block ml-6 -mb-4 text-sm font-medium text-[#3c3c3c]">Password</label>
-                        <PasswordInput name="pass" value={adopterData.pass} onChange={handleChange} placeholder="Set Password" />
+                        <PasswordInput name="pass" value={adopterData.pass} onChange={handleChange} placeholder="Set Password" className="w-full border border-black rounded-md p-2 pr-10" />
                         {errors.pass && <p className="text-red-600 ml-4 -mt-3 mb-2 text-sm">{errors.pass}</p>}
                         <p className="text-[#5c5c5c] font-medium ml-4 mt-0 text-xs">*Password must have at least 8 characters.</p>
                         <p className="text-[#5c5c5c] font-medium ml-4 mt-0 text-xs">*Must include a capital letter, a special character, and a number.</p>
@@ -164,7 +182,7 @@ function SignUpAdopter() {
                 </div>
 
                 <button onClick={handleClick} className="self-center text-base font-semibold font-serif mt-6 shadow-md border border-[#5a8f7b] text-white bg-[#5a8f7b] hover:bg-[#497667] rounded-md px-6 py-2 transition duration-300 ease-in-out">
-                    Submit
+                    Proceed to Review
                 </button>
             </div>
         </div>

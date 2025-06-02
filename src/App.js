@@ -9,6 +9,7 @@ import Adopter_Home from "./pages/Adopter_Home";
 import NgoDetails from "./pages/NgoDetails";
 import About from './pages/About';
 import Help from './pages/Help';
+import FormReviewPage from './pages/FormReviewPage';
 
 function App() {
  
@@ -18,9 +19,10 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/about-Forever-Found" element={<About />} />
       <Route path="/help-Forever-Found" element={<Help />} />
-      
+
       <Route path="/adopter-SignUp" element={<SignUpAdopter />} />
       <Route path="/adopter-home" element={<Adopter_Home />} />
+      <Route path="/review-signup-form" element={<FormReviewPage />} />
 
       <Route path="/adopter-home/:name" element={<NgoDetails/>}/>  
       <Route path="/adopter-home/parenting-guide" element={<Parenting_guide/>}/>       
