@@ -1,19 +1,11 @@
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
-<<<<<<< HEAD
 function PasswordInput({ name, value, onChange, placeholder, className }) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="relative w-56 p-4">
-=======
-function PasswordInput({ name, value, onChange, placeholder,className }) {
-  const [showPassword, setShowPassword] = useState(false);
-
-  return (
-    <div className="relative w-56 p-2">
->>>>>>> ddec2d497cad1b1066c92af18abb9dd1c6ad2a70
       <input type={showPassword ? "text" : "password"} name={name} value={value} onChange={onChange} placeholder={placeholder} className={className} />
 
       <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-6 flex items-center">
