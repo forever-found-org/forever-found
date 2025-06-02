@@ -97,15 +97,15 @@ function Login(){
                 {error.role && <p className="text-red-600 ml-12 mt-0 text-sm">{error.role}</p>}
             </div>
 
-            <div className="flex flex-col my-4 items-center">
+            <div className="flex flex-col my-4 font-serif items-center">
                 <div>
                     <label className="block text-base font-semibold text-[#4B2E2E]">Registered Email</label>
                     <input value={user} onChange={(e)=>setUser(e.target.value)} className="text-md mt-1 rounded-lg p-2 border border-[#DAB49D]" placeholder="Email Address"></input>
                     {error.user && <p className="text-red-600 ml-2 mt-1 text-sm">{error.user}</p>}
                 </div>
                 <div className="mt-2">
-                    <label className="block text-base font-semibold text-[#4B2E2E] -mb-4 ml-4">Password</label>
-                    <PasswordInput name="pass" value={pass} onChange={(e)=>setPass(e.target.value)} className="text-md mt-1 rounded-lg p-2 border border-[#DAB49D]" placeholder="password" />
+                    <label className="block text-base font-semibold text-[#4B2E2E] -mb-2 ml-4">Password</label>
+                    <PasswordInput name="pass" value={pass} onChange={(e)=>setPass(e.target.value)} className="text-md mt-1 ml-2 rounded-lg p-2 border border-[#DAB49D]" placeholder="password" />
                     {error.pass && <p className="text-red-600 ml-5 -mt-3 text-sm">{error.pass}</p>}
                 </div>
             </div>
