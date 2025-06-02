@@ -59,6 +59,8 @@ function Login(){
         {
             if(role==="Adopter")
                 navigate('/adopter-SignUp');//another if for role as ngo signup page
+            if(role==="NGO")
+                navigate('/ngo-signup');
         }
     };
 

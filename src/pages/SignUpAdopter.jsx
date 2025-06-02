@@ -43,8 +43,8 @@ function SignUpAdopter() {
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0){
-            alert("Form submitted successfully!");
-            navigator("/adopter-home");
+            alert("Form submitted successfully!");//chng
+            navigator("/adopter-home");//chng
         }
         //also working for validationErrors.length===0 (check later)
     }
@@ -164,7 +164,7 @@ function SignUpAdopter() {
                 </div>
 
                 <button onClick={handleClick} className="self-center text-base font-semibold font-serif mt-6 shadow-md border border-[#5a8f7b] text-white bg-[#5a8f7b] hover:bg-[#497667] rounded-md px-6 py-2 transition duration-300 ease-in-out">
-                    Submit
+                    Proceed for Review
                 </button>
             </div>
         </div>
