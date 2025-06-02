@@ -15,7 +15,7 @@ function ReviewForm({ formData, role, onEdit, onSubmit }) {
           >
             <div className="font-semibold capitalize col-span-1">{key.replace(/([A-Z])/g, ' $1')}</div>
             <div className="col-span-2">{value instanceof File ? (
-  value.type.startsWith("image/") ? (
+            value.type.startsWith("image/") ? (
     <img
       src={URL.createObjectURL(value)}
       alt={value.name}

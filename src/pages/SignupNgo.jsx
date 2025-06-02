@@ -32,50 +32,33 @@ function SignupNgo(){
     });
 
     const handleChange = (e) => {
-  const { name, value, files } = e.target;
+        const { name, value, files } = e.target;
 
-  // For file inputs
-  if (files && files.length > 0) {
-    const file = files[0];
+        if (files && files.length > 0) {
+            handleFileChange(name, files[0]);
+        } else {
+            setNGOData(prevData => ({ ...prevData, [name]: value }));
+        }
+        };
 
-    // File type validation
-    const validTypes = ["image/jpeg", "image/jpg", "image/png"];
-    if (!validTypes.includes(file.type)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: "Only JPEG ,JPG and PNG images are allowed.",
-      }));
-      return;
-    }
+        const handleFileChange = (name, file) => {
+        const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+        const maxSize = 2 * 1024 * 1024;
 
-    // File size validation (limit: 2MB)
-    const maxSize = 2 * 1024 * 1024; // 2MB
-    if (file.size > maxSize) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: "File size should be less than 2MB.",
-      }));
-      return;
-    }
+        if (!validTypes.includes(file.type)) {
+            setErrors(prev => ({ ...prev, [name]: "Only JPEG, JPG, and PNG images are allowed." }));
+            return;
+        }
 
-    // Clear error if valid
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: "",
-    }));
+        if (file.size > maxSize) {
+            setErrors(prev => ({ ...prev, [name]: "File size should be less than 2MB." }));
+            return;
+        }
 
-    setNGOData({
-      ...NGOData,
-      [name]: file,
-    });
-  } else {
-    // For text inputs
-    setNGOData({
-      ...NGOData,
-      [name]: value,
-    });
-  }
-};
+        setErrors(prev => ({ ...prev, [name]: "" }));
+        setNGOData(prevData => ({ ...prevData, [name]: file }));
+    };
+
 
 
     const navigator=useNavigate();
@@ -83,6 +66,10 @@ function SignupNgo(){
         e.preventDefault();
         const validationErrors = NgoFormValidation(NGOData);
         setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length === 0){
+            navigator("/review-signup-form",{state: {formData: NGOData, role: "NGO"}});
+        }
     }
 
     return (

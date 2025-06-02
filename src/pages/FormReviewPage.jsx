@@ -13,7 +13,7 @@ function FormReviewPage()
   if (!formData || !role) {
     
     if (role === "ngo") {
-      navigate("/");//will be changed ngo url
+      navigate("/ngo-signup");
     } else if (role === "adopter") {
       navigate("/adopter-SignUp");
     } else {
@@ -31,7 +31,7 @@ if (!formData || !role)
       formData={formData}
       role={role}
       onEdit={() => {
-        role === "adopter" ? navigate("/adopter-SignUp") : navigate("/");//change ngo url
+        role === "adopter" ? navigate("/adopter-SignUp") : navigate("/ngo-signup");
       }}
       onSubmit={() => {
         if(role === "adopter")
