@@ -61,7 +61,9 @@ function Login(){
         if(validateLogIn())
         {
             if(role==="Adopter")
-                navigate('/adopter-home');//another if for role as ngo for ngo home page
+                navigate('/adopter-home');
+            if(role==="NGO")
+                navigate('/ngo-home');
         }
             
     };
@@ -71,7 +73,7 @@ function Login(){
         if(validateRole())
         {
             if(role==="Adopter")
-                navigate('/adopter-SignUp');//another if for role as ngo signup page
+                navigate('/adopter-SignUp');
             if(role==="NGO")
                 navigate('/ngo-signup');
         }

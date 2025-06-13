@@ -72,7 +72,7 @@ function SignUpAdopter() {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-[#fff0e5]">
+        <div className="flex items-center font-serif justify-center min-h-screen bg-[#fff0e5]">
             <div className="flex flex-col w-full max-w-lg p-6 m-10 bg-[#fffdfc] border border-gray-300 rounded-md shadow-lg">
                 <h2 className="text-3xl font-bold font-serif text-[#3c3c3c] text-center mb-4 bg-white shadow-sm p-2 uppercase tracking-wider">
                     Adopter Signup Form
@@ -147,7 +147,7 @@ function SignUpAdopter() {
                             <textarea name="address" value={adopterData.address} onChange={handleChange} className="border border-gray-400 rounded-md p-2 mx-4 focus:ring-2 focus:ring-[#5a8f7b]" placeholder="Address" />
                             {errors.address && <p className="text-red-600 ml-4 mt-0 text-sm">{errors.address}</p>}
                         </div>
-                        <div className="ml-4">
+                        <div>
                             <label className="block ml-6 text-sm font-medium text-[#3c3c3c]"> Alternate Contact Number</label>
                             <input name="altcontact" value={adopterData.altcontact} onChange={handleChange} className="border border-gray-400 rounded-md p-2 mx-4 focus:ring-2 focus:ring-[#5a8f7b]" placeholder="Contact Number" />
                             {errors.contact && <p className="text-red-600 ml-4 mt-0 text-sm">{errors.altcontact}</p>}
@@ -194,9 +194,9 @@ function SignUpAdopter() {
 
                 <div className="border border-gray-300 rounded-md bg-[#dbeaf3] my-2 shadow-sm">
                     <h3 className="text-lg underline font-semibold font-serif ml-4 mt-2">Account and Security</h3>
-                    <div className="my-4">
-                        <label className="block ml-6 -mb-4 text-sm font-medium text-[#3c3c3c]">Password</label>
-                        <PasswordInput name="pass" value={adopterData.pass} onChange={handleChange} placeholder="Set Password" className="w-full border border-black rounded-md p-2 pr-10" />
+                    <div className="my-2">
+                        <label className="block ml-4 mt-1 text-sm font-medium text-[#3c3c3c]">Password</label>
+                        <PasswordInput name="pass" value={adopterData.pass} onChange={handleChange} placeholder="Set Password" className="w-full border border-black rounded-md ml-2 p-2 pr-10" />
                         {errors.pass && <p className="text-red-600 ml-4 -mt-3 mb-2 text-sm">{errors.pass}</p>}
                         <p className="text-[#5c5c5c] font-medium ml-4 mt-0 text-xs">*Password must have at least 8 characters.</p>
                         <p className="text-[#5c5c5c] font-medium ml-4 mt-0 text-xs">*Must include a capital letter, a special character, and a number.</p>
