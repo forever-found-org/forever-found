@@ -61,7 +61,9 @@ function Login(){
         if(validateLogIn())
         {
             if(role==="Adopter")
-                navigate('/adopter-home');//another if for role as ngo for ngo home page
+                navigate('/adopter-home');
+            if(role==="NGO")
+                navigate('/ngo-home');
         }
             
     };
@@ -71,7 +73,7 @@ function Login(){
         if(validateRole())
         {
             if(role==="Adopter")
-                navigate('/adopter-SignUp');//another if for role as ngo signup page
+                navigate('/adopter-SignUp');
             if(role==="NGO")
                 navigate('/ngo-signup');
         }
@@ -104,8 +106,8 @@ function Login(){
                     {error.user && <p className="text-red-600 ml-2 mt-1 text-sm">{error.user}</p>}
                 </div>
                 <div className="mt-2">
-                    <label className="block text-base font-semibold text-[#4B2E2E] -mb-4 ml-4">Password</label>
-                    <PasswordInput name="pass" value={pass} onChange={(e)=>setPass(e.target.value)} className="text-md mt-1 rounded-lg p-2 border border-[#DAB49D]" placeholder="password" />
+                    <label className="block text-base font-semibold text-[#4B2E2E] -mb-2 ml-4">Password</label>
+                    <PasswordInput name="pass" value={pass} onChange={(e)=>setPass(e.target.value)} className="text-md mt-1 ml-2 rounded-lg p-2 border border-[#DAB49D]" placeholder="password" />
                     {error.pass && <p className="text-red-600 ml-5 -mt-3 text-sm">{error.pass}</p>}
                 </div>
             </div>

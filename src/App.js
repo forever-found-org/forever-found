@@ -10,6 +10,7 @@ import NgoDetails from "./pages/NgoDetails";
 import About from './pages/About';
 import Help from './pages/Help';
 import FormReviewPage from './pages/FormReviewPage';
+import Ngo_Home from './pages/Ngo_Home';
 
 function App() {
  
@@ -22,11 +23,13 @@ function App() {
 
       <Route path="/adopter-SignUp" element={<SignUpAdopter />} />
       <Route path ="/ngo-signup" element={<SignupNgo/>}/>
-      <Route path="/adopter-home" element={<Adopter_Home />} />
       <Route path="/review-signup-form" element={<FormReviewPage />} />
 
+      <Route path="/adopter-home" element={<Adopter_Home />} />
       <Route path="/adopter-home/:name" element={<NgoDetails/>}/>  
       <Route path="/adopter-home/parenting-guide" element={<Parenting_guide/>}/>       
+
+      <Route path="/ngo-home" element={<Ngo_Home />} />
 
       </Routes>
     </Router>  
