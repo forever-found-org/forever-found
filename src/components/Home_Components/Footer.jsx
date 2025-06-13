@@ -1,5 +1,11 @@
 import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 function Footer(){
+    const navigate=useNavigate();
+    const handleAG=()=>{
+        navigate('/adoptive-guidelines');
+        window.scrollTo(0,0);
+    }
     return (
         <footer>
             <div className="bg-slate-300 ">
@@ -7,7 +13,7 @@ function Footer(){
                     <div >
                         <h1 className="mb-2 text-lg font-semibold">Support and Legal</h1>
                         <ul>
-                            <li className="hover:cursor-pointer hover:text-blue-700">FAQs</li>
+                            <li className="hover:cursor-pointer hover:text-blue-700" onClick={handleAG}>Adoptive Guidelines</li>
                             <li className="hover:cursor-pointer hover:text-blue-700">Terms of Service</li>
                             <li className="hover:cursor-pointer hover:text-blue-700">Privacy Policy</li>
                         </ul>

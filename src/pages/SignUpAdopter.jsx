@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PasswordInput from "../components/SignUpAdopterC/PasswordInput";
 import FormValidator from "../components/SignUpAdopterC/FormValidator";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 
 function SignUpAdopter() {
+    const location=useLocation();
     const [adopterData, setAdopterData] = useState({
         name: "",
         contact: "",
@@ -23,6 +24,25 @@ function SignUpAdopter() {
         pass: "",
     });
 
+    useEffect(()=>{
+        if(location.state?.formData){
+            setAdopterData(location.state.formData);
+        }
+    },[location.state]);
+    
+
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            e.preventDefault();
+            e.returnValue = "";
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+        }, []);
+
+        
     const [errors, setErrors] = useState({});
 
     function handleChange(e) {
@@ -46,6 +66,7 @@ function SignUpAdopter() {
 
         if (Object.keys(validationErrors).length === 0){
             navigator("/review-signup-form",{state: {formData: adopterData, role: "adopter"}});
+            window.scrollTo(0,0);
         }
         //also working for validationErrors.length===0 (check later)
     }
@@ -162,6 +183,7 @@ function SignUpAdopter() {
                     <div>
                         <label className="block ml-6 text-sm font-medium text-[#3c3c3c]">Upload Aadhar Image</label>
                         <input name="aadharimg" type="file"  accept="image/png, image/jpeg, image/jpg" onChange={handleChange} className="file: border file:border-gray-400 file:rounded-lg file:mr-4 p-1 mx-4 my-1" />
+                        {adopterData.aadharimg && (<p className="text-sm text-gray-600 ml-4">Selected file: {adopterData.aadharimg.name}</p>)}
                         {errors.aadharimg && <p className="text-red-600 ml-5 mt-0 text-sm">{errors.aadharimg}</p>} 
                         <div className="w-full">
                             <p className="text-[#5c5c5c] font-medium ml-5 mt-1 text-xs">*Image should be of JPG,JPEG or PNG format.</p>

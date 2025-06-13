@@ -37,10 +37,13 @@ function Home() {
   const handleHelp=()=>{
         navigate("/help-Forever-Found");
     }
+  const handleAG=()=>{
+        navigate("/adoptive-guidelines");
+  }
   
   return (
     <div className="relative w-full h-screen">
-      <Navbar onLoginClick={handleShowLogin} onNGOaprClick={handleShowNgoApr} onAboutClick={handleLearnMore} onHelpClick={handleHelp}/>
+      <Navbar onLoginClick={handleShowLogin} onNGOaprClick={handleShowNgoApr} onAboutClick={handleLearnMore} onHelpClick={handleHelp} onAGClick={handleAG}/>
       <Hero onGetStartedClick={handleShowLogin} onLearnMoreClick={handleLearnMore}  />
 
       {showNgoApr&&<NgoApprStatus />}

@@ -1,19 +1,21 @@
-import React from "react";
-
+import LabelConfig from "./Home_Components/Help_Components/LabelConfig";
 function ReviewForm({ formData, role, onEdit, onSubmit }) {
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-2xl mt-10">
-      <h2 className="text-2xl font-bold text-center mb-6">
-        {role === "adopter" ? "Adopter" : "NGO"} Form Review
-      </h2>
+    <div className="font-serif min-h-screen bg-[#F9F4F1] py-5 px-4">
+      <div className="mt-5 max-w-3xl mx-auto space-y-10">
+        <div className="p-4 flex items-center justify-center bg-[#E7D4C6] rounded-xl h-16">
+         <h2 className="text-4xl font-bold text-center">{role === "adopter" ? "Adopter" : "NGO"} Form Review</h2>
+        </div>
+      <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-2xl mt-2">
+      
 
       <div className="space-y-4">
         {Object.entries(formData).map(([key, value]) => (
           <div
             key={key}
-            className="grid grid-cols-3 gap-4 items-center border-b pb-2"
+            className="grid grid-cols-3 gap-4 items-center border-b p-4 bg-gray-50"
           >
-            <div className="font-semibold capitalize col-span-1">{key.replace(/([A-Z])/g, ' $1')}</div>
+            <div className="font-semibold capitalize col-span-1">{LabelConfig[key]}</div>
             <div className="col-span-2">{value instanceof File ? (
             value.type.startsWith("image/") ? (
     <img
@@ -32,7 +34,7 @@ function ReviewForm({ formData, role, onEdit, onSubmit }) {
         ))}
       </div>
 
-      <div className="flex justify-between mt-8">
+      <div className="flex justify-between  mt-8">
         <button
           onClick={onEdit}
           className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-xl shadow-md"
@@ -47,6 +49,9 @@ function ReviewForm({ formData, role, onEdit, onSubmit }) {
         </button>
       </div>
     </div>
+      </div>
+    </div>
+
   );
 }
 

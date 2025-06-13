@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState ,useEffect} from "react";
+import { useNavigate ,useLocation} from "react-router-dom";
 import PasswordInput from "../components/SignUpAdopterC/PasswordInput";
 import NgoFormValidation from "../components/SignUpngo/NgoFormValidation";
 function SignupNgo(){
+    const location=useLocation();
     const [showDesg,setDesg]=useState(false);
     const [errors, setErrors] = useState({});
     const [NGOData, setNGOData] = useState({
@@ -30,6 +31,37 @@ function SignupNgo(){
             testimonial3: "",
             pass:""
     });
+    useEffect(()=>{
+        if(location.state?.formData){
+            setNGOData(location.state.formData);
+        }
+    },[location.state]);
+    
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            e.preventDefault();
+            e.returnValue = "";
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+        }, []);
+
+        useEffect(() => {
+            const handleBeforeRouteLeave = (e) => {
+                const confirmLeave = window.confirm("Are you sure you want to leave? Unsaved changes will be lost.");
+                if (!confirmLeave) {
+                    window.history.pushState(null,"",location.pathname);
+                }
+            };
+
+            window.addEventListener("popstate", handleBeforeRouteLeave);
+
+            return () => {
+                window.removeEventListener("popstate", handleBeforeRouteLeave);
+            };
+            }, []);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -69,6 +101,7 @@ function SignupNgo(){
 
         if (Object.keys(validationErrors).length === 0){
             navigator("/review-signup-form",{state: {formData: NGOData, role: "NGO"}});
+            window.scrollTo(0,0);
         }
     }
 
@@ -163,7 +196,7 @@ function SignupNgo(){
                             <input name="regnum" value={NGOData.regnum} type="text" placeholder="registration number" onChange={handleChange} className="w-60 border border-gray-400 rounded-md p-2 mx-4 focus:ring-2 focus:ring-[#5a8f7b]"/>
                             {errors.regnum&&<p className="ml-5 mt-1 text-red-500">{errors.regnum}</p>}
                         </div>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col"> 
                             <label className="block  mb-1 text-md font-semibold text-[#3c3c3c]">CARA Number</label>
                             <input name="caranum" value={NGOData.caranum} type="text" placeholder="CARA number" onChange={handleChange} className="w-64 border border-gray-400 rounded-md p-2 mr-4 ml-0 focus:ring-2 focus:ring-[#5a8f7b]" />
                             {errors.caranum&&<p className="mt-1 text-red-500">{errors.caranum}</p>}
@@ -179,15 +212,18 @@ function SignupNgo(){
                         <label className="block ml-5 mb-1 text-md font-semibold text-[#3c3c3c]">Upload Government Registration Certificate</label>
                         <input name="reg_certimg"  type="file" accept="image/jpeg image/png image/jpg" onChange={handleChange} className="mt-2 ml-4 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-blue-700 file:hover:cursor-pointer" />
                         {errors.reg_certimg&&<p className="ml-5 mt-1 text-red-500">{errors.reg_certimg}</p>}
+                        {NGOData.reg_certimg && (<p className="text-sm text-gray-600 mt-1 ml-4">Selected file: {NGOData.reg_certimg.name}</p>)}
                     </div>
                     <div className="mt-4 flex flex-col ">
                         <label className="block ml-5 mb-1 text-md font-semibold text-[#3c3c3c]">Upload CARA Certificate</label>
                         <input name="cara_certimg"  type="file" accept="image/jpeg image/png image/jpg" onChange={handleChange} className="mt-2 ml-4 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-blue-700 file:hover:cursor-pointer" />
+                        {NGOData.cara_certimg && (<p className="text-sm text-gray-600 mt-1 ml-4">Selected file: {NGOData.cara_certimg.name}</p>)}
                         {errors.cara_certimg&&<p className="ml-5 mt-1 text-red-500">{errors.cara_certimg}</p>}
                     </div>
                     <div className="mt-4 flex flex-col mb-3">
                         <label className="block ml-5 mb-1 text-md font-semibold text-[#3c3c3c]">Upload Logo/Photo</label>
                         <input name="logoimg"  type="file" accept="image/jpeg image/png image/jpg" onChange={handleChange} className="mt-2 ml-4 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-blue-700 file:hover:cursor-pointer" />
+                        {NGOData.logoimg && (<p className="text-sm text-gray-600 mt-1 ml-4">Selected file: {NGOData.logoimg.name}</p>)}
                         {errors.logoimg&&<p className="ml-5 mt-1 text-red-500">{errors.logoimg}</p>}
                     </div>
                 </div>
@@ -204,15 +240,15 @@ function SignupNgo(){
                         <p className="font-serif ml-4 mt-1">file size limit: <b>2MB</b></p>
                         <p className="font-serif ml-4 mt-1">file type: <b>jpeg/jpg/png</b></p>
                         <input name="galimg1"  type="file" accept="image/jpeg image/png image/jpg" onChange={handleChange} className="mt-4 ml-4 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-blue-700 file:hover:cursor-pointer" />
-                        
+                        {NGOData.galimg1 && (<p className="text-sm text-gray-600 mt-1 ml-4">Selected file: {NGOData.galimg1.name}</p>)}
                         {errors.galimg1&&<p className="ml-5 mt-1 text-red-500">{errors.galimg1}</p>}
 
                         <input name="galimg2"  type="file" accept="image/jpeg image/png image/jpg" onChange={handleChange} className="mt-4 ml-4 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-blue-700 file:hover:cursor-pointer" />
-                        
+                        {NGOData.galimg2 && (<p className="text-sm text-gray-600 mt-1 ml-4">Selected file: {NGOData.galimg2.name}</p>)}
                         {errors.galimg2&&<p className="ml-5 mt-1 text-red-500">{errors.galimg2}</p>}
 
                         <input name="galimg3" type="file" accept="image/jpeg image/png image/jpg" onChange={handleChange} className="mt-4 ml-4 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-blue-700 file:hover:cursor-pointer" />
-
+                        {NGOData.galimg3 && (<p className="text-sm text-gray-600 mt-1 ml-4">Selected file: {NGOData.galimg3.name}</p>)}
                         {errors.galimg3&&<p className="ml-5 mt-1 text-red-500">{errors.galimg3}</p>}
                     </div>
                     <div className="mt-5 flex flex-col ">
