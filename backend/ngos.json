@@ -1,7 +1,416 @@
 [
   {
+    "id": 1,
     "name": "Hope Foundation",
-    "location": "Delhi",
-    "image": "image1.png"
+    "location": "54 Connaught Place, Delhi",
+    "image": "hope_foundation.png",
+    "yearOfEstablishment": 1992,
+    "website": "https://hopefoundation.org",
+    "contact": "+91-9876543210",
+    "email": "info@hopefoundation.org",
+    "ngoRegistrationNumber": "DEL-12345",
+    "caraRegistrationNumber": "CARA-5678",
+    "verified": true,
+    "about": "Hope Foundation, established in 1992, works tirelessly to provide shelter, education, and healthcare to orphaned and abandoned children. It has expanded to run vocational training programs and foster care networks across Delhi.",
+    "numberOfChildren": 120,
+    "gallery": ["hope1.jpg", "hope2.jpg", "hope3.jpg"],
+    "testimonials": [
+      {
+        "name": "Rohit Sharma",
+        "role": "Social Worker",
+        "message": "Hope Foundation's efforts have given countless children a second chance at life."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Sunrise Pathways Trust",
+    "location": "18 Saket Road, Delhi",
+    "image": "Sunrise_pathways_trust.png",
+    "yearOfEstablishment": 1995,
+    "website": "https://sunrisepathways.org",
+    "contact": "+91-9812345678",
+    "email": "contact@sunrisepathways.org",
+    "ngoRegistrationNumber": "DEL-23456",
+    "caraRegistrationNumber": "CARA-6789",
+    "verified": true,
+    "about": "Founded in 1995, Sunrise Pathways Trust helps children reintegrate into society through education, counseling, and scholarship programs for higher studies.",
+    "numberOfChildren": 95,
+    "gallery": ["sunrise1.jpg", "sunrise2.jpg", "sunrise3.jpg"],
+    "testimonials": [
+      {
+        "name": "Anita Verma",
+        "role": "Educationist",
+        "message": "Sunrise Pathways ensures every child gets the opportunity to fulfill their dreams."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Harmony Haven",
+    "location": "72 Dwarka Sector 10, Delhi",
+    "image": "harmony_haven.png",
+    "yearOfEstablishment": 1997,
+    "website": "https://harmonyhaven.org",
+    "contact": "+91-9823456789",
+    "email": "support@harmonyhaven.org",
+    "ngoRegistrationNumber": "DEL-34567",
+    "caraRegistrationNumber": "CARA-7890",
+    "verified": true,
+    "about": "Harmony Haven, since 1997, has provided shelter, mental health support, and vocational training for children from troubled backgrounds to help them lead independent lives.",
+    "numberOfChildren": 85,
+    "gallery": ["harmony1.jpg", "harmony2.jpg"],
+    "testimonials": [
+      {
+        "name": "Sanjay Patel",
+        "role": "Philanthropist",
+        "message": "A beacon of hope for children needing emotional and financial support."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Bright Path Alliance",
+    "location": "45 Park Street, Kolkata",
+    "image": "Bright_path.png",
+    "yearOfEstablishment": 1994,
+    "website": "https://brightpathalliance.org",
+    "contact": "+91-9834567890",
+    "email": "brightpath@bpa.org",
+    "ngoRegistrationNumber": "KOL-12345",
+    "caraRegistrationNumber": "CARA-1234",
+    "verified": true,
+    "about": "Since 1994, Bright Path Alliance has provided holistic care, focusing on nutrition, education, and healthcare for underprivileged children in Kolkata.",
+    "numberOfChildren": 140,
+    "gallery": ["bright1.jpg", "bright2.jpg", "bright3.jpg"],
+    "testimonials": [
+      {
+        "name": "Priya Dutta",
+        "role": "Healthcare Worker",
+        "message": "Their healthcare and education programs are life-changing."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Compassion Hearts Trust",
+    "location": "12 Howrah Road, Kolkata",
+    "image": "Compassions_hearts.png",
+    "yearOfEstablishment": 1993,
+    "website": "https://compassionhearts.org",
+    "contact": "+91-9876504321",
+    "email": "compassion@cht.org",
+    "ngoRegistrationNumber": "KOL-23456",
+    "caraRegistrationNumber": "CARA-2345",
+    "verified": true,
+    "about": "Compassion Hearts Trust, established in 1993, works on child nutrition, education, and healthcare initiatives to uplift orphaned and abandoned children.",
+    "numberOfChildren": 110,
+    "gallery": ["compassion1.jpg", "compassion2.jpg"],
+    "testimonials": [
+      {
+        "name": "Rahul Sen",
+        "role": "Nutritionist",
+        "message": "Compassion Hearts ensures no child goes hungry or uneducated."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "New Horizons Foundation",
+    "location": "88 Salt Lake Sector 5, Kolkata",
+    "image": "New_horizons.png",
+    "yearOfEstablishment": 1996,
+    "website": "https://newhorizons.org",
+    "contact": "+91-9811112233",
+    "email": "contact@newhorizons.org",
+    "ngoRegistrationNumber": "KOL-34567",
+    "caraRegistrationNumber": "CARA-3456",
+    "verified": true,
+    "about": "Since 1996, New Horizons has focused on vocational training and higher education opportunities for children to break the cycle of poverty.",
+    "numberOfChildren": 100,
+    "gallery": ["nh1.jpg", "nh2.jpg"],
+    "testimonials": [
+      {
+        "name": "Soma Banerjee",
+        "role": "Teacher",
+        "message": "New Horizons Foundation prepares children for a brighter future."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Hope Springs Initiative",
+    "location": "21 Hazratganj Road, Lucknow",
+    "image": "hope_spring.png",
+    "yearOfEstablishment": 1998,
+    "website": "https://hopesprings.org",
+    "contact": "+91-9900112233",
+    "email": "info@hopesprings.org",
+    "ngoRegistrationNumber": "LKO-12345",
+    "caraRegistrationNumber": "CARA-4567",
+    "verified": true,
+    "about": "Hope Springs Initiative, since 1998, offers foster care and adoption support services with a focus on mental health counseling for children.",
+    "numberOfChildren": 75,
+    "gallery": ["hs1.jpg", "hs2.jpg"],
+    "testimonials": [
+      {
+        "name": "Vivek Sinha",
+        "role": "Psychologist",
+        "message": "They address the emotional needs of every child in their care."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Future Bloom Network",
+    "location": "9 Gomti Nagar, Lucknow",
+    "image": "future_bloom.png",
+    "yearOfEstablishment": 1990,
+    "website": "https://futurebloom.org",
+    "contact": "+91-9812121212",
+    "email": "future@fbn.org",
+    "ngoRegistrationNumber": "LKO-23456",
+    "caraRegistrationNumber": "CARA-5670",
+    "verified": true,
+    "about": "Future Bloom Network creates skill-development and mentorship programs for teenagers from orphanages, preparing them for adulthood.",
+    "numberOfChildren": 60,
+    "gallery": ["fb1.jpg", "fb2.jpg"],
+    "testimonials": [
+      {
+        "name": "Sakshi Tripathi",
+        "role": "Mentor",
+        "message": "Their mentorship programs are empowering young minds for a brighter future."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Kindered Care Alliance",
+    "location": "36 Aliganj Road, Lucknow",
+    "image": "kindered_care.png",
+    "yearOfEstablishment": 1991,
+    "website": "https://kinderedcare.org",
+    "contact": "+91-9876001234",
+    "email": "support@kinderedcare.org",
+    "ngoRegistrationNumber": "LKO-34567",
+    "caraRegistrationNumber": "CARA-6780",
+    "verified": true,
+    "about": "Kindered Care Alliance, since 1991, focuses on healthcare and rehabilitation services for children with special needs.",
+    "numberOfChildren": 55,
+    "gallery": ["kc1.jpg", "kc2.jpg"],
+    "testimonials": [
+      {
+        "name": "Arjun Yadav",
+        "role": "Doctor",
+        "message": "They provide specialized care for differently-abled children."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Shining Star Foundation",
+    "location": "33 Marine Drive, Mumbai",
+    "image": "shinnig_star.png",
+    "yearOfEstablishment": 1994,
+    "website": "https://shiningstar.org",
+    "contact": "+91-9810098100",
+    "email": "info@shiningstar.org",
+    "ngoRegistrationNumber": "MUM-12345",
+    "caraRegistrationNumber": "CARA-7891",
+    "verified": true,
+    "about": "Shining Star Foundation focuses on education and extracurricular programs to help children discover their talents and interests.",
+    "numberOfChildren": 130,
+    "gallery": ["ssf1.jpg", "ssf2.jpg"],
+    "testimonials": [
+      {
+        "name": "Meera Kapoor",
+        "role": "Volunteer",
+        "message": "They help children find confidence through arts and sports."
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Better Tomorrow Trust",
+    "location": "99 Bandra West, Mumbai",
+    "image": "better_tomorrow.jpeg",
+    "yearOfEstablishment": 1999,
+    "website": "https://bettertomorrow.org",
+    "contact": "+91-9822222222",
+    "email": "contact@bettertomorrow.org",
+    "ngoRegistrationNumber": "MUM-23456",
+    "caraRegistrationNumber": "CARA-8912",
+    "verified": true,
+    "about": "Established in 1999, Better Tomorrow Trust focuses on child rehabilitation and adoption awareness campaigns across Mumbai.",
+    "numberOfChildren": 100,
+    "gallery": ["bt1.jpg", "bt2.jpg"],
+    "testimonials": [
+      {
+        "name": "Karan Malhotra",
+        "role": "Adoption Counselor",
+        "message": "They spread awareness about the importance of adoption in society."
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Beacon of Hope",
+    "location": "17 Andheri East, Mumbai",
+    "image": "beacon_of_hope.jpeg",
+    "yearOfEstablishment": 1996,
+    "website": "https://beaconofhope.org",
+    "contact": "+91-9833333333",
+    "email": "info@beaconofhope.org",
+    "ngoRegistrationNumber": "MUM-34567",
+    "caraRegistrationNumber": "CARA-9123",
+    "verified": true,
+    "about": "Beacon of Hope provides after-school education programs and career counseling for orphaned children.",
+    "numberOfChildren": 90,
+    "gallery": ["boh1.jpg", "boh2.jpg"],
+    "testimonials": [
+      {
+        "name": "Tina Desai",
+        "role": "Career Counselor",
+        "message": "They help older children plan careers and higher studies."
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "New Dawn Initiative",
+    "location": "41 MG Road, Bangalore",
+    "image": "new_dawn.jpeg",
+    "yearOfEstablishment": 1993,
+    "website": "https://newdawn.org",
+    "contact": "+91-9844444444",
+    "email": "support@newdawn.org",
+    "ngoRegistrationNumber": "BAN-12345",
+    "caraRegistrationNumber": "CARA-1345",
+    "verified": true,
+    "about": "New Dawn Initiative provides free healthcare and child protection services, collaborating with hospitals for critical care.",
+    "numberOfChildren": 105,
+    "gallery": ["nd1.jpg", "nd2.jpg"],
+    "testimonials": [
+      {
+        "name": "Dr. Ramesh Kumar",
+        "role": "Pediatrician",
+        "message": "Their medical support saves countless lives each year."
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Ray of Light Trust",
+    "location": "25 Indira Nagar, Bangalore",
+    "image": "ray_of_light.jpeg",
+    "yearOfEstablishment": 1991,
+    "website": "https://rayoflight.org",
+    "contact": "+91-9855555555",
+    "email": "contact@rayoflight.org",
+    "ngoRegistrationNumber": "BAN-23456",
+    "caraRegistrationNumber": "CARA-2456",
+    "verified": true,
+    "about": "Ray of Light Trust, since 1991, empowers children through arts, music, and cultural education.",
+    "numberOfChildren": 95,
+    "gallery": ["rol1.jpg", "rol2.jpg"],
+    "testimonials": [
+      {
+        "name": "Shalini Rao",
+        "role": "Artist",
+        "message": "They nurture creativity and confidence in every child."
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Bright Horizons Network",
+    "location": "62 Whitefield, Bangalore",
+    "image": "bright_horizons.jpeg",
+    "yearOfEstablishment": 1992,
+    "website": "https://brighthorizons.org",
+    "contact": "+91-9866666666",
+    "email": "info@brighthorizons.org",
+    "ngoRegistrationNumber": "BAN-34567",
+    "caraRegistrationNumber": "CARA-3567",
+    "verified": true,
+    "about": "Bright Horizons Network offers technology education and computer literacy programs for orphaned children.",
+    "numberOfChildren": 80,
+    "gallery": ["bh1.jpg", "bh2.jpg"],
+    "testimonials": [
+      {
+        "name": "Manoj Iyer",
+        "role": "IT Trainer",
+        "message": "Their computer literacy program opens new doors for children."
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Lighthouse Foundation",
+    "location": "14 Marina Beach, Chennai",
+    "image": "light_house.jpeg",
+    "yearOfEstablishment": 1990,
+    "website": "https://lighthousefoundation.org",
+    "contact": "+91-9877777777",
+    "email": "contact@lighthouse.org",
+    "ngoRegistrationNumber": "CHE-12345",
+    "caraRegistrationNumber": "CARA-4678",
+    "verified": true,
+    "about": "Lighthouse Foundation has been offering safe housing and basic education to abandoned children since 1990.",
+    "numberOfChildren": 115,
+    "gallery": ["lh1.jpg", "lh2.jpg"],
+    "testimonials": [
+      {
+        "name": "Geeta Raman",
+        "role": "Volunteer",
+        "message": "A safe haven for children needing love and care."
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Hearts United Trust",
+    "location": "77 T.Nagar, Chennai",
+    "image": "hearts_united.jpeg",
+    "yearOfEstablishment": 1999,
+    "website": "https://heartsunited.org",
+    "contact": "+91-9888888888",
+    "email": "support@heartsunited.org",
+    "ngoRegistrationNumber": "CHE-23456",
+    "caraRegistrationNumber": "CARA-5789",
+    "verified": true,
+    "about": "Hearts United Trust runs adoption support programs and family counseling services for prospective parents.",
+    "numberOfChildren": 70,
+    "gallery": ["hu1.jpg", "hu2.jpg"],
+    "testimonials": [
+      {
+        "name": "Anjali Menon",
+        "role": "Counselor",
+        "message": "They provide emotional support for adoptive families."
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Open Arms Initiative",
+    "location": "31 Velachery Road, Chennai",
+    "image": "open_arms.jpeg",
+    "yearOfEstablishment": 1996,
+    "website": "https://openarms.org",
+    "contact": "+91-9899999999",
+    "email": "openarms@oai.org",
+    "ngoRegistrationNumber": "CHE-34567",
+    "caraRegistrationNumber": "CARA-6890",
+    "verified": true,
+    "about": "Open Arms Initiative, since 1996, works on providing legal assistance for child adoption and ensures ethical adoption practices.",
+    "numberOfChildren": 85,
+    "gallery": ["oa1.jpg", "oa2.jpg"],
+    "testimonials": [
+      {
+        "name": "Naveen Kumar",
+        "role": "Legal Advisor",
+        "message": "They ensure ethical and transparent adoption processes."
+      }
+    ]
   }
 ]
