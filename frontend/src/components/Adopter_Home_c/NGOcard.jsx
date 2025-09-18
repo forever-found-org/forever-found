@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-function NGOcard({ image, name, location }) {
-  // Prepend backend URL if the image path is relative
-  const imageUrl = image.startsWith("http") ? image : `http://localhost:5000${image}`;
+function NGOcard({ id, image, name, location }) {
+  // Prepend backend URL for images stored in /uploads
+  const imageUrl = image.startsWith("http") ? image : `http://localhost:5000/uploads/${image}`;
 
   return (
-    <Link to={`/adopter-home/${encodeURIComponent(name)}`}>
+    <Link to={`/adopter-home/${id}`}>
       <div className="m-4 rounded-lg bg-white/80 border border-gray-300 shadow-md flex flex-col items-center hover:cursor-pointer transition hover:shadow-xl hover:scale-105">
         <div className="p-3 mt-4 mx-4 border bg-white/90 border-gray-300 flex justify-center rounded-md">
           <img

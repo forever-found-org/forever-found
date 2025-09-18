@@ -8,7 +8,6 @@ function Adopter_Home() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // Fetch NGO data from backend
     fetch("http://localhost:5000/api/ngos")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch NGO data");
@@ -41,9 +40,10 @@ function Adopter_Home() {
         style={{ backgroundColor: "#E3F2FD" }}
       >
         {!loading &&
-          ngos.map((ngo, index) => (
+          ngos.map((ngo) => (
             <NGOcard
-              key={index}
+              key={ngo._id}
+              id={ngo._id}
               image={ngo.image}
               name={ngo.name}
               location={ngo.location}
