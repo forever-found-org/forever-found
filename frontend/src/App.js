@@ -31,7 +31,7 @@ function App() {
       <Route path="/adoptive-guidelines" element={<AdoptiveGuidelines/>}/>
 
       <Route path="/adopter-home" element={<Adopter_Home />} />
-      <Route path="/adopter-home/:name" element={<NgoDetails/>}/>  
+      <Route path="/adopter-home/:id" element={<NgoDetails/>}/>  
       <Route path="/adopter-home/parenting-guide" element={<Parenting_guide/>}/>       
 
       </Routes>
