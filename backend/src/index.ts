@@ -14,6 +14,7 @@ app.use(express.json());
 
 // Serve the uploads folder
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use("/ngo_gallery", express.static(path.join(__dirname, "../ngo_gallery")));
 
 // All routes
 app.use("/api/ngos", ngoRoutes); // Later add adopterRoutes, childrenRoutes here

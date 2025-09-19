@@ -30,6 +30,7 @@ function NgoDetails() {
   if (error) return <p className="text-center text-red-500">{error}</p>;
   if (!ngoData) return <p className="text-center">No data found.</p>;
 
+
   return (
     <MainLayout>
       <div className="py-6 font-bold font-serif text-4xl uppercase text-center">
@@ -80,14 +81,15 @@ function NgoDetails() {
           {/* Gallery */}
           {ngoData.gallery?.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              {ngoData.gallery.map((img, idx) => (
-                <img
+              {ngoData.gallery.map((img, idx) =>{
+                const finalUrl = img.startsWith("http")? img: `http://localhost:5000/ngo_gallery/${img}`;
+              return (<img
                   key={idx}
-                  src={img}
+                  src={finalUrl}
                   alt={`Gallery ${idx}`}
                   className="rounded-xl w-full h-60 object-cover shadow-md"
-                />
-              ))}
+                />)
+              })}
             </div>
           ) : (
             <p className="text-gray-500 italic mb-6">No images available.</p>
