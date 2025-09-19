@@ -20,7 +20,9 @@
           "role": "Social Worker",
           "message": "Hope Foundation's efforts have given countless children a second chance at life."
         }
-      ]
+      ],
+      "socialId":"",
+      "password":""
     },
     {
       "id": 2,
@@ -43,7 +45,9 @@
           "role": "Educationist",
           "message": "Sunrise Pathways ensures every child gets the opportunity to fulfill their dreams."
         }
-      ]
+      ],
+      "socialId":"",
+      "password":""
     },
     {
       "id": 3,
@@ -66,7 +70,9 @@
           "role": "Philanthropist",
           "message": "A beacon of hope for children needing emotional and financial support."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 4,
@@ -89,7 +95,9 @@
           "role": "Healthcare Worker",
           "message": "Their healthcare and education programs are life-changing."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 5,
@@ -112,7 +120,9 @@
           "role": "Nutritionist",
           "message": "Compassion Hearts ensures no child goes hungry or uneducated."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 6,
@@ -135,7 +145,9 @@
           "role": "Teacher",
           "message": "New Horizons Foundation prepares children for a brighter future."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 7,
@@ -158,7 +170,9 @@
           "role": "Psychologist",
           "message": "They address the emotional needs of every child in their care."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 8,
@@ -181,7 +195,9 @@
           "role": "Mentor",
           "message": "Their mentorship programs are empowering young minds for a brighter future."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 9,
@@ -204,7 +220,9 @@
           "role": "Doctor",
           "message": "They provide specialized care for differently-abled children."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 10,
@@ -227,7 +245,9 @@
           "role": "Volunteer",
           "message": "They help children find confidence through arts and sports."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 11,
@@ -250,7 +270,9 @@
           "role": "Adoption Counselor",
           "message": "They spread awareness about the importance of adoption in society."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 12,
@@ -273,7 +295,9 @@
           "role": "Career Counselor",
           "message": "They help older children plan careers and higher studies."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 13,
@@ -296,7 +320,9 @@
           "role": "Pediatrician",
           "message": "Their medical support saves countless lives each year."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 14,
@@ -319,7 +345,9 @@
           "role": "Artist",
           "message": "They nurture creativity and confidence in every child."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 15,
@@ -342,7 +370,9 @@
           "role": "IT Trainer",
           "message": "Their computer literacy program opens new doors for children."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 16,
@@ -365,7 +395,9 @@
           "role": "Volunteer",
           "message": "A safe haven for children needing love and care."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 17,
@@ -388,7 +420,9 @@
           "role": "Counselor",
           "message": "They provide emotional support for adoptive families."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     },
     {
       "id": 18,
@@ -411,6 +445,8 @@
           "role": "Legal Advisor",
           "message": "They ensure ethical and transparent adoption processes."
         }
-      ]
+      ],
+            "socialId":"",
+      "password":""
     }
   ]

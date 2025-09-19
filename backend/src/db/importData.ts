@@ -37,6 +37,8 @@ const importData = async () => {
         role: t.role,
         feedback: t.message,
       })),
+      socialId: ngo.socialId,
+      password: ngo.password 
     }));
 
     // Insert into DB using upsert to avoid duplicates
