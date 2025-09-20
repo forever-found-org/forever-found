@@ -33,6 +33,7 @@ function Preferences() {
               <option value="">Hindu</option>
               <option value="">Muslim</option>
               <option value="">Sikh</option>
+              <option value="">Christian</option>
             </select>
           </div>
   
