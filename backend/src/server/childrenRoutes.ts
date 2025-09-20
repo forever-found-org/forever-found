@@ -1,7 +1,9 @@
 import express from "express";
-import { getChildren } from "./childrenController";
+import { findChildrenMatches } from "./childrenController";
+import { getChilByID } from "./childrenController";
 
 const router = express.Router();
-router.get("/", getChildren);
+router.post("/match", findChildrenMatches);
+router.get("/:id",getChilByID);
 
 export default router;
