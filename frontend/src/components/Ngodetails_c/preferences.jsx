@@ -7,7 +7,7 @@ function Preferences() {
         </div>
   
         <div className="w-full max-w-xl bg-[#FDF6F9] border border-gray-200 rounded-2xl p-6 shadow-md">
-          <div className="flex justify-between mb-4 px-4 text-gray-700 font-serif font-semibold">
+          <div className="flex justify-around mb-4 px-4 text-gray-700 font-serif font-semibold">
             <label>Gender</label>
             <label>Age Group</label>
             <label>Religion</label>
