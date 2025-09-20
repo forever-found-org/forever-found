@@ -18,6 +18,7 @@ function Preferences() {
               <option value="">Any</option>
               <option value="">Male</option>
               <option value="">Female</option>
+              <option value="">Others</option>
             </select>
   
             <select className="flex-1 p-3 rounded-lg bg-white shadow-sm font-serif border border-gray-300">
