@@ -51,7 +51,7 @@ function Child_Details({ childId, onClose }) {
             <p><strong>Date of Birth:</strong> {new Date(child.dateOfBirth).toLocaleDateString()}</p>
             <p><strong>Health Status:</strong> {child.healthStatus}</p>
             <p><strong>Education Level:</strong> {child.educationLevel}</p>
-            <p><strong>Religion:</strong> {child.religion}</p>
+            {/* <p><strong>Religion:</strong> {child.religion}</p> */}
             <p><strong>Status:</strong> {child.adoptionStatus}</p>
             {child.gallery && child.gallery.length > 0 ? (
   <p className="text-red-600 italic">

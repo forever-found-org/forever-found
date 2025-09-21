@@ -7,7 +7,7 @@ function Preferences() {
   const { id: ngoId } = useParams(); // get ngoId from URL
   const [gender, setGender] = useState("");
   const [ageGroup, setAgeGroup] = useState("");
-  const [religion, setReligion] = useState("");
+  //const [religion, setReligion] = useState("");
   const [children, setChildren] = useState([]); // store results
   const [error, setError] = useState("");
   const [selectedChildId, setSelectedChildId] = useState(null);
@@ -17,7 +17,7 @@ function Preferences() {
       const response = await fetch("http://localhost:5000/api/children/match", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ngoId, religion, gender, ageGroup }),
+        body: JSON.stringify({ ngoId, gender, ageGroup }),
       });
 
       if (!response.ok) throw new Error("Failed to fetch matches");
@@ -46,7 +46,7 @@ function Preferences() {
         <div className="flex justify-around mb-4 px-4 text-gray-700 font-serif font-semibold">
           <label>Gender</label>
           <label>Age Group</label>
-          <label>Religion</label>
+          {/* <label>Religion</label> */}
         </div>
 
         {/* Dropdowns */}
@@ -74,7 +74,7 @@ function Preferences() {
             <option value="12-18">12-18</option>
           </select>
 
-          <select
+          {/* <select
             value={religion}
             onChange={(e) => setReligion(e.target.value)}
             className="flex-1 p-3 rounded-lg bg-white shadow-sm font-serif border border-gray-300"
@@ -84,7 +84,7 @@ function Preferences() {
             <option value="Muslim">Muslim</option>
             <option value="Sikh">Sikh</option>
             <option value="Christian">Christian</option>
-          </select>
+          </select> */}
         </div>
 
         {/* Button */}
@@ -118,7 +118,7 @@ function Preferences() {
                 name={child.name}
                 age={child.age}
                 gender={child.gender}
-                religion={child.religion}
+                //religion={child.religion}
                 adoptionStatus={child.adoptionStatus}
               />
             </div>
