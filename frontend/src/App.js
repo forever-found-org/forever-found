@@ -13,6 +13,7 @@ import FormReviewPage from './pages/FormReviewPage';
 import AdoptiveGuidelines from './pages/AdoptiveGuidelines';
 import NGoAckForm from './pages/NgoAckForm';
 import Ngo_Home from './pages/Ngo_Home';
+import InsertChildren from './pages/InsertChildren';
 
 function App() {
  
@@ -26,6 +27,8 @@ function App() {
       <Route path="/adopter-SignUp" element={<SignUpAdopter />} />
       <Route path ="/ngo-signup" element={<SignupNgo/>}/>
       <Route path="/ngo-home" element={<Ngo_Home />} />
+      <Route path="/ngo/insert-child" element={<InsertChildren />} />
+
       <Route path="/review-signup-form" element={<FormReviewPage />} />
       <Route path="/review-signup-form/ngo-acknowledgement" element={<NGoAckForm/>}></Route>
       <Route path="/adoptive-guidelines" element={<AdoptiveGuidelines/>}/>

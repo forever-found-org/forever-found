@@ -10,7 +10,7 @@ const options = [
 ];
 
 function Ngo_Display() {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -25,7 +25,7 @@ function Ngo_Display() {
           {options.map(({ label, Icon, path }) => (
             <button
               key={label}
-              // onClick={() => navigate(path)}
+              onClick={() => navigate(path)}
               className="flex flex-col items-center justify-center bg-[#fdfdfd] rounded-2xl shadow-md hover:shadow-xl p-6 text-center transition hover:scale-105 border border-[#b2ebf2]"
             >
               <Icon className="w-12 h-14 mb-4 text-[#006D77]" />
