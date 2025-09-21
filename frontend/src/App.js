@@ -13,6 +13,8 @@ import FormReviewPage from './pages/FormReviewPage';
 import AdoptiveGuidelines from './pages/AdoptiveGuidelines';
 import NGoAckForm from './pages/NgoAckForm';
 import Ngo_Home from './pages/Ngo_Home';
+import AdopterProfile from './pages/AdopterProfile';
+import EditAdopterProfile from './pages/Adopter_EditProfile';
 import InsertChildren from './pages/InsertChildren';
 
 function App() {
@@ -33,10 +35,11 @@ function App() {
       <Route path="/review-signup-form/ngo-acknowledgement" element={<NGoAckForm/>}></Route>
       <Route path="/adoptive-guidelines" element={<AdoptiveGuidelines/>}/>
 
-      <Route path="/adopter-home" element={<Adopter_Home />} />
-      <Route path="/adopter-home/:id" element={<NgoDetails/>}/>  
-      <Route path="/adopter-home/parenting-guide" element={<Parenting_guide/>}/>       
-
+      <Route path="/adopter-home/:id" element={<Adopter_Home />} />
+      <Route path="/adopter-home/:id/details" element={<NgoDetails/>}/>  
+      <Route path="/adopter-home/:id/parenting-guide" element={<Parenting_guide/>}/>   
+      <Route path="/adopter-home/:id/profile" element={<AdopterProfile/>}/>    
+      <Route path="/adopter-home/:id/profile/edit" element={<EditAdopterProfile/>}></Route>
       </Routes>
     </Router>  
   );

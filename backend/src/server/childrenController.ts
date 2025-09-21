@@ -11,7 +11,7 @@ const ageGroups: Record<string, [number, number]> = {
 
 export const findChildrenMatches = async (req: Request, res: Response) => {
   try {
-    const { ngoId, religion, gender, ageGroup } = req.body;
+    const { ngoId, gender, ageGroup } = req.body;
 
     if (!ngoId) {
       return res.status(400).json({ message: "NGO ID is required" });
@@ -24,7 +24,7 @@ export const findChildrenMatches = async (req: Request, res: Response) => {
     };
 
     if (gender && gender !== "Any") query.gender = gender;
-    if (religion && religion !== "Any") query.religion = religion;
+    //if (religion && religion !== "Any") query.religion = religion;
     if (ageGroup && ageGroup !== "Any") {
       const [minAge, maxAge] = ageGroups[ageGroup] || [0, 100];
       query.age = { $gte: minAge, $lte: maxAge };
@@ -55,6 +55,8 @@ export const getChilByID=async(req:Request,res:Response)=>{
 // Controller to create a new child
 export const createChild = async (req: Request, res: Response) => {
   try {
+    console.log("REQ.BODY:", req.body);
+    console.log("REQ.FILES:", req.files);
     // Destructure fields from the request body
     const { ngoId, name, age, gender, dateOfBirth, healthStatus, educationLevel } = req.body;
 
