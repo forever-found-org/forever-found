@@ -56,17 +56,42 @@ function Login(){
         return true;
     }
 
-    const handleLogin=(e)=>{
-        e.preventDefault();
-        if(validateLogIn())
-        {
-            if(role==="Adopter")
-                navigate('/adopter-home');
-            if(role==="NGO")
-                navigate('/ngo-home');
+    const handleLogin = async (e) => {
+  e.preventDefault();
+
+  if (validateLogIn()) {
+    if (role === "Adopter") {
+      try {
+        const res = await fetch("http://localhost:5000/api/adopter/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: user }),
+        });
+
+        if (!res.ok) {
+          const errData = await res.json();
+          setError({ ...error, user: errData.error || "Login failed" });
+          return;
         }
-            
-    };
+
+        const adopterData = await res.json();
+
+        // Save adopter info locally
+        localStorage.setItem("adopter", JSON.stringify(adopterData));
+
+        navigate(`/adopter-home/${adopterData.id}`);
+      } catch (err) {
+        console.error(err);
+        setError({ ...error, user: "Server error, try later" });
+      }
+    }
+
+    if (role === "NGO") {
+      navigate("/ngo-home");
+    }
+  }
+};
+
 
     const handleAdopterSignUp=(e)=>{
         e.preventDefault();

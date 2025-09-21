@@ -5,6 +5,7 @@ import path from "path";
 import connectDB from "./db/db";
 import ngoRoutes from "./server/ngoRoutes";
 import childrenRoutes from "./server/childrenRoutes";
+import adopterRoutes from "./server/adopterRoutes";
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,7 @@ app.use("/ngo_gallery", express.static(path.join(__dirname, "../ngo_gallery")));
 // All routes
 app.use("/api/ngos", ngoRoutes); // Later add adopterRoutes, childrenRoutes here
 app.use("/api/children", childrenRoutes);
+app.use("/api/adopter",adopterRoutes);
 
 connectDB();
 app.listen(PORT, () =>
