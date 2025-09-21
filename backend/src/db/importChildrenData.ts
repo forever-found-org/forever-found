@@ -30,15 +30,12 @@ const importChildrenBulk = async () => {
         name: child.name,
         age: child.age,
         gender: child.gender,
-        adopterId: child.adopterId || null,
-        image: child.image,
-        notes: child.notes || "",
         dateOfBirth: child.dateOfBirth || null,
         healthStatus: child.healthStatus || "",
         educationLevel: child.educationLevel || "",
-        religion: child.religion || "",
         gallery: child.gallery || [],
         adoptionStatus: child.adoptionStatus || "Available",
+        adopterId: child.adopterId || null,
       });
     }
 

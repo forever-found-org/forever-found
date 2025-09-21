@@ -1,1351 +1,1096 @@
 [
   {
-    "ngoId":"68cb265c1a9593dbb973867c",
-    "name": "Baljit Singh",
+    "ngoId": "68cb265c1a9593dbb973867c",
+    "name": "Arjun",
     "age": 5,
     "gender": "Male",
-    "dateOfBirth": "2019-10-13",
+    "dateOfBirth": "2020-10-13",
     "healthStatus": "Anemia",
     "educationLevel": "Kindergarten",
-    "religion": "Sikh",
-    "gallery": [
-      "baljit_singh.jpg"
-    ],
+    "gallery": ["anil_cwc.jpg", "anil_police.jpg", "anil_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867c",
-    "name": "Elsa Varghese",
+    "name": "Meera",
     "age": 11,
     "gender": "Female",
     "dateOfBirth": "2013-12-23",
     "healthStatus": "Healthy",
     "educationLevel": "Middle School",
-    "religion": "Christian",
-    "gallery": [
-      "elsa_varghese.jpg"
-    ],
+    "gallery": ["yamini_cwc.jpg", "yamini_police.jpg", "yamini_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867c",
-    "name": "Lubna Farooqui",
+    "name": "Chhavi",
     "age": 8,
     "gender": "Female",
     "dateOfBirth": "2017-02-04",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Muslim",
-    "gallery": [
-      "lubna_farooqui.jpg"
-    ],
+    "gallery": ["chandni_cwc.jpg", "chandni_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867c",
-    "name": "Ira Sen",
+    "name": "Devansh",
     "age": 15,
     "gender": "Other",
     "dateOfBirth": "2010-07-07",
     "healthStatus": "Healthy",
     "educationLevel": "Secondary",
-    "religion": "Muslim",
-    "gallery": [
-      "ira_sen.jpg"
-    ],
+    "gallery": ["iraansh_cwc.jpg", "iraansh_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867c",
-    "name": "Maryam Ali",
+    "name": "Naina",
     "age": 5,
     "gender": "Female",
     "dateOfBirth": "2020-06-05",
     "healthStatus": "Healthy",
     "educationLevel": "Kindergarten",
-    "religion": "Muslim",
-    "gallery": [
-      "maryam_ali.jpg"
-    ],
+    "gallery": ["radhika_cwc.jpg", "radhika_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867c",
-    "name": "Hina Qureshi",
+    "name": "Tanvi",
     "age": 13,
     "gender": "Female",
     "dateOfBirth": "2011-11-05",
     "healthStatus": "Healthy",
     "educationLevel": "Middle School",
-    "religion": "Muslim",
-    "gallery": [
-      "hina_qureshi.jpg"
-    ],
+    "gallery": ["triveni_cwc.jpg", "triveni_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
+
   {
     "ngoId": "68cb265c1a9593dbb973867d",
-    "name": "Saba Khan",
+    "name": "Sameer",
     "age": 4,
-    "gender": "Female",
-    "dateOfBirth": "2020-11-24",
-    "healthStatus": "Healthy",
-    "educationLevel": "Pre-School",
-    "religion": "Muslim",
-    "gallery": [
-      "saba_khan.jpg"
-    ],
+    "gender": "Male",
+    "dateOfBirth": "2020-05-09",
+    "healthStatus": "Asthma",
+    "educationLevel": "Kindergarten",
+    "gallery": ["nikhil_cwc.jpg", "nikhil_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867d",
-    "name": "Rachel Mathew",
-    "age": 7,
-    "gender": "Female",
-    "dateOfBirth": "2018-07-18",
-    "healthStatus": "Healthy",
-    "educationLevel": "Primary",
-    "religion": "Christian",
-    "gallery": [
-      "rachel_mathew.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265c1a9593dbb973867d",
-    "name": "Ananya Rathi",
+    "name": "Charvi",
     "age": 8,
     "gender": "Female",
     "dateOfBirth": "2017-03-03",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Hindu",
-    "gallery": [
-      "ananya_rathi.jpg"
-    ],
+    "gallery": ["kavya_cwc.jpg", "kavya_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867d",
-    "name": "Nisha Bansal",
-    "age": 18,
+    "name": "Saanvi",
+    "age": 4,
     "gender": "Female",
-    "dateOfBirth": "2006-10-05",
+    "dateOfBirth": "2020-11-24",
     "healthStatus": "Healthy",
-    "educationLevel": "Higher Secondary",
-    "religion": "Hindu",
-    "gallery": [
-      "nisha_bansal.jpg"
-    ],
+    "educationLevel": "Pre-School",
+    "gallery": ["zoya_cwc.jpg", "zoya_police.jpg", "zoya_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867d",
-    "name": "Jaspreet Singh",
-    "age": 5,
-    "gender": "Male",
-    "dateOfBirth": "2020-05-09",
-    "healthStatus": "Asthma",
-    "educationLevel": "Kindergarten",
-    "religion": "Sikh",
-    "gallery": [
-      "jaspreet_singh.jpg"
-    ],
+    "name": "Urvi",
+    "age": 7,
+    "gender": "Female",
+    "dateOfBirth": "2018-07-18",
+    "healthStatus": "Healthy",
+    "educationLevel": "Primary",
+    "gallery": ["uma_cwc.jpg", "uma_police.jpg", "uma_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867d",
-    "name": "Navjot Singh",
+    "name": "Tapan",
     "age": 8,
-    "gender": "Male",
+    "gender": "Other",
     "dateOfBirth": "2016-12-27",
     "healthStatus": "Anemia",
     "educationLevel": "Primary",
-    "religion": "Sikh",
-    "gallery": [
-      "navjot_singh.jpg"
-    ],
+    "gallery": ["chetan_cwc.jpg", "chetan_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
+
   {
     "ngoId": "68cb265c1a9593dbb973867e",
-    "name": "Mark D'Souza",
-    "age": 17,
+    "name": "Nirav",
+    "age": 15,
     "gender": "Male",
-    "dateOfBirth": "2008-06-27",
-    "healthStatus": "Healthy",
-    "educationLevel": "Higher Secondary",
-    "religion": "Christian",
-    "gallery": [
-      "mark_dsouza.jpg"
-    ],
+    "dateOfBirth": "2010-01-21",
+    "healthStatus": "Anemia",
+    "educationLevel": "Secondary",
+    "gallery": ["minal_cwc.jpg", "minal_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867e",
-    "name": "Shabnam Haider",
-    "age": 17,
-    "gender": "Female",
-    "dateOfBirth": "2007-10-06",
-    "healthStatus": "Healthy",
-    "educationLevel": "Higher Secondary",
-    "religion": "Muslim",
-    "gallery": [
-      "shabnam_haider.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265c1a9593dbb973867e",
-    "name": "Kirandeep Kaur",
-    "age": 4,
-    "gender": "Female",
-    "dateOfBirth": "2021-04-14",
-    "healthStatus": "Healthy",
-    "educationLevel": "Pre-School",
-    "religion": "Sikh",
-    "gallery": [
-      "kirandeep_kaur.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265c1a9593dbb973867e",
-    "name": "Devon Kumar",
-    "age": 7,
-    "gender": "Other",
-    "dateOfBirth": "2018-08-16",
-    "healthStatus": "Healthy",
-    "educationLevel": "Primary",
-    "religion": "Sikh",
-    "gallery": [
-      "devon_kumar.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265c1a9593dbb973867e",
-    "name": "Harleen Kaur",
+    "name": "Ira",
     "age": 10,
     "gender": "Female",
     "dateOfBirth": "2015-02-14",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Sikh",
-    "gallery": [
-      "harleen_kaur.jpg"
-    ],
+    "gallery": ["rupali_cwc.jpg", "rupali_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867e",
-    "name": "Jasleen Kaur",
-    "age": 15,
+    "name": "Siya",
+    "age": 4,
     "gender": "Female",
-    "dateOfBirth": "2010-01-21",
-    "healthStatus": "Anemia",
-    "educationLevel": "Secondary",
-    "religion": "Sikh",
-    "gallery": [
-      "jasleen_kaur.jpg"
-    ],
+    "dateOfBirth": "2021-04-14",
+    "healthStatus": "Healthy",
+    "educationLevel": "Pre-School",
+    "gallery": ["siya_cwc.jpg", "siya_police.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+  {
+    "ngoId": "68cb265c1a9593dbb973867e",
+    "name": "Anaya",
+    "age": 7,
+    "gender": "Other",
+    "dateOfBirth": "2018-08-16",
+    "healthStatus": "Healthy",
+    "educationLevel": "Primary",
+    "gallery": ["suhani_cwc.jpg", "suhani_police.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+  {
+    "ngoId": "68cb265c1a9593dbb973867e",
+    "name": "Ritu",
+    "age": 17,
+    "gender": "Female",
+    "dateOfBirth": "2008-06-27",
+    "healthStatus": "Healthy",
+    "educationLevel": "Higher Secondary",
+    "gallery": ["tanish_cwc.jpg", "tanish_police.jpg", "tanish_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867f",
-    "name": "Ishita Verma",
+    "name": "Bharti",
     "age": 9,
     "gender": "Female",
     "dateOfBirth": "2016-06-14",
     "healthStatus": "Anemia",
     "educationLevel": "Primary",
-    "religion": "Hindu",
-    "gallery": [
-      "ishita_verma.jpg"
-    ],
+    "gallery": ["bharti_cwc.jpg", "bharti_police.jpg", "bharti_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867f",
-    "name": "Rohan Patel",
+    "name": "Vihaan",
     "age": 4,
     "gender": "Male",
     "dateOfBirth": "2020-12-26",
     "healthStatus": "Healthy",
     "educationLevel": "Pre-School",
-    "religion": "Hindu",
-    "gallery": [
-      "rohan_patel.jpg"
-    ],
+    "gallery": ["vihaan_cwc.jpg", "vihaan_police.jpg", "vihaan_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867f",
-    "name": "Fatima Ansari",
+    "name": "Juhi",
     "age": 12,
     "gender": "Female",
     "dateOfBirth": "2012-11-06",
     "healthStatus": "Healthy",
     "educationLevel": "Middle School",
-    "religion": "Muslim",
-    "gallery": [
-      "fatima_ansari.jpg"
-    ],
+    "gallery": ["juhi_cwc.jpg", "juhi_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265c1a9593dbb973867f",
-    "name": "Maria Fernandes",
+    "name": "Yatin",
     "age": 12,
-    "gender": "Female",
+    "gender": "Other",
     "dateOfBirth": "2013-08-13",
     "healthStatus": "Anemia",
     "educationLevel": "Middle School",
-    "religion": "Christian",
-    "gallery": [
-      "maria_fernandes.jpg"
-    ],
+    "gallery": ["swati_cwc.jpg", "swati_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265c1a9593dbb973867f",
-    "name": "Parminder Kaur",
-    "age": 17,
-    "gender": "Female",
-    "dateOfBirth": "2008-02-11",
-    "healthStatus": "Healthy",
-    "educationLevel": "Higher Secondary",
-    "religion": "Sikh",
-    "gallery": [
-      "parminder_kaur.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265c1a9593dbb973867f",
-    "name": "Zara Sheikh",
+   "ngoId": "68cb265c1a9593dbb973867f",
+    "name": "Gauri",
     "age": 7,
     "gender": "Female",
     "dateOfBirth": "2018-07-16",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Muslim",
-    "gallery": [
-      "zara_sheikh.jpg"
-    ],
+    "gallery": ["gauri_cwc.jpg", "gauri_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
-  },
+  }
+  ,
   {
     "ngoId": "68cb265d1a9593dbb9738680",
-    "name": "Grace George",
+    "name": "Sonal",
     "age": 15,
     "gender": "Female",
     "dateOfBirth": "2009-11-17",
     "healthStatus": "Healthy",
     "educationLevel": "Secondary",
-    "religion": "Christian",
-    "gallery": [
-      "grace_george.jpg"
-    ],
+    "gallery": ["sonal_cwc.jpg", "sonal_police.jpg", "sonal_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738680",
-    "name": "Pranav Deshmukh",
+    "name": "Dev",
+    "age": 7,
+    "gender": "Male",
+    "dateOfBirth": "2017-10-17",
+    "healthStatus": "Healthy",
+    "educationLevel": "Primary",
+    "gallery": ["devansh_cwc.jpg", "devansh_police.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+  {
+    "ngoId": "68cb265d1a9593dbb9738680",
+    "name": "Yash",
     "age": 4,
     "gender": "Male",
     "dateOfBirth": "2021-07-03",
     "healthStatus": "Healthy",
     "educationLevel": "Pre-School",
-    "religion": "Hindu",
-    "gallery": [
-      "pranav_deshmukh.jpg"
-    ],
+    "gallery": ["yash_cwc.jpg", "yash_police.jpg", "yash_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738680",
-    "name": "Riyaan Das",
-    "age": 7,
-    "gender": "Other",
-    "dateOfBirth": "2017-10-17",
-    "healthStatus": "Healthy",
-    "educationLevel": "Primary",
-    "religion": "Sikh",
-    "gallery": [
-      "riyaan_das.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265d1a9593dbb9738680",
-    "name": "Sukhdeep Singh",
-    "age": 12,
-    "gender": "Male",
-    "dateOfBirth": "2013-02-09",
-    "healthStatus": "Healthy",
-    "educationLevel": "Middle School",
-    "religion": "Sikh",
-    "gallery": [
-      "sukhdeep_singh.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265d1a9593dbb9738680",
-    "name": "Amrit Singh",
-    "age": 3,
-    "gender": "Male",
-    "dateOfBirth": "2022-08-11",
-    "healthStatus": "Healthy",
-    "educationLevel": "Pre-School",
-    "religion": "Sikh",
-    "gallery": [
-      "amrit_singh.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265d1a9593dbb9738680",
-    "name": "Neha Sharma",
+    "name": "Sanya",
     "age": 8,
     "gender": "Female",
     "dateOfBirth": "2017-05-06",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Hindu",
-    "gallery": [
-      "neha_sharma.jpg"
-    ],
+    "gallery": ["sanya_cwc.jpg", "sanya_police.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+  {
+    "ngoId": "68cb265d1a9593dbb9738680",
+    "name": "Tina",
+    "age": 12,
+    "gender": "Other",
+    "dateOfBirth": "2013-08-13",
+    "healthStatus": "Healthy",
+    "educationLevel": "Middle School",
+    "gallery": ["deepak_cwc.jpg", "deepak_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738681",
-    "name": "Sanya Mehta",
+    "name": "Shruti",
     "age": 13,
     "gender": "Female",
     "dateOfBirth": "2012-03-12",
     "healthStatus": "Healthy",
     "educationLevel": "Middle School",
-    "religion": "Hindu",
-    "gallery": [
-      "sanya_mehta.jpg"
-    ],
+    "gallery": ["shruti_cwc.jpg", "shruti_police.jpg", "shruti_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738681",
-    "name": "Karan Bhatia",
+    "name": "Ashok",
     "age": 4,
     "gender": "Male",
     "dateOfBirth": "2021-07-14",
     "healthStatus": "Healthy",
     "educationLevel": "Pre-School",
-    "religion": "Hindu",
-    "gallery": [
-      "karan_bhatia.jpg"
-    ],
+    "gallery": ["ashok_cwc.jpg", "ashok_police.jpg", "ashok_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738681",
-    "name": "David Mathew",
-    "age": 16,
+    "name": "Rohin",
+    "age": 15,
     "gender": "Male",
     "dateOfBirth": "2009-05-22",
     "healthStatus": "Healthy",
     "educationLevel": "Secondary",
-    "religion": "Christian",
-    "gallery": [
-      "david_mathew.jpg"
-    ],
+    "gallery": ["rohin_cwc.jpg", "rohin_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738681",
-    "name": "Siddharth Nair",
+    "name": "Hemani",
     "age": 18,
-    "gender": "Male",
+    "gender": "Other",
     "dateOfBirth": "2006-12-08",
     "healthStatus": "Anemia",
     "educationLevel": "Higher Secondary",
-    "religion": "Hindu",
-    "gallery": [
-      "siddharth_nair.jpg"
-    ],
+    "gallery": ["hemant_cwc.jpg", "hemant_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738681",
-    "name": "Angela Pinto",
+    "name": "Avni",
     "age": 15,
     "gender": "Female",
     "dateOfBirth": "2010-09-06",
     "healthStatus": "Anemia",
     "educationLevel": "Secondary",
-    "religion": "Christian",
-    "gallery": [
-      "angela_pinto.jpg"
-    ],
+    "gallery": ["avni_cwc.jpg", "avni_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738681",
-    "name": "Catherine Thomas",
+    "name": "Poonam",
     "age": 16,
     "gender": "Female",
     "dateOfBirth": "2009-04-18",
     "healthStatus": "Healthy",
     "educationLevel": "Secondary",
-    "religion": "Christian",
-    "gallery": [
-      "catherine_thomas.jpg"
-    ],
+    "gallery": ["poonam_cwc.jpg", "poonam_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
+
   {
     "ngoId": "68cb265d1a9593dbb9738682",
-    "name": "Rajinder Kaur",
+    "name": "Riya",
     "age": 11,
     "gender": "Female",
     "dateOfBirth": "2013-12-05",
     "healthStatus": "Healthy",
     "educationLevel": "Middle School",
-    "religion": "Sikh",
-    "gallery": [
-      "rajinder_kaur.jpg"
-    ],
+    "gallery": ["riya_cwc.jpg", "riya_police.jpg", "riya_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738682",
-    "name": "Michael D'Cunha",
+    "name": "Ishaan",
     "age": 2,
     "gender": "Male",
     "dateOfBirth": "2023-09-04",
     "healthStatus": "Healthy",
     "educationLevel": "Pre-School",
-    "religion": "Christian",
-    "gallery": [
-      "michael_dcunha.jpg"
-    ],
+    "gallery": ["ishaan_cwc.jpg", "ishaan_police.jpg", "ishaan_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738682",
-    "name": "Yusuf Mirza",
+    "name": "Rudra",
     "age": 8,
     "gender": "Male",
     "dateOfBirth": "2017-05-26",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Muslim",
-    "gallery": [
-      "yusuf_mirza.jpg"
-    ],
+    "gallery": ["rudra_cwc.jpg", "rudra_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738682",
-    "name": "Arif Baig",
+    "name": "Karthika",
     "age": 4,
-    "gender": "Male",
+    "gender": "Other",
     "dateOfBirth": "2021-01-18",
     "healthStatus": "Vision Impairment",
     "educationLevel": "Pre-School",
-    "religion": "Muslim",
-    "gallery": [
-      "arif_baig.jpg"
-    ],
+    "gallery": ["karthik_cwc.jpg", "karthik_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738682",
-    "name": "Harpreet Singh",
+    "name": "Rohit",
     "age": 9,
     "gender": "Male",
     "dateOfBirth": "2016-02-02",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Sikh",
-    "gallery": [
-      "harpreet_singh.jpg"
-    ],
+    "gallery": ["rohit_cwc.jpg", "rohit_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738682",
-    "name": "Faizan Rizvi",
+    "name": "Anup",
     "age": 4,
     "gender": "Male",
     "dateOfBirth": "2020-10-13",
     "healthStatus": "Healthy",
     "educationLevel": "Pre-School",
-    "religion": "Muslim",
-    "gallery": [
-      "faizan_rizvi.jpg"
-    ],
+    "gallery": ["anup_cwc.jpg", "anup_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
+
   {
     "ngoId": "68cb265d1a9593dbb9738683",
-    "name": "Manish Mehta",
+    "name": "Siddharth",
     "age": 2,
     "gender": "Male",
     "dateOfBirth": "2022-09-21",
     "healthStatus": "Healthy",
     "educationLevel": "Pre-School",
-    "religion": "Hindu",
-    "gallery": [
-      "manish_mehta.jpg"
-    ],
+    "gallery": ["siddharth_cwc.jpg", "siddharth_police.jpg", "siddharth_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738683",
-    "name": "Sukhpreet Kaur",
+    "name": "Neha",
     "age": 7,
     "gender": "Female",
     "dateOfBirth": "2017-10-23",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Sikh",
-    "gallery": [
-      "sukhpreet_kaur.jpg"
-    ],
+    "gallery": ["neha_cwc.jpg", "neha_police.jpg", "neha_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738683",
-    "name": "Aditya Reddy",
-    "age": 18,
+    "name": "Sunil",
+    "age": 15,
     "gender": "Male",
     "dateOfBirth": "2007-07-18",
     "healthStatus": "Healthy",
     "educationLevel": "Higher Secondary",
-    "religion": "Hindu",
-    "gallery": [
-      "aditya_reddy.jpg"
-    ],
+    "gallery": ["sunil_cwc.jpg", "sunil_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738683",
-    "name": "Rahul Choudhary",
+    "name": "Aarav",
     "age": 3,
-    "gender": "Male",
+    "gender": "Other",
     "dateOfBirth": "2022-07-20",
     "healthStatus": "Healthy",
     "educationLevel": "Pre-School",
-    "religion": "Hindu",
-    "gallery": [
-      "rahul_choudhary.jpg"
-    ],
+    "gallery": ["aarav_cwc.jpg", "aarav_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738683",
-    "name": "Priya Agarwal",
+    "name": "Anaya",
     "age": 6,
     "gender": "Female",
     "dateOfBirth": "2019-07-24",
     "healthStatus": "Other rare conditions",
     "educationLevel": "Kindergarten",
-    "religion": "Hindu",
-    "gallery": [
-      "priya_agarwal.jpg"
-    ],
+    "gallery": ["aadhya_cwc.jpg", "aadhya_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
+
   {
     "ngoId": "68cb265d1a9593dbb9738684",
-    "name": "Clara Joseph",
-    "age": 17,
+    "name": "Aanya",
+    "age": 15,
     "gender": "Female",
     "dateOfBirth": "2008-02-15",
     "healthStatus": "Healthy",
     "educationLevel": "Higher Secondary",
-    "religion": "Christian",
-    "gallery": [
-      "clara_joseph.jpg"
-    ],
+    "gallery": ["aanya_cwc.jpg", "aanya_police.jpg", "aanya_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738684",
-    "name": "Arjun Joshi",
-    "age": 14,
+    "name": "Aryan",
+    "age": 8,
     "gender": "Male",
-    "dateOfBirth": "2010-10-27",
+    "dateOfBirth": "2015-05-28",
     "healthStatus": "Healthy",
-    "educationLevel": "Secondary",
-    "religion": "Hindu",
-    "gallery": [
-      "arjun_joshi.jpg"
-    ],
+    "educationLevel": "Primary",
+    "gallery": ["vikram_cwc.jpg", "vikram_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738684",
-    "name": "Amrit Kaur",
+    "name": "Indira",
     "age": 7,
     "gender": "Female",
     "dateOfBirth": "2018-01-23",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Sikh",
-    "gallery": [
-      "amrit_kaur.jpg"
-    ],
+    "gallery": ["indira_cwc.jpg", "indira_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738684",
-    "name": "Shruti Tiwari",
-    "age": 17,
-    "gender": "Female",
-    "dateOfBirth": "2007-11-15",
-    "healthStatus": "Healthy",
-    "educationLevel": "Higher Secondary",
-    "religion": "Hindu",
-    "gallery": [
-      "shruti_tiwari.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265d1a9593dbb9738684",
-    "name": "Pooja Malhotra",
+    "name": "Om",
     "age": 7,
-    "gender": "Female",
+    "gender": "Other",
     "dateOfBirth": "2017-10-19",
     "healthStatus": "Other rare conditions",
     "educationLevel": "Primary",
-    "religion": "Hindu",
-    "gallery": [
-      "pooja_malhotra.jpg"
-    ],
+    "gallery": ["ojasvi_cwc.jpg", "ojasvi_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738684",
-    "name": "Vikram Iyer",
+    "name": "Ajay",
     "age": 7,
     "gender": "Male",
     "dateOfBirth": "2018-06-21",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Hindu",
-    "gallery": [
-      "vikram_iyer.jpg"
-    ],
+    "gallery": ["ajay_cwc.jpg", "ajay_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
+  
   {
     "ngoId": "68cb265d1a9593dbb9738685",
-    "name": "Manpreet Singh",
+    "name": "Vivaan",
     "age": 7,
     "gender": "Male",
     "dateOfBirth": "2018-03-22",
     "healthStatus": "Anemia",
     "educationLevel": "Primary",
-    "religion": "Sikh",
-    "gallery": [
-      "manpreet_singh.jpg"
-    ],
+    "gallery": ["vivaan_cwc.jpg", "vivaan_police.jpg", "vivaan_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738685",
-    "name": "Ritika Kulkarni",
+    "name": "Pari",
     "age": 9,
     "gender": "Female",
     "dateOfBirth": "2016-01-23",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Hindu",
-    "gallery": [
-      "ritika_kulkarni.jpg"
-    ],
+    "gallery": ["pari_cwc.jpg", "pari_police.jpg", "pari_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738685",
-    "name": "Stephen Pinto",
+    "name": "Madhav",
     "age": 7,
     "gender": "Male",
     "dateOfBirth": "2018-05-12",
     "healthStatus": "Asthma",
     "educationLevel": "Primary",
-    "religion": "Christian",
-    "gallery": [
-      "stephen_pinto.jpg"
-    ],
+    "gallery": ["madhav_cwc.jpg", "madhav_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738685",
-    "name": "Kavya Iyer",
-    "age": 17,
-    "gender": "Female",
-    "dateOfBirth": "2008-01-01",
-    "healthStatus": "Healthy",
-    "educationLevel": "Higher Secondary",
-    "religion": "Hindu",
-    "gallery": [
-      "kavya_iyer.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265d1a9593dbb9738685",
-    "name": "Aarav Sharma",
-    "age": 10,
-    "gender": "Male",
-    "dateOfBirth": "2015-02-22",
-    "healthStatus": "Speech Disorder",
-    "educationLevel": "Primary",
-    "religion": "Hindu",
-    "gallery": [
-      "aarav_sharma.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265d1a9593dbb9738686",
-    "name": "Lucy Rodrigues",
+    "name": "Anika",
     "age": 7,
     "gender": "Female",
     "dateOfBirth": "2018-03-19",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Christian",
-    "gallery": [
-      "lucy_rodrigues.jpg"
-    ],
+    "gallery": ["anvi_cwc.jpg", "anvi_police.jpg", "anvi_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb9738686",
-    "name": "Baljinder Kaur",
+    "ngoId": "68cb265d1a9593dbb9738685",
+    "name": "Prachi",
     "age": 13,
-    "gender": "Female",
+    "gender": "Other",
     "dateOfBirth": "2012-05-06",
     "healthStatus": "Malnutrition",
     "educationLevel": "Middle School",
-    "religion": "Sikh",
-    "gallery": [
-      "baljinder_kaur.jpg"
-    ],
+    "gallery": ["gayatri_cwc.jpg", "gayatri_police.jpg", "gayatri_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
+
   {
     "ngoId": "68cb265d1a9593dbb9738686",
-    "name": "Peter Thomas",
+    "name": "Sameer",
     "age": 4,
     "gender": "Male",
     "dateOfBirth": "2021-01-31",
     "healthStatus": "Healthy",
     "educationLevel": "Pre-School",
-    "religion": "Christian",
-    "gallery": [
-      "peter_thomas.jpg"
-    ],
+    "gallery": ["sameer_cwc.jpg", "sameer_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738686",
-    "name": "John Paul",
+    "name": "Gopal",
     "age": 5,
     "gender": "Male",
     "dateOfBirth": "2019-11-07",
     "healthStatus": "Asthma",
     "educationLevel": "Kindergarten",
-    "religion": "Christian",
-    "gallery": [
-      "john_paul.jpg"
-    ],
+    "gallery": ["gopal_cwc.jpg", "gopal_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb9738687",
-    "name": "Zahid Sheikh",
+    "ngoId": "68cb265d1a9593dbb9738686",
+    "name": "Sourabh",
     "age": 15,
     "gender": "Male",
     "dateOfBirth": "2009-11-01",
     "healthStatus": "Healthy",
     "educationLevel": "Secondary",
-    "religion": "Muslim",
-    "gallery": [
-      "zahid_sheikh.jpg"
-    ],
+    "gallery": ["sourabh_cwc.jpg", "sourabh_police.jpg", "sourabh_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb9738687",
-    "name": "Sameer Ansari",
+    "ngoId": "68cb265d1a9593dbb9738686",
+    "name": "Harsha",
     "age": 2,
-    "gender": "Male",
+    "gender": "Other",
     "dateOfBirth": "2023-06-05",
     "healthStatus": "Healthy",
     "educationLevel": "Pre-School",
-    "religion": "Muslim",
-    "gallery": [
-      "sameer_ansari.jpg"
-    ],
+    "gallery": ["harish_cwc.jpg", "harish_police.jpg", "harish_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb9738687",
-    "name": "Ayaan Khan",
-    "age": 16,
-    "gender": "Male",
-    "dateOfBirth": "2009-08-16",
-    "healthStatus": "Healthy",
-    "educationLevel": "Secondary",
-    "religion": "Muslim",
-    "gallery": [
-      "ayaan_khan.jpg"
-    ],
-    "adoptionStatus": "Available",
-    "adopterId": null
-  },
-  {
-    "ngoId": "68cb265d1a9593dbb9738687",
-    "name": "Noman Haider",
+    "ngoId": "68cb265d1a9593dbb9738686",
+    "name": "Kabir",
     "age": 9,
     "gender": "Male",
     "dateOfBirth": "2016-04-15",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Muslim",
-    "gallery": [
-      "noman_haider.jpg"
-    ],
+    "gallery": ["kabir_cwc.jpg", "kabir_police.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+  
+  {
+    "ngoId": "68cb265d1a9593dbb9738687",
+    "name": "Harsh",
+    "age": 16,
+    "gender": "Male",
+    "dateOfBirth": "2009-08-16",
+    "healthStatus": "Healthy",
+    "educationLevel": "Secondary",
+    "gallery": ["harsh_cwc.jpg", "harsh_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb9738688",
-    "name": "Salman Farooqui",
+    "ngoId": "68cb265d1a9593dbb9738687",
+    "name": "Kabir",
+    "age": 9,
+    "gender": "Male",
+    "dateOfBirth": "2016-04-15",
+    "healthStatus": "Healthy",
+    "educationLevel": "Primary",
+    "gallery": ["kabir_cwc.jpg", "kabir_police.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+  {
+    "ngoId": "68cb265d1a9593dbb9738687",
+    "name": "Chirag",
     "age": 13,
     "gender": "Male",
     "dateOfBirth": "2012-09-15",
     "healthStatus": "Healthy",
     "educationLevel": "Middle School",
-    "religion": "Muslim",
-    "gallery": [
-      "salman_farooqui.jpg"
-    ],
+    "gallery": ["chirag_cwc.jpg", "chirag_police.jpg", "chirag_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb9738688",
-    "name": "Akshay Jain",
+    "ngoId": "68cb265d1a9593dbb9738687",
+    "name": "Samiksha",
     "age": 11,
     "gender": "Other",
     "dateOfBirth": "2014-05-08",
     "healthStatus": "Healthy",
     "educationLevel": "Middle School",
-    "religion": "Christian",
-    "gallery": [
-      "akshay_jain.jpg"
-    ],
+    "gallery": ["samiksha_cwc.jpg", "samiksha_police.jpg", "samiksha_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb9738688",
-    "name": "Sofia Baig",
+    "ngoId": "68cb265d1a9593dbb9738687",
+    "name": "Ira",
     "age": 2,
     "gender": "Female",
     "dateOfBirth": "2023-03-17",
     "healthStatus": "Healthy",
     "educationLevel": "Pre-School",
-    "religion": "Muslim",
-    "gallery": [
-      "sofia_baig.jpg"
-    ],
+    "gallery": ["ira_cwc.jpg", "ira_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
+  
   {
     "ngoId": "68cb265d1a9593dbb9738688",
-    "name": "Anvi Kapoor",
+    "name": "Pratyush",
     "age": 12,
     "gender": "Other",
     "dateOfBirth": "2012-10-09",
     "healthStatus": "Healthy",
     "educationLevel": "Middle School",
-    "religion": "Christian",
-    "gallery": [
-      "anvi_kapoor.jpg"
-    ],
+    "gallery": ["pratyush_cwc.jpg", "pratyush_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738688",
-    "name": "Navjot Kaur",
+    "name": "Rekha",
     "age": 14,
     "gender": "Female",
     "dateOfBirth": "2011-03-29",
     "healthStatus": "Healthy",
     "educationLevel": "Secondary",
-    "religion": "Sikh",
-    "gallery": [
-      "navjot_kaur.jpg"
-    ],
+    "gallery": ["rekha_cwc.jpg", "rekha_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb9738689",
-    "name": "Rehan Qureshi",
+    "ngoId": "68cb265d1a9593dbb9738688",
+    "name": "Aryan",
     "age": 9,
     "gender": "Male",
     "dateOfBirth": "2015-10-06",
     "healthStatus": "Anemia",
     "educationLevel": "Primary",
-    "religion": "Muslim",
-    "gallery": [
-      "rehan_qureshi.jpg"
-    ],
+    "gallery": ["aryan_cwc.jpg", "aryan_police.jpg", "aryan_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb9738689",
-    "name": "Imran Ali",
+    "ngoId": "68cb265d1a9593dbb9738688",
+    "name": "Devesh",
     "age": 3,
     "gender": "Male",
     "dateOfBirth": "2022-05-24",
     "healthStatus": "Healthy",
     "educationLevel": "Pre-School",
-    "religion": "Muslim",
-    "gallery": [
-      "imran_ali.jpg"
-    ],
+    "gallery": ["devesh_cwc.jpg", "devesh_police.jpg", "devesh_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb9738689",
-    "name": "Sam Arora",
+    "ngoId": "68cb265d1a9593dbb9738688",
+    "name": "Saanvi",
     "age": 14,
     "gender": "Other",
     "dateOfBirth": "2011-04-13",
     "healthStatus": "Healthy",
     "educationLevel": "Secondary",
-    "religion": "Christian",
-    "gallery": [
-      "sam_arora.jpg"
-    ],
+    "gallery": ["saanvi_cwc.jpg", "saanvi_police.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+  
+  {
+    "ngoId": "68cb265d1a9593dbb9738689",
+    "name": "Aryan",
+    "age": 9,
+    "gender": "Male",
+    "dateOfBirth": "2015-10-06",
+    "healthStatus": "Anemia",
+    "educationLevel": "Primary",
+    "gallery": ["aryan_cwc.jpg", "aryan_police.jpg", "aryan_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb9738689",
-    "name": "Aaliya Mirza",
+    "name": "Devesh",
+    "age": 3,
+    "gender": "Male",
+    "dateOfBirth": "2022-05-24",
+    "healthStatus": "Healthy",
+    "educationLevel": "Pre-School",
+    "gallery": ["devesh_cwc.jpg", "devesh_police.jpg", "devesh_medical.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+  {
+    "ngoId": "68cb265d1a9593dbb9738689",
+    "name": "Saanvi",
+    "age": 14,
+    "gender": "Other",
+    "dateOfBirth": "2011-04-13",
+    "healthStatus": "Healthy",
+    "educationLevel": "Secondary",
+    "gallery": ["saanvi_cwc.jpg", "saanvi_police.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+  {
+    "ngoId": "68cb265d1a9593dbb9738689",
+    "name": "Ritika",
     "age": 12,
     "gender": "Female",
     "dateOfBirth": "2013-03-05",
     "healthStatus": "Healthy",
     "educationLevel": "Middle School",
-    "religion": "Muslim",
-    "gallery": [
-      "aaliya_mirza.jpg"
-    ],
+    "gallery": ["ritika_cwc.jpg", "ritika_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
+    "ngoId": "68cb265d1a9593dbb9738689",
+    "name": "Rohan",
+    "age": 13,
+    "gender": "Male",
+    "dateOfBirth": "2012-09-15",
+    "healthStatus": "Healthy",
+    "educationLevel": "Middle School",
+    "gallery": ["chirag_cwc.jpg", "chirag_police.jpg", "chirag_medical.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+
+  {
     "ngoId": "68cb265d1a9593dbb973868a",
-    "name": "Sophia D'Souza",
+    "name": "Esha",
     "age": 16,
     "gender": "Female",
     "dateOfBirth": "2008-10-13",
     "healthStatus": "Healthy",
     "educationLevel": "Secondary",
-    "religion": "Christian",
-    "gallery": [
-      "sophia_dsouza.jpg"
-    ],
+    "gallery": ["esha_cwc.jpg", "esha_police.jpg", "esha_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb973868a",
-    "name": "Nida Siddiqui",
-    "age": 18,
-    "gender": "Female",
+    "name": "Tanuj",
+    "age": 15,
+    "gender": "Male",
     "dateOfBirth": "2007-08-29",
     "healthStatus": "Healthy",
     "educationLevel": "Higher Secondary",
-    "religion": "Muslim",
-    "gallery": [
-      "nida_siddiqui.jpg"
-    ],
+    "gallery": ["tanuja_cwc.jpg", "tanuja_police.jpg", "tanuja_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb973868a",
-    "name": "Joseph Fernandes",
+    "name": "Vikram",
     "age": 10,
     "gender": "Male",
     "dateOfBirth": "2015-05-28",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Christian",
-    "gallery": [
-      "joseph_fernandes.jpg"
-    ],
+    "gallery": ["vikram_cwc.jpg", "vikram_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb973868b",
-    "name": "Gurpreet Singh",
-    "age": 4,
-    "gender": "Male",
-    "dateOfBirth": "2021-05-22",
+    "ngoId": "68cb265d1a9593dbb973868a",
+    "name": "Radha",
+    "age": 9,
+    "gender": "Other",
+    "dateOfBirth": "2016-10-26",
     "healthStatus": "Healthy",
-    "educationLevel": "Pre-School",
-    "religion": "Sikh",
-    "gallery": [
-      "gurpreet_singh.jpg"
-    ],
+    "educationLevel": "Primary",
+    "gallery": ["gauri_cwc.jpg", "gauri_police.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+  {
+    "ngoId": "68cb265d1a9593dbb973868a",
+    "name": "Maya",
+    "age": 7,
+    "gender": "Female",
+    "dateOfBirth": "2018-07-16",
+    "healthStatus": "Healthy",
+    "educationLevel": "Primary",
+    "gallery": ["indira_cwc.jpg", "indira_police.jpg"],
+    "adoptionStatus": "Available",
+    "adopterId": null
+  },
+
+  {
+    "ngoId": "68cb265d1a9593dbb973868b",
+    "name": "Rohit",
+    "age": 9,
+    "gender": "Male",
+    "dateOfBirth": "2015-05-22",
+    "healthStatus": "Healthy",
+    "educationLevel": "Primary",
+    "gallery": ["ramesh_cwc.jpg", "ramesh_police.jpg", "ramesh_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb973868b",
-    "name": "Daniel George",
+    "name": "Yuvika",
     "age": 5,
-    "gender": "Male",
+    "gender": "Female",
     "dateOfBirth": "2020-08-30",
     "healthStatus": "Healthy",
     "educationLevel": "Kindergarten",
-    "religion": "Christian",
-    "gallery": [
-      "daniel_george.jpg"
-    ],
+    "gallery": ["yuvraj_cwc.jpg", "yuvraj_police.jpg", "yuvraj_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb973868b",
-    "name": "Simran Kaur",
+    "name": "Anaya",
     "age": 12,
     "gender": "Female",
     "dateOfBirth": "2012-11-14",
     "healthStatus": "Healthy",
     "educationLevel": "Middle School",
-    "religion": "Sikh",
-    "gallery": [
-      "simran_kaur.jpg"
-    ],
+    "gallery": ["anaya_cwc.jpg", "anaya_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb973868b",
-    "name": "Rebecca D'Cunha",
-    "age": 17,
-    "gender": "Female",
-    "dateOfBirth": "2008-02-03",
+    "name": "Kiran",
+    "age": 7,
+    "gender": "Other",
+    "dateOfBirth": "2018-02-03",
     "healthStatus": "Healthy",
     "educationLevel": "Higher Secondary",
-    "religion": "Christian",
-    "gallery": [
-      "rebecca_dcunha.jpg"
-    ],
+    "gallery": ["kalpana_cwc.jpg", "kalpana_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
+
   {
-    "ngoId": "68cb265d1a9593dbb973868c" ,
-    "name": "Parminder Singh",
+    "ngoId": "68cb265d1a9593dbb973868c",
+    "name": "Suresh",
     "age": 15,
     "gender": "Male",
     "dateOfBirth": "2010-08-15",
     "healthStatus": "Healthy",
     "educationLevel": "Secondary",
-    "religion": "Sikh",
-    "gallery": [
-      "parminder_singh.jpg"
-    ],
+    "gallery": ["suresh_cwc.jpg", "suresh_police.jpg", "suresh_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb973868c" ,
-    "name": "Parth Singh",
+    "ngoId": "68cb265d1a9593dbb973868c",
+    "name": "Kian",
     "age": 11,
     "gender": "Male",
     "dateOfBirth": "2014-08-10",
     "healthStatus": "Healthy",
     "educationLevel": "Secondary",
-    "religion": "Hindu",
-    "gallery": [
-      "parth_singh.jpg"
-    ],
+    "gallery": ["kian_cwc.jpg", "kian_police.jpg", "kian_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb973868c" ,
-    "name": "Pari Singh",
+    "ngoId": "68cb265d1a9593dbb973868c",
+    "name": "Charu",
     "age": 5,
     "gender": "Female",
     "dateOfBirth": "2020-08-10",
     "healthStatus": "Healthy",
     "educationLevel": "Kindergarten",
-    "religion": "Hindu",
-    "gallery": [
-      "pari_singh.jpg"
-    ],
+    "gallery": ["charu_cwc.jpg", "charu_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
-    "ngoId": "68cb265d1a9593dbb973868c" ,
-    "name": "Parminder Kaur",
+    "ngoId": "68cb265d1a9593dbb973868c",
+    "name": "Mala",
     "age": 10,
-    "gender": "Female",
+    "gender": "Other",
     "dateOfBirth": "2015-12-15",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Sikh",
-    "gallery": [
-      "parminder_kaur.jpg"
-    ],
+    "gallery": ["megha_cwc.jpg", "megha_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
+
   {
     "ngoId": "68cb265d1a9593dbb973868d",
-    "name": "Anthony Rodrigues",
-    "age": 16,
+    "name": "Om",
+    "age": 14,
     "gender": "Male",
     "dateOfBirth": "2009-06-10",
     "healthStatus": "Healthy",
     "educationLevel": "Secondary",
-    "religion": "Christian",
-    "gallery": [
-      "anthony_rodrigues.jpg"
-    ],
+    "gallery": ["om_cwc.jpg", "om_police.jpg", "om_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb973868d",
-    "name": "Paul Varghese",
+    "name": "Jatin",
     "age": 8,
     "gender": "Male",
     "dateOfBirth": "2016-12-10",
     "healthStatus": "Asthma",
     "educationLevel": "Primary",
-    "religion": "Christian",
-    "gallery": [
-      "paul_varghese.jpg"
-    ],
+    "gallery": ["jatin_cwc.jpg", "jatin_police.jpg", "jatin_medical.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb973868d",
-    "name": "John",
+    "name": "Shaurya",
     "age": 12,
-    "gender": "Male",
+    "gender": "Other",
     "dateOfBirth": "2012-10-20",
     "healthStatus": "Asthma",
     "educationLevel": "Secondary",
-    "religion": "Christian",
-    "gallery": [
-      "john.jpg"
-    ],
+    "gallery": ["shaurya_cwc.jpg", "shaurya_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   },
   {
     "ngoId": "68cb265d1a9593dbb973868d",
-    "name": "Ravi Kumar",
-    "age": 15,
+    "name": "Rahul",
+    "age": 14,
     "gender": "Male",
     "dateOfBirth": "2009-12-10",
     "healthStatus": "Healthy",
     "educationLevel": "Primary",
-    "religion": "Hindu",
-    "gallery": [
-      "ravi_kumar.jpg"
-    ],
+    "gallery": ["rahul_cwc.jpg", "rahul_police.jpg"],
     "adoptionStatus": "Available",
     "adopterId": null
   }

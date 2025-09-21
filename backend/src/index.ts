@@ -19,7 +19,12 @@ app.use("/ngo_gallery", express.static(path.join(__dirname, "../ngo_gallery")));
 
 // All routes
 app.use("/api/ngos", ngoRoutes); // Later add adopterRoutes, childrenRoutes here
+
 app.use("/api/children", childrenRoutes);
+
+// Serve uploads folder so frontend can access images
+app.use("/uploads", express.static(path.join(__dirname, "../multer_uploads")));
+
 
 connectDB();
 app.listen(PORT, () =>

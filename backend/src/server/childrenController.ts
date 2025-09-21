@@ -52,3 +52,43 @@ export const getChilByID=async(req:Request,res:Response)=>{
     }
 }
 
+// Controller to create a new child
+export const createChild = async (req: Request, res: Response) => {
+  try {
+    // Destructure fields from the request body
+    const { ngoId, name, age, gender, dateOfBirth, healthStatus, educationLevel } = req.body;
+
+    // Validate required fields
+    if (!ngoId || !name || !age || !gender) {
+      return res.status(400).json({ message: "NGO ID, name, age, and gender are required" });
+    }
+
+    // Extract uploaded file names from Multer
+    const gallery = req.files
+      ? (req.files as Express.Multer.File[]).map(file => file.filename)
+      : [];
+
+    // Create new Child document
+    const newChild = new Child({
+      ngoId,
+      name,
+      age,
+      gender,
+      dateOfBirth,
+      healthStatus,
+      educationLevel,
+      gallery,             // array of file names
+      adoptionStatus: "Available", // default
+      adopterId: null             // default
+    });
+
+    // Save to MongoDB
+    await newChild.save();
+
+    // Respond with success
+    res.status(201).json({ message: "Child created successfully", child: newChild });
+  } catch (error) {
+    console.error("Error creating child:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
