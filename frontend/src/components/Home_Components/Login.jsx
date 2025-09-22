@@ -87,8 +87,32 @@ function Login(){
     }
 
     if (role === "NGO") {
-      navigate("/ngo-home");
+    try {
+    const res = await fetch("http://localhost:5000/api/ngos/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: user }),
+    });
+
+    if (!res.ok) {
+      const errData = await res.json();
+      setError({ ...error, user: errData.message || "Login failed" });
+      return;
     }
+
+    const ngoData = await res.json();
+
+    // Save NGO info locally
+    localStorage.setItem("ngo", JSON.stringify(ngoData));
+
+    // Redirect to NGO home
+    navigate(`/ngo-home/${ngoData.id}`);
+  } catch (err) {
+    console.error(err);
+    setError({ ...error, user: "Server error, try later" });
+  }
+}
+
   }
 };
 

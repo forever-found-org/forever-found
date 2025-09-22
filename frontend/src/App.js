@@ -16,6 +16,7 @@ import Ngo_Home from './pages/Ngo_Home';
 import AdopterProfile from './pages/AdopterProfile';
 import EditAdopterProfile from './pages/Adopter_EditProfile';
 import InsertChildren from './pages/InsertChildren';
+import ViewChildren from './pages/ViewChildren';
 
 function App() {
  
@@ -28,8 +29,9 @@ function App() {
 
       <Route path="/adopter-SignUp" element={<SignUpAdopter />} />
       <Route path ="/ngo-signup" element={<SignupNgo/>}/>
-      <Route path="/ngo-home" element={<Ngo_Home />} />
-      <Route path="/ngo/insert-child" element={<InsertChildren />} />
+      <Route path="/ngo-home/:id" element={<Ngo_Home />} />
+      <Route path="/ngo-home/:id/insert-child" element={<InsertChildren />} />
+      <Route path="/ngo-home/:id/view-children" element={<ViewChildren />} />
 
       <Route path="/review-signup-form" element={<FormReviewPage />} />
       <Route path="/review-signup-form/ngo-acknowledgement" element={<NGoAckForm/>}></Route>

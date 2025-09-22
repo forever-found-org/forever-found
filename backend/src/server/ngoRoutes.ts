@@ -1,9 +1,18 @@
 import express from "express";
-import { getAllNGOs, getNGODetails, validateNgoId } from "./ngoController";
+import { getAllNGOs, getNGODetails, validateNgoId, loginNGO } from "./ngoController";
 
 const router = express.Router();
 
-router.get("/", getAllNGOs);          // Fetch all NGOs for cards page
-router.get("/:id", getNGODetails);    // Fetch full details for single NGO
-router.post("/validate-ngo", validateNgoId); //for ngo validation durinf insertion of new child
+// Fetch all NGOs for cards page
+router.get("/", getAllNGOs);
+
+// Fetch full details for a single NGO
+router.get("/:id", getNGODetails);
+
+// Validate NGO ID during child insertion
+router.post("/validate-ngo", validateNgoId);
+
+// --- NEW: NGO login route ---
+router.post("/login", loginNGO);
+
 export default router;

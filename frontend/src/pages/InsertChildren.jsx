@@ -34,11 +34,10 @@ function InsertChildren() {
     return { ...prev, gallery: updatedGallery };
   });
 };
-
-
+  const ngoData = JSON.parse(localStorage.getItem("ngo")) || {};
   const handleClick = (e) => {
     e.preventDefault();
-    navigate("/ngo-home");
+    navigate(`/ngo-home/${ngoData.id}`);
   };
 
   const handleSubmit = async (e) => {

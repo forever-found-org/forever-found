@@ -1,6 +1,31 @@
 import { Request, Response } from "express";
 import NGO from "../db/ngoModel";
 
+// --- Login NGO by email ---
+export const loginNGO = async (req: Request, res: Response) => {
+  const { email } = req.body;
+  console.log("NGO login attempt for email:", email);
+
+  try {
+    const ngo = await NGO.findOne({ email });
+    console.log("NGO found:", ngo);
+
+    if (!ngo) {
+      return res.status(404).json({ message: "NGO not found" });
+    }
+
+    // Send minimal info to frontend
+    res.json({
+      id: ngo._id,
+      name: ngo.name,
+      email: ngo.email,
+    });
+  } catch (err) {
+    console.error("Error logging in NGO:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 // Fetch all NGOs (for cards page)
 export const getAllNGOs = async (req: Request, res: Response) => {
   try {

@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import {UsersIcon,EditIcon,EyeIcon,ClockIcon,ListChecksIcon} from "lucide-react";
 
+const ngoData = JSON.parse(localStorage.getItem("ngo"));
 const options = [
-  { label: "Insert Child", Icon: UsersIcon, path: "/ngo/insert-child" },
+  { label: "Insert Child", Icon: UsersIcon, path: `/ngo-home/${ngoData.id}/insert-child` },
   { label: "Update Child", Icon: EditIcon, path: "/ngo/update-child" },
-  { label: "View Children", Icon: EyeIcon, path: "/ngo/view-children" },
+  { label: "View Children", Icon: EyeIcon, path: `/ngo-home/${ngoData.id}/view-children` },
   { label: "Pending Requests", Icon: ListChecksIcon, path: "/ngo/pending-requests" },
   { label: "Meetings/Status", Icon: ClockIcon, path: "/ngo/meetings-status" },
 ];

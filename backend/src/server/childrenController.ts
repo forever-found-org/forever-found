@@ -94,3 +94,22 @@ export const createChild = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+
+//view children
+export const getChildrenByNgo = async (req: Request, res: Response) => {
+  try {
+    const { ngoId } = req.params;
+
+    if (!ngoId) {
+      return res.status(400).json({ message: "NGO ID is required" });
+    }
+
+    const children = await Child.find({ ngoId }).select("-adopterId -gallery");
+    res.json(children);
+  } catch (error) {
+    console.error("Error fetching children:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
