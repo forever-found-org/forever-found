@@ -109,7 +109,10 @@ try {
   console.error("Failed to parse NGO data", e);
   return;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b65585248773945310307ed431d05892195f8dc4
 
     // Save NGO info locally
     localStorage.setItem("ngo", JSON.stringify(ngoData));

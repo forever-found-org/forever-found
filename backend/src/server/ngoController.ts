@@ -41,8 +41,28 @@ export const getNGODetails = async (req: Request, res: Response) => {
   try {
     const ngo = await NGO.findById(req.params.id);
     if (!ngo) return res.status(404).json({ message: "NGO not found" });
-    res.json(ngo);
+
+    // Explicitly return all fields
+    res.json({
+      id: ngo._id,
+      name: ngo.name,
+      location: ngo.location,
+      image: ngo.image,
+      yearOfEstablishment: ngo.yearOfEstablishment,
+      website: ngo.website,
+      contact: ngo.contact,
+      email: ngo.email,
+      ngoRegistrationNumber: ngo.registrationNumber, // make sure this exists in DB
+      caraRegistrationNumber: ngo.caraRegistrationNumber,
+      verified: ngo.verified,
+      about: ngo.about,
+      numberOfChildren: ngo.numberOfChildren,
+      gallery: ngo.gallery,
+      testimonials: ngo.testimonials,
+      socialId: ngo.socialId,
+    });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Failed to fetch NGO details" });
   }
 };
@@ -68,5 +88,27 @@ export const validateNgoId = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error validating NGO ID:", error);
     res.status(500).json({ error: "Server error while validating NGO ID" });
+  }
+};
+
+// --- Update NGO Details (gallery + testimonials included) ---
+export const updateNGODetails = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const updatedNgo = await NGO.findByIdAndUpdate(
+      id,
+      { $set: req.body },   // frontend sends updated fields
+      { new: true }
+    );
+
+    if (!updatedNgo) {
+      return res.status(404).json({ message: "NGO not found" });
+    }
+
+    res.json(updatedNgo);
+  } catch (error) {
+    console.error("Error updating NGO:", error);
+    res.status(500).json({ message: "Failed to update NGO" });
   }
 };
