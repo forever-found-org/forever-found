@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllNGOs, getNGODetails, validateNgoId, loginNGO } from "./ngoController";
+import { getAllNGOs, getNGODetails, validateNgoId, loginNGO,updateNGODetails } from "./ngoController";
 
 const router = express.Router();
 
@@ -14,5 +14,7 @@ router.post("/validate-ngo", validateNgoId);
 
 // --- NEW: NGO login route ---
 router.post("/login", loginNGO);
+
+router.put("/:id", updateNGODetails);
 
 export default router;

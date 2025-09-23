@@ -1,17 +1,52 @@
 import { useNavigate } from "react-router-dom";
-import {UsersIcon,EditIcon,EyeIcon,ClockIcon,ListChecksIcon} from "lucide-react";
-
-const ngoData = JSON.parse(localStorage.getItem("ngo"));
-const options = [
-  { label: "Insert Child", Icon: UsersIcon, path: `/ngo-home/${ngoData.id}/insert-child` },
-  { label: "Update Child", Icon: EditIcon, path: "/ngo/update-child" },
-  { label: "View Children", Icon: EyeIcon, path: `/ngo-home/${ngoData.id}/view-children` },
-  { label: "Pending Requests", Icon: ListChecksIcon, path: "/ngo/pending-requests" },
-  { label: "Meetings/Status", Icon: ClockIcon, path: "/ngo/meetings-status" },
-];
+import {
+  UsersIcon,
+  EditIcon,
+  EyeIcon,
+  ClockIcon,
+  ListChecksIcon,
+} from "lucide-react";
 
 function Ngo_Display() {
   const navigate = useNavigate();
+
+  // Safely load NGO data
+  let ngoData = null;
+  try {
+    const stored = localStorage.getItem("ngo");
+    if (stored) {
+      ngoData = JSON.parse(stored);
+    }
+  } catch (err) {
+    console.error("Error reading ngo from localStorage:", err);
+  }
+
+  const ngoId = ngoData?.id || ngoData?._id || null;
+
+  const options = [
+    { label: "Insert Child", Icon: UsersIcon, path: ngoId ? `/ngo-home/${ngoId}/insert-child` : "#" },
+    { label: "Update Child", Icon: EditIcon, path: "/ngo/update-child" },
+    { label: "View Children", Icon: EyeIcon, path: ngoId ? `/ngo-home/${ngoId}/view-children` : "#" },
+    { label: "Pending Requests", Icon: ListChecksIcon, path: "/ngo/pending-requests" },
+    { label: "Meetings/Status", Icon: ClockIcon, path: "/ngo/meetings-status" },
+  ];
+
+  // If no NGO is logged in → show a message instead of breaking
+  if (!ngoId) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h2 className="text-2xl font-bold text-red-600 mb-4">
+          No NGO data found
+        </h2>
+        <button
+          onClick={() => navigate("/")}
+          className="px-6 py-3 bg-[#006D77] text-white rounded-xl shadow hover:bg-[#004f55] transition"
+        >
+          Go to Login
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -26,7 +61,8 @@ function Ngo_Display() {
           {options.map(({ label, Icon, path }) => (
             <button
               key={label}
-              onClick={() => navigate(path)}
+              disabled={path === "#"}
+              onClick={() => path !== "#" && navigate(path)}
               className="flex flex-col items-center justify-center bg-[#fdfdfd] rounded-2xl shadow-md hover:shadow-xl p-6 text-center transition hover:scale-105 border border-[#b2ebf2]"
             >
               <Icon className="w-12 h-14 mb-4 text-[#006D77]" />
@@ -40,7 +76,5 @@ function Ngo_Display() {
     </div>
   );
 }
-
-
 
 export default Ngo_Display;
