@@ -10,7 +10,8 @@ const childSchema = new mongoose.Schema({
   educationLevel: { type: String },
   gallery: {type: [String],default: []},
   adoptionStatus: {type: String,enum: ["Available", "Adopted"],default: "Available"},
-  adopterId: { type: mongoose.Schema.Types.ObjectId, ref: "Adopter", default: null }
+  adopterId: { type: mongoose.Schema.Types.ObjectId, ref: "Adopter", default: null },
+  canEdit: { type: Boolean, default: true }
 });
 
 const Child = mongoose.model("Child", childSchema);

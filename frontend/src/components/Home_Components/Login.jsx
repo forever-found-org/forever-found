@@ -100,13 +100,22 @@ function Login(){
       return;
     }
 
-    const ngoData = await res.json();
+    const text = await res.text();
+console.log("Raw NGO Response:", text);
+let ngoData;
+try {
+  ngoData = JSON.parse(text);
+} catch (e) {
+  console.error("Failed to parse NGO data", e);
+  return;
+}
+
 
     // Save NGO info locally
     localStorage.setItem("ngo", JSON.stringify(ngoData));
 
     // Redirect to NGO home
-    navigate(`/ngo-home/${ngoData.id}`);
+    navigate(`/ngo-home/${ngoData.id || ngoData._id}`);
   } catch (err) {
     console.error(err);
     setError({ ...error, user: "Server error, try later" });
