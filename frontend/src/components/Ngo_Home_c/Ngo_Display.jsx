@@ -2,10 +2,6 @@ import { useNavigate } from "react-router-dom";
 import {
   UsersIcon,
   EditIcon,
-<<<<<<< HEAD
-=======
-  EyeIcon,
->>>>>>> b65585248773945310307ed431d05892195f8dc4
   ClockIcon,
   ListChecksIcon,
 } from "lucide-react";
@@ -24,20 +20,11 @@ function Ngo_Display() {
     console.error("Error reading ngo from localStorage:", err);
   }
 
-<<<<<<< HEAD
   const ngoId = ngoData?.id || ngoData?._id || null; 
 
   const options = [
     { label: "Insert Child", Icon: UsersIcon, path: ngoId ? `/ngo-home/${ngoId}/insert-child` : "#" },
     { label: "Manage Children", Icon: EditIcon, path: ngoId ? `/ngo-home/${ngoId}/view-children` : "#" },
-=======
-  const ngoId = ngoData?.id || ngoData?._id || null;
-
-  const options = [
-    { label: "Insert Child", Icon: UsersIcon, path: ngoId ? `/ngo-home/${ngoId}/insert-child` : "#" },
-    { label: "Update Child", Icon: EditIcon, path: "/ngo/update-child" },
-    { label: "View Children", Icon: EyeIcon, path: ngoId ? `/ngo-home/${ngoId}/view-children` : "#" },
->>>>>>> b65585248773945310307ed431d05892195f8dc4
     { label: "Pending Requests", Icon: ListChecksIcon, path: "/ngo/pending-requests" },
     { label: "Meetings/Status", Icon: ClockIcon, path: "/ngo/meetings-status" },
   ];
@@ -88,8 +75,4 @@ function Ngo_Display() {
   );
 }
 
-<<<<<<< HEAD
 export default Ngo_Display;
-=======
-export default Ngo_Display;
->>>>>>> b65585248773945310307ed431d05892195f8dc4
