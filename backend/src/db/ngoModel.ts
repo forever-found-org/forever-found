@@ -22,7 +22,8 @@ const ngoSchema = new mongoose.Schema({
   ],
   gallery: [String],
   socialId: String,
-  password: String 
+  password: String ,
+  canEdit: { type: Boolean, default: true }
 });
 
 const NGO = mongoose.model("NGO", ngoSchema);

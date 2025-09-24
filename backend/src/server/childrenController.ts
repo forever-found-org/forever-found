@@ -24,7 +24,6 @@ export const findChildrenMatches = async (req: Request, res: Response) => {
     };
 
     if (gender && gender !== "Any") query.gender = gender;
-    //if (religion && religion !== "Any") query.religion = religion;
     if (ageGroup && ageGroup !== "Any") {
       const [minAge, maxAge] = ageGroups[ageGroup] || [0, 100];
       query.age = { $gte: minAge, $lte: maxAge };
@@ -38,39 +37,34 @@ export const findChildrenMatches = async (req: Request, res: Response) => {
   }
 };
 
-
-export const getChilByID=async(req:Request,res:Response)=>{
-    try{
-      const {id}=req.params;
-      const child = await Child.findById(id);
-      if (!child) return res.status(404).json({ message: "Child not found" });
-      res.json(child);
-    }
-    catch(err){
-      console.error(err);
-      res.status(500).json({ message: "Server error" });
-    }
-}
+export const getChilByID = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const child = await Child.findById(id);
+    if (!child) return res.status(404).json({ message: "Child not found" });
+    res.json(child);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 // Controller to create a new child
 export const createChild = async (req: Request, res: Response) => {
   try {
     console.log("REQ.BODY:", req.body);
     console.log("REQ.FILES:", req.files);
-    // Destructure fields from the request body
+
     const { ngoId, name, age, gender, dateOfBirth, healthStatus, educationLevel } = req.body;
 
-    // Validate required fields
     if (!ngoId || !name || !age || !gender) {
       return res.status(400).json({ message: "NGO ID, name, age, and gender are required" });
     }
 
-    // Extract uploaded file names from Multer
     const gallery = req.files
       ? (req.files as Express.Multer.File[]).map(file => file.filename)
       : [];
 
-    // Create new Child document
     const newChild = new Child({
       ngoId,
       name,
@@ -79,15 +73,12 @@ export const createChild = async (req: Request, res: Response) => {
       dateOfBirth,
       healthStatus,
       educationLevel,
-      gallery,             // array of file names
-      adoptionStatus: "Available", // default
-      adopterId: null             // default
+      gallery,
+      adoptionStatus: "Available",
+      adopterId: null,
     });
 
-    // Save to MongoDB
     await newChild.save();
-
-    // Respond with success
     res.status(201).json({ message: "Child created successfully", child: newChild });
   } catch (error) {
     console.error("Error creating child:", error);
@@ -95,9 +86,7 @@ export const createChild = async (req: Request, res: Response) => {
   }
 };
 
-
-
-//view children
+// View children by NGO
 export const getChildrenByNgo = async (req: Request, res: Response) => {
   try {
     const { ngoId } = req.params;
@@ -106,10 +95,44 @@ export const getChildrenByNgo = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "NGO ID is required" });
     }
 
-    const children = await Child.find({ ngoId }).select("-adopterId -gallery");
+    const children = await Child.find({ ngoId }).select("-adopterId");
     res.json(children);
   } catch (error) {
     console.error("Error fetching children:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// ✅ Update child (new)
+export const updateChild = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const child = await Child.findById(id);
+
+    if (!child) {
+      return res.status(404).json({ message: "Child not found" });
+    }
+
+    // Update only allowed fields
+    const { age, healthStatus, educationLevel } = req.body;
+    if (age !== undefined) child.age = age;
+    if (healthStatus !== undefined) child.healthStatus = healthStatus;
+    if (educationLevel !== undefined) child.educationLevel = educationLevel;
+
+    // Handle new medical certificate uploads
+    if (req.files && Array.isArray(req.files)) {
+      const uploadedFiles = (req.files as Express.Multer.File[]).map(f => f.filename);
+
+      // Append new medical certificates to the gallery
+      child.gallery = [...child.gallery, ...uploadedFiles];
+    }
+
+    await child.save();
+
+    // Return full child details including gallery
+    res.json({ message: "Child updated successfully", child });
+  } catch (error) {
+    console.error("Error updating child:", error);
     res.status(500).json({ message: "Server error" });
   }
 };

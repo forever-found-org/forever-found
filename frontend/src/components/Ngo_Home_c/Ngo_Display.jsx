@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import {
   UsersIcon,
   EditIcon,
-  EyeIcon,
   ClockIcon,
   ListChecksIcon,
 } from "lucide-react";
@@ -21,12 +20,11 @@ function Ngo_Display() {
     console.error("Error reading ngo from localStorage:", err);
   }
 
-  const ngoId = ngoData?.id || ngoData?._id || null;
+  const ngoId = ngoData?.id || ngoData?._id || null; 
 
   const options = [
     { label: "Insert Child", Icon: UsersIcon, path: ngoId ? `/ngo-home/${ngoId}/insert-child` : "#" },
-    { label: "Update Child", Icon: EditIcon, path: "/ngo/update-child" },
-    { label: "View Children", Icon: EyeIcon, path: ngoId ? `/ngo-home/${ngoId}/view-children` : "#" },
+    { label: "Manage Children", Icon: EditIcon, path: ngoId ? `/ngo-home/${ngoId}/view-children` : "#" },
     { label: "Pending Requests", Icon: ListChecksIcon, path: "/ngo/pending-requests" },
     { label: "Meetings/Status", Icon: ClockIcon, path: "/ngo/meetings-status" },
   ];
