@@ -42,13 +42,13 @@ function AH_Navbar({ onLogoutClick }) {
         className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:bg-white hover:text-black hover:font-bold capitalize"
         onClick={toHome}
       >
-        home
+        Home
+      </button>
+      <button onClick={()=>{navigate(`/adopter/${adopter.Id}/meetings`)}}className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold">
+        Meetings History
       </button>
       <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold">
-        request history
-      </button>
-      <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold">
-        adoption history
+        Adoption History
       </button>
       <button
         className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold"
@@ -60,13 +60,13 @@ function AH_Navbar({ onLogoutClick }) {
             }
         }}
       >
-        parenting guide
+        Parenting Guide
       </button>
       <button
         className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold"
         onClick={onLogoutClick}
       >
-        logout
+        Logout
       </button>
 
       {/* Display adopter name/email if logged in */}

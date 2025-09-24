@@ -19,6 +19,7 @@ import InsertChildren from './pages/InsertChildren';
 import ViewChildren from './pages/ViewChildren';
 import NgoProfile from './pages/NgoProfile';
 import EditNgoProfile from './pages/Ngo_EditProfile';
+import MeetingHistory from './pages/meetingHistory';
 
 function App() {
  
@@ -34,6 +35,8 @@ function App() {
       <Route path="/ngo-home/:id" element={<Ngo_Home />} />
       <Route path="/ngo-home/:id/insert-child" element={<InsertChildren />} />
       <Route path="/ngo-home/:id/view-children" element={<ViewChildren />} />
+      <Route path="/ngo-home/:id/profile" element={<NgoProfile/>}></Route>
+      <Route path="ngo-home/:id/profile/edit" element={<EditNgoProfile/>}></Route>
 
       <Route path="/review-signup-form" element={<FormReviewPage />} />
       <Route path="/review-signup-form/ngo-acknowledgement" element={<NGoAckForm/>}></Route>
@@ -44,8 +47,9 @@ function App() {
       <Route path="/adopter-home/:id/parenting-guide" element={<Parenting_guide/>}/>   
       <Route path="/adopter-home/:id/profile" element={<AdopterProfile/>}/>    
       <Route path="/adopter-home/:id/profile/edit" element={<EditAdopterProfile/>}></Route>
-      <Route path="/ngo-home/:id/profile" element={<NgoProfile/>}></Route>
-      <Route path="ngo-home/:id/profile/edit" element={<EditNgoProfile/>}></Route>
+      
+
+      <Route path="/adopter/:adopterId/meetings" element={<MeetingHistory/>}></Route>
       </Routes>
     </Router>  
   );

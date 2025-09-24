@@ -1,0 +1,23 @@
+[
+  {
+    "adopterId": { "$oid": "68cddab41a9593dbb97388a3" },
+    "ngoId": { "$oid": "68cb265c1a9593dbb973867c" },
+    "childIds": [{ "$oid": "68d052ccf66b98c7a7e00ab5" }],
+    "status": "pending",
+    "meetDateChoices": [
+      { "$date": "2025-10-01T10:00:00Z" },
+      { "$date": "2025-10-02T14:00:00Z" }
+    ],
+    "timeSlotChoices": ["10:00 AM - 11:00 AM", "2:00 PM - 3:00 PM"],
+    "history": [
+      {
+        "status": "pending",
+        "changedBy": "adopter",
+        "timestamp": { "$date": "2025-09-24T12:00:00Z" },
+        "note": "Meeting requested"
+      }
+    ],
+    "createdAt": { "$date": "2025-09-24T12:00:00Z" },
+    "updatedAt": { "$date": "2025-09-24T12:00:00Z" }
+  }
+]
