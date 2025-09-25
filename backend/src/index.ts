@@ -6,6 +6,7 @@ import connectDB from "./db/db";
 import ngoRoutes from "./server/ngoRoutes";
 import childrenRoutes from "./server/childrenRoutes";
 import adopterRoutes from "./server/adopterRoutes";
+import meetingRoutes from "./server/meetingRoutes";
 
 dotenv.config();
 const app = express();
@@ -24,6 +25,7 @@ app.use("/api/ngos", ngoRoutes); // Later add adopterRoutes, childrenRoutes here
 app.use("/api/children", childrenRoutes);
 app.use("/api/adopter",adopterRoutes);
 
+app.use("/api/meetings",meetingRoutes);
 // Serve uploads folder so frontend can access images
 app.use("/multer_uploads", express.static(path.join(__dirname, "../multer_uploads")));
 

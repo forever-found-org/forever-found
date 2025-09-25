@@ -135,6 +135,7 @@ function Preferences() {
           onClose={() => setSelectedChildId(null)}
         />
       )}
+      <button>Request Meet</button>
     </div>
   );
 }

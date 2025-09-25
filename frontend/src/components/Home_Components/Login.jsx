@@ -110,7 +110,6 @@ try {
   return;
 }
 
-
     // Save NGO info locally
     localStorage.setItem("ngo", JSON.stringify(ngoData));
 
