@@ -4,14 +4,14 @@ import ChildCard from "./Childcard";
 import Child_Details from "./Child_Details";
 
 function Preferences() {
-  const { id: ngoId } = useParams(); // get ngoId from URL
+  const { id: ngoId } = useParams();
   const [gender, setGender] = useState("");
   const [ageGroup, setAgeGroup] = useState("");
-  const [children, setChildren] = useState([]); // filtered children
-  const [selectedChildIds, setSelectedChildIds] = useState([]); // all filtered children
+  const [children, setChildren] = useState([]);
+  const [selectedChildIds, setSelectedChildIds] = useState([]);
   const [error, setError] = useState("");
   const [hitFindMatch, setHitFindMatch] = useState(false);
-  const [selectedChildId,setSelectedChildId] =useState(null);
+  const [selectedChildId, setSelectedChildId] = useState(null);
   const navigate = useNavigate();
 
   // Fetch filtered children
@@ -28,9 +28,10 @@ function Preferences() {
       setChildren(data);
       setError("");
 
-      // Automatically select all filtered children for meeting
+      // ✅ Automatically select all displayed children for meeting
       const allIds = data.map((child) => child._id);
       setSelectedChildIds(allIds);
+
     } catch (err) {
       console.error(err);
       setError("Could not fetch matches. Please try again.");
@@ -40,8 +41,15 @@ function Preferences() {
 
   // Request a meeting for all filtered children
   const handleReqMeet = async () => {
+    // ✅ Require at least one preference
+    if (!gender && !ageGroup) {
+      setError("Please select at least one preference before requesting a meeting.");
+      setChildren([]);
+      setHitFindMatch(false);
+      return;
+    }
     if (selectedChildIds.length === 0) {
-      alert("No children selected for meeting!");
+      alert("No children available to request a meeting!");
       return;
     }
 
@@ -58,7 +66,7 @@ function Preferences() {
 
       if (!response.ok) throw new Error("Failed to request meeting");
 
-      const data = await response.json();
+      await response.json();
       alert("Meeting requested successfully! ✅");
 
       // Redirect to Meeting History
@@ -138,7 +146,7 @@ function Preferences() {
           <div className="mt-8 grid grid-cols-2 md:grid-cols-5 gap-6 w-full">
             {children.length > 0 ? (
               children.map((child) => (
-                <div key={child._id || child.id} onClick={()=>{setSelectedChildId(child._id)}}>
+                <div key={child._id || child.id} onClick={() => setSelectedChildId(child._id)}>
                   <ChildCard 
                     name={child.name}
                     age={child.age}
@@ -152,7 +160,12 @@ function Preferences() {
             )}
           </div>
 
-          {selectedChildId && (<Child_Details childId={selectedChildId} onClose={()=>{setSelectedChildId(null)}}/>)}
+          {selectedChildId && (
+            <Child_Details
+              childId={selectedChildId}
+              onClose={() => setSelectedChildId(null)}
+            />
+          )}
 
           {/* Request Meet Button */}
           <div className="text-center">

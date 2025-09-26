@@ -78,6 +78,10 @@ function Login(){
 
         // Save adopter info locally
         localStorage.setItem("adopter", JSON.stringify(adopterData));
+        //console.log("Full adopterData:", adopterData);
+
+        localStorage.setItem("adopterId", adopterData.id);
+        //console.log("Adopter ID saved:", localStorage.getItem("adopterId"));
 
         navigate(`/adopter-home/${adopterData.id}`);
       } catch (err) {
