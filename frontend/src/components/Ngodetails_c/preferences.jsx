@@ -1,17 +1,20 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ChildCard from "./Childcard";
-import Child_Details from "./Child_Details"; // your modal component
+import Child_Details from "./Child_Details";
 
 function Preferences() {
   const { id: ngoId } = useParams(); // get ngoId from URL
   const [gender, setGender] = useState("");
   const [ageGroup, setAgeGroup] = useState("");
-  //const [religion, setReligion] = useState("");
-  const [children, setChildren] = useState([]); // store results
+  const [children, setChildren] = useState([]); // filtered children
+  const [selectedChildIds, setSelectedChildIds] = useState([]); // all filtered children
   const [error, setError] = useState("");
-  const [selectedChildId, setSelectedChildId] = useState(null);
+  const [hitFindMatch, setHitFindMatch] = useState(false);
+  const [selectedChildId,setSelectedChildId] =useState(null);
+  const navigate = useNavigate();
 
+  // Fetch filtered children
   const handleFindMatch = async () => {
     try {
       const response = await fetch("http://localhost:5000/api/children/match", {
@@ -24,9 +27,45 @@ function Preferences() {
       const data = await response.json();
       setChildren(data);
       setError("");
+
+      // Automatically select all filtered children for meeting
+      const allIds = data.map((child) => child._id);
+      setSelectedChildIds(allIds);
     } catch (err) {
       console.error(err);
       setError("Could not fetch matches. Please try again.");
+    }
+    setHitFindMatch(true);
+  };
+
+  // Request a meeting for all filtered children
+  const handleReqMeet = async () => {
+    if (selectedChildIds.length === 0) {
+      alert("No children selected for meeting!");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/meetings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          adopterId: localStorage.getItem("adopterId"),
+          ngoId,
+          childIds: selectedChildIds,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Failed to request meeting");
+
+      const data = await response.json();
+      alert("Meeting requested successfully! ✅");
+
+      // Redirect to Meeting History
+      navigate(`/adopter/${localStorage.getItem("adopterId")}/meetings`);
+    } catch (err) {
+      console.error(err);
+      alert("Could not create meeting. Try again.");
     }
   };
 
@@ -46,7 +85,6 @@ function Preferences() {
         <div className="flex justify-around mb-4 px-4 text-gray-700 font-serif font-semibold">
           <label>Gender</label>
           <label>Age Group</label>
-          {/* <label>Religion</label> */}
         </div>
 
         {/* Dropdowns */}
@@ -73,21 +111,9 @@ function Preferences() {
             <option value="9-11">9-11</option>
             <option value="12-18">12-18</option>
           </select>
-
-          {/* <select
-            value={religion}
-            onChange={(e) => setReligion(e.target.value)}
-            className="flex-1 p-3 rounded-lg bg-white shadow-sm font-serif border border-gray-300"
-          >
-            <option value="">Any</option>
-            <option value="Hindu">Hindu</option>
-            <option value="Muslim">Muslim</option>
-            <option value="Sikh">Sikh</option>
-            <option value="Christian">Christian</option>
-          </select> */}
         </div>
 
-        {/* Button */}
+        {/* Find Match Button */}
         <div className="text-center">
           <button
             onClick={handleFindMatch}
@@ -101,41 +127,44 @@ function Preferences() {
       {/* Error */}
       {error && <p className="text-red-500 mt-4">{error}</p>}
 
-      {/* Matches Header */}
-      <div className="w-full h-auto mt-5 p-3 text-center bg-white">
-        <h1 className="text-3xl font-bold font-serif uppercase">Matches Found</h1>
-      </div>
+      {/* Matches Section */}
+      {hitFindMatch && (
+        <div className="w-full">
+          <div className="w-full h-auto mt-5 p-3 text-center bg-white">
+            <h1 className="text-3xl font-bold font-serif uppercase">Matches Found</h1>
+          </div>
 
-      {/* Results */}
-      <div className="mt-8 grid grid-cols-2 md:grid-cols-5 gap-6 w-full">
-        {children.length > 0 ? (
-          children.map((child) => (
-            <div
-              key={child._id || child.id}
-              onClick={() => setSelectedChildId(child._id)}
+          {/* Child Cards */}
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-5 gap-6 w-full">
+            {children.length > 0 ? (
+              children.map((child) => (
+                <div key={child._id || child.id} onClick={()=>{setSelectedChildId(child._id)}}>
+                  <ChildCard 
+                    name={child.name}
+                    age={child.age}
+                    gender={child.gender}
+                    adoptionStatus={child.adoptionStatus}
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 italic mt-4">No matches found yet.</p>
+            )}
+          </div>
+
+          {selectedChildId && (<Child_Details childId={selectedChildId} onClose={()=>{setSelectedChildId(null)}}/>)}
+
+          {/* Request Meet Button */}
+          <div className="text-center">
+            <button
+              onClick={handleReqMeet}
+              className="mt-10 px-6 py-3 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-serif font-semibold shadow-md transform hover:scale-105 transition duration-300"
             >
-              <ChildCard
-                name={child.name}
-                age={child.age}
-                gender={child.gender}
-                //religion={child.religion}
-                adoptionStatus={child.adoptionStatus}
-              />
-            </div>
-          ))
-        ) : (
-          <p className="text-gray-500 italic mt-4">No matches found yet.</p>
-        )}
-      </div>
-
-      {/* Child Details Modal */}
-      {selectedChildId && (
-        <Child_Details
-          childId={selectedChildId}
-          onClose={() => setSelectedChildId(null)}
-        />
+              Request Meet
+            </button>
+          </div>
+        </div>
       )}
-      <button>Request Meet</button>
     </div>
   );
 }

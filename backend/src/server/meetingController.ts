@@ -20,3 +20,34 @@ export const getMeetingsByAdopter = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+export const createMeeting = async (req: Request, res: Response) => {
+  try {
+    const { adopterId, ngoId, childIds } = req.body;
+
+    // Create a new meeting document
+    const newMeeting = new Meeting({
+      adopterId,
+      ngoId,
+      childIds,
+      status: "pending", // default status is pending
+      history: [
+        {
+          status: "pending",
+          changedBy: "adopter",
+          timestamp: new Date(),
+          note: "Meeting requested by adopter",
+        },
+      ],
+    });
+
+    // Save the new meeting to the database
+    await newMeeting.save();
+
+    // Return the newly created meeting as a response
+    res.status(201).json(newMeeting);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create meeting" });
+  }
+};
