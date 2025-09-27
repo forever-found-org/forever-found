@@ -25,8 +25,8 @@ function Ngo_Display() {
   const options = [
     { label: "Insert Child", Icon: UsersIcon, path: ngoId ? `/ngo-home/${ngoId}/insert-child` : "#" },
     { label: "Manage Children", Icon: EditIcon, path: ngoId ? `/ngo-home/${ngoId}/view-children` : "#" },
-    { label: "Pending Requests", Icon: ListChecksIcon, path: "/ngo/pending-requests" },
-    { label: "Meetings/Status", Icon: ClockIcon, path: "/ngo/meetings-status" },
+    { label: "Pending Requests", Icon: ListChecksIcon, path: ngoId ? `/ngo-home/${ngoId}/pending-requests` : "#" },
+    { label: "Meetings/Status", Icon: ClockIcon, path: ngoId ? `/ngo-home/${ngoId}/meeting-status` : "#" },
   ];
 
   // If no NGO is logged in → show a message instead of breaking

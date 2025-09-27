@@ -17,6 +17,10 @@ const adopterSchema = new mongoose.Schema({
   aadharImage: { type: String, required: true },
   socialId: { type: String, required: true },
   password: { type: String, required: true }, // should be hashed in production
+  healthStatus: {
+    type: [String], // array of strings
+    default: [],    // start as empty array
+  }
 });
 
 const Adopter = mongoose.model("Adopter", adopterSchema);

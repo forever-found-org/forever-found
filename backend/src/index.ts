@@ -26,6 +26,8 @@ app.use("/api/children", childrenRoutes);
 app.use("/api/adopter",adopterRoutes);
 
 app.use("/api/meetings",meetingRoutes);
+
+
 // Serve uploads folder so frontend can access images
 app.use("/multer_uploads", express.static(path.join(__dirname, "../multer_uploads")));
 

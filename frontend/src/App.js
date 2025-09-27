@@ -20,6 +20,9 @@ import ViewChildren from './pages/ViewChildren';
 import NgoProfile from './pages/NgoProfile';
 import EditNgoProfile from './pages/Ngo_EditProfile';
 import MeetingHistory from './pages/meetingHistory';
+import PendingRequests_NGO from './pages/PendingRequests_NGO';
+import PendingRequestDetails_NGO from './pages/PendingRequestDetails_NGO';
+import Meeting_Status_NGO from './pages/Meeting_Status_NGO';
 
 function App() {
  
@@ -50,6 +53,9 @@ function App() {
       
 
       <Route path="/adopter/:adopterId/meetings" element={<MeetingHistory/>}></Route>
+      <Route path="/ngo-home/:id/pending-requests" element={<PendingRequests_NGO/>}></Route>
+      <Route path="/ngo-home/:id/pending-requests/:meetingId" element={<PendingRequestDetails_NGO/>}></Route>
+      <Route path="/ngo-home/:id/meeting-status" element={<Meeting_Status_NGO/>}></Route>
       </Routes>
     </Router>  
   );
