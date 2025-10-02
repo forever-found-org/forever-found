@@ -23,6 +23,7 @@ import MeetingHistory from './pages/meetingHistory';
 import PendingRequests_NGO from './pages/PendingRequests_NGO';
 import PendingRequestDetails_NGO from './pages/PendingRequestDetails_NGO';
 import Meeting_Status_NGO from './pages/Meeting_Status_NGO';
+import ViewMeeting from './pages/ViewMeeting';
 
 function App() {
  
@@ -51,11 +52,12 @@ function App() {
       <Route path="/adopter-home/:id/profile" element={<AdopterProfile/>}/>    
       <Route path="/adopter-home/:id/profile/edit" element={<EditAdopterProfile/>}></Route>
       
-
+      <Route path="/adopter/:adopterId/meetings/:meetingId" element={<ViewMeeting/>}/>
       <Route path="/adopter/:adopterId/meetings" element={<MeetingHistory/>}></Route>
       <Route path="/ngo-home/:id/pending-requests" element={<PendingRequests_NGO/>}></Route>
       <Route path="/ngo-home/:id/pending-requests/:meetingId" element={<PendingRequestDetails_NGO/>}></Route>
       <Route path="/ngo-home/:id/meeting-status" element={<Meeting_Status_NGO/>}></Route>
+      
       </Routes>
     </Router>  
   );

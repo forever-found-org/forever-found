@@ -1,0 +1,160 @@
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+
+function ViewMeeting() {
+  const { adopterId, meetingId } = useParams();
+  const [meeting, setMeeting] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [fixed, setFixed] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchMeetingDetails() {
+      try {
+        const res = await fetch(`http://localhost:5000/api/meetings/${meetingId}`);
+        if (!res.ok) throw new Error("Failed to fetch meeting details");
+        const data = await res.json();
+        setMeeting(data);
+
+        if (data.status === "fixed") {
+          setSelectedSlot({
+            date: data.fixedMeetDate,
+            time: data.fixedTimeSlot,
+          });
+          setFixed(true);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchMeetingDetails();
+  }, [meetingId]);
+
+  if (loading) return <p className="text-center mt-10 text-lg text-gray-600">Loading...</p>;
+  if (error) return <p className="text-center mt-10 text-lg text-red-500">{error}</p>;
+  if (!meeting) return <p className="text-center mt-10 text-lg text-gray-700">Meeting not found</p>;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-green-50 py-10 px-6 font-serif">
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-3xl font-bold text-blue-900 ml-32">Meeting Details</h2>
+        <button
+          onClick={() => navigate(`/adopter/${adopterId}/meetings`)}
+          className="border bg-amber-500 rounded-md px-4 py-2 font-serif mr-32 hover:bg-amber-600 hover:scale-105 transition"
+        >
+          Back
+        </button>
+      </div>
+
+      <div className="max-w-6xl mx-auto space-y-10">
+        {/* NGO Details */}
+        <section className="bg-white shadow-md rounded-xl p-6">
+          <h3 className="text-xl font-semibold text-blue-800 mb-4">NGO Details</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <p><span className="font-medium">Name:</span> {meeting.ngoId?.name}</p>
+            <p><span className="font-medium">Location:</span> {meeting.ngoId?.location}</p>
+            <p><span className="font-medium">Email:</span> {meeting.ngoId?.email}</p>
+            <p><span className="font-medium">Contact:</span> {meeting.ngoId?.contact}</p>
+          </div>
+        </section>
+
+        {/* Child Details */}
+        <section className="bg-white shadow-md rounded-xl p-6">
+          <h3 className="text-xl font-semibold text-blue-800 mb-4">Child Details</h3>
+          {meeting.childIds && meeting.childIds.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {meeting.childIds.map((child) => (
+                <div key={child._id} className="bg-blue-50 rounded-lg p-4 shadow hover:shadow-lg transition">
+                  <p className="font-semibold text-blue-700 mb-1">{child.name}</p>
+                  <p>Age: {child.age}</p>
+                  <p>Gender: {child.gender}</p>
+                  <p className="italic">Medical: {child.medicalCondition || "None"}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-600 italic">No children linked to this meeting</p>
+          )}
+        </section>
+
+        {/* Time Slots Section */}
+        <section className="bg-white shadow-md rounded-xl p-6">
+          <h3 className="text-xl font-semibold text-blue-800 mb-4">Meeting Slots</h3>
+
+          {/* NGO Slots */}
+          <div className="mb-6">
+            <p className="font-medium text-gray-800 mb-2">Time Slots Given by NGO:</p>
+            {meeting.status === "pending" ? (
+              <p className="text-gray-600 italic">Nothing given by NGO</p>
+            ) : meeting.status === "accepted" && meeting.timeSlots?.length > 0 ? (
+              <div className="space-y-2">
+                {meeting.meetDateChoices && meeting.timeSlots && meeting.meetDateChoices.length > 0 ? (
+            meeting.meetDateChoices.map((date, idx) => {
+                const time = meeting.timeSlots[idx]; // corresponding time
+                return (
+                <label
+                    key={idx}
+                    className="flex items-center space-x-2 cursor-pointer mb-2"
+                >
+                    <input
+                    type="radio"
+                    name="slot"
+                    disabled={fixed}
+                    value={idx}
+                    checked={
+                        selectedSlot?.date === date &&
+                        selectedSlot?.time === time
+                    }
+                    onChange={() =>
+                        setSelectedSlot({ date, time })
+                    }
+                    className="cursor-pointer"
+                    />
+                    <span>
+                    {new Date(date).toLocaleDateString()} at {time}
+                    </span>
+                </label>
+                );
+            })
+            ) : (
+            <p className="text-gray-600 italic">No slots available</p>
+            )}
+              </div>
+            ) : fixed && selectedSlot ? (
+              <p>{new Date(selectedSlot.date).toLocaleDateString()} at {selectedSlot.time}</p>
+            ) : (
+              <p className="text-gray-600 italic">No slots available</p>
+            )}
+          </div>
+
+          {/* Selected Slot */}
+          <div className="mb-4">
+            <p className="font-medium text-gray-800 mb-1">Selected Time Slot:</p>
+            {selectedSlot ? (
+              <p>{new Date(selectedSlot.date).toLocaleDateString()} at {selectedSlot.time}</p>
+            ) : (
+              <p className="text-gray-600 italic">Nothing selected</p>
+            )}
+          </div>
+
+          {/* Fix Meet Button */}
+          {!fixed && meeting.status === "accepted" && selectedSlot && (
+            <button
+              onClick={() => setFixed(true)}
+              className="mt-2 bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 hover:scale-105 transition"
+            >
+              Fix Meet
+            </button>
+          )}
+        </section>
+      </div>
+    </div>
+  );
+}
+
+export default ViewMeeting;

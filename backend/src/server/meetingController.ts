@@ -77,26 +77,38 @@ export const getPendingMeetingsForNGO = async (req: Request, res: Response) => {
   }
 };
 
-
-//fetch single meeting details
+// Fetch single meeting details including NGO, children, and time slots
 export const getMeetingById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params; // meetingId from URL
+    const { id } = req.params; // meetingId
 
     const meeting = await Meeting.findById(id)
-      .populate("adopterId", "fullName email address contactNumber  gender dateOfBirth maritalStatus occupation salaryPerAnnum aadharNumber healthStatus numberOfBiologicalChildren alternateContactNumber")
-      .populate("childIds", "name age gender");
+      .populate("childIds", "name age gender medicalCondition") // Child details
+      .populate("ngoId", "name location email contact"); // NGO details
 
     if (!meeting) {
       return res.status(404).json({ message: "Meeting not found" });
     }
 
-    res.status(200).json(meeting);
+    // Send all necessary fields for frontend
+    res.status(200).json({
+      _id: meeting._id,
+      status: meeting.status,
+      childIds: meeting.childIds,
+      ngoId: meeting.ngoId,
+      meetDateChoices: meeting.meetDateChoices || [],
+      timeSlots: meeting.timeSlotChoices || [],
+      fixedMeetDate: meeting.fixedMeetDate || null,
+      fixedTimeSlot: meeting.fixedTimeSlot || null,
+      history: meeting.history || [],
+    });
   } catch (error: any) {
     console.error("Error fetching meeting:", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+
 
 
 export const acceptMeeting = async (req: Request, res: Response) => {
