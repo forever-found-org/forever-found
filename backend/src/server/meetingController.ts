@@ -83,6 +83,10 @@ export const getMeetingById = async (req: Request, res: Response) => {
     const { id } = req.params; // meetingId
 
     const meeting = await Meeting.findById(id)
+      .populate(
+        "adopterId",
+        "fullName email contactNumber alternateContactNumber address gender dateOfBirth maritalStatus occupation salaryPerAnnum numberOfBiologicalChildren aadharNumber healthStatus"
+      )//adopter details
       .populate("childIds", "name age gender medicalCondition") // Child details
       .populate("ngoId", "name location email contact"); // NGO details
 
@@ -96,6 +100,7 @@ export const getMeetingById = async (req: Request, res: Response) => {
       status: meeting.status,
       childIds: meeting.childIds,
       ngoId: meeting.ngoId,
+      adopter: meeting.adopterId,
       meetDateChoices: meeting.meetDateChoices || [],
       timeSlots: meeting.timeSlotChoices || [],
       fixedMeetDate: meeting.fixedMeetDate || null,

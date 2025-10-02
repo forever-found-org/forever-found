@@ -137,11 +137,8 @@ function PendingRequestDetails_NGO() {
   const adopter = meeting.adopterId;
 
   // Mask sensitive info
-  const maskedAadhar = adopter?.aadharNumber
-    ? adopter.aadharNumber.slice(0, 4) + "-XXXX-" + adopter.aadharNumber.slice(-4)
-    : "Not provided";
-  const maskedDOB = adopter?.dateOfBirth
-    ? adopter.dateOfBirth.split("-").map((v, i) => (i === 2 ? "XXXX" : v)).join("-")
+  const maskedAadhar = meeting.adopter?.aadharNumber
+    ? meeting.adopter.aadharNumber.slice(0, 4) + "-XXXX-" + meeting.adopter.aadharNumber.slice(-4)
     : "Not provided";
 
   const getTodayDate = () => {
@@ -167,19 +164,19 @@ function PendingRequestDetails_NGO() {
         <div className="bg-white rounded-3xl shadow-lg p-6 border border-amber-200">
           <h3 className="text-2xl font-semibold text-orange-900 text-center mb-4 border-b border-amber-200 pb-2">Adopter Details</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <p><span className="font-semibold text-orange-700">Full Name:</span> {adopter?.fullName}</p>
-            <p><span className="font-semibold text-orange-700">Email:</span> {adopter?.email}</p>
-            <p><span className="font-semibold text-orange-700">Contact Number:</span> {adopter?.contactNumber}</p>
-            <p><span className="font-semibold text-orange-700">Alternate Contact:</span> {adopter?.alternateContactNumber || "Not provided"}</p>
-            <p className="col-span-2"><span className="font-semibold text-orange-700">Address:</span> {adopter?.address}</p>
-            <p><span className="font-semibold text-orange-700">Gender:</span> {adopter?.gender}</p>
-            <p><span className="font-semibold text-orange-700">Date of Birth:</span> {maskedDOB}</p>
-            <p><span className="font-semibold text-orange-700">Marital Status:</span> {adopter?.maritalStatus}</p>
-            <p><span className="font-semibold text-orange-700">Occupation:</span> {adopter?.occupation}</p>
-            <p><span className="font-semibold text-orange-700">Salary per Annum:</span> {adopter?.salaryPerAnnum}</p>
-            <p><span className="font-semibold text-orange-700">Number of Biological Children:</span> {adopter?.numberOfBiologicalChildren}</p>
+            <p><span className="font-semibold text-orange-700">Full Name:</span> {meeting.adopter?.fullName}</p>
+            <p><span className="font-semibold text-orange-700">Email:</span> {meeting.adopter?.email}</p>
+            <p><span className="font-semibold text-orange-700">Contact Number:</span> {meeting.adopter?.contactNumber}</p>
+            <p><span className="font-semibold text-orange-700">Alternate Contact:</span> {meeting.adopter?.alternateContactNumber || "Not provided"}</p>
+            <p className="col-span-2"><span className="font-semibold text-orange-700">Address:</span> {meeting.adopter?.address}</p>
+            <p><span className="font-semibold text-orange-700">Gender:</span> {meeting.adopter?.gender}</p>
+            <p><span className="font-semibold text-orange-700">Date of Birth:</span>{meeting.adopter?.dateOfBirth} </p>
+            <p><span className="font-semibold text-orange-700">Marital Status:</span> {meeting.adopter?.maritalStatus}</p>
+            <p><span className="font-semibold text-orange-700">Occupation:</span> {meeting.adopter?.occupation}</p>
+            <p><span className="font-semibold text-orange-700">Salary per Annum:</span> {meeting.adopter?.salaryPerAnnum}</p>
+            <p><span className="font-semibold text-orange-700">Number of Biological Children:</span> {meeting.adopter?.numberOfBiologicalChildren}</p>
             <p><span className="font-semibold text-orange-700">Aadhar Number:</span> {maskedAadhar}</p>
-            <p className="col-span-2"><span className="font-semibold text-orange-700">Health Status:</span> {adopter?.healthStatus?.length ? adopter.healthStatus.join(", ") : "No info provided"}</p>
+            <p className="col-span-2"><span className="font-semibold text-orange-700">Health Status:</span> {meeting.adopter?.healthStatus?.length ? meeting.adopter.healthStatus.join(", ") : "No info provided"}</p>
           </div>
         </div>
 
