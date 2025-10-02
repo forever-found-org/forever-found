@@ -24,6 +24,7 @@ import PendingRequests_NGO from './pages/PendingRequests_NGO';
 import PendingRequestDetails_NGO from './pages/PendingRequestDetails_NGO';
 import Meeting_Status_NGO from './pages/Meeting_Status_NGO';
 import ViewMeeting from './pages/ViewMeeting';
+import Meeting_Status_Details from './pages/Meeting_Status_Details';
 
 function App() {
  
@@ -57,6 +58,7 @@ function App() {
       <Route path="/ngo-home/:id/pending-requests" element={<PendingRequests_NGO/>}></Route>
       <Route path="/ngo-home/:id/pending-requests/:meetingId" element={<PendingRequestDetails_NGO/>}></Route>
       <Route path="/ngo-home/:id/meeting-status" element={<Meeting_Status_NGO/>}></Route>
+      <Route path="/ngo-home/:id/meeting-status-details/:meetingId" element={<Meeting_Status_Details/>}></Route>
       
       </Routes>
     </Router>  

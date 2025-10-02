@@ -26,112 +26,75 @@ function MeetingHistory() {
     fetchMeetings();
   }, [adopterId]);
 
-  if (loading)
-    return (
-      <p className="text-center mt-10 text-lg text-gray-600">
-        Loading meetings...
-      </p>
-    );
-
-  if (error)
-    return (
-      <p className="text-center mt-10 text-lg text-red-500">{error}</p>
-    );
-
+  if (loading) return <p className="text-center mt-10 text-lg text-gray-600">Loading meetings...</p>;
+  if (error) return <p className="text-center mt-10 text-lg text-red-500">{error}</p>;
   if (meetings.length === 0)
-    return (
-      <p className="text-center mt-10 text-lg text-gray-700">
-        No meeting history found.
-      </p>
-    );
+    return <p className="text-center mt-10 text-lg text-gray-700">No meeting history found.</p>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-green-50 py-10 px-6 font-serif">
-      <div className=" flex justify-between items-center">
-        <h2 className="text-4xl font-bold text-center text-blue-900 mb-10 ml-32">
-          Meeting History
-        </h2>
+    <div className="w-screen p-6 bg-gradient-to-br from-blue-50 to-green-50 min-h-screen font-serif">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-4xl font-bold text-blue-900 ml-6">Meeting History</h2>
         <button
           onClick={() => navigate(`/adopter-home/${adopterId}`)}
-          className="border bg-amber-500 rounded-md p-2 font-serif mb-5 mr-32 hover:bg-amber-600 hover:scale-105"
+          className="px-3 py-2 mr-3 mb-2 bg-amber-700 text-white font-semibold rounded-2xl shadow-md hover:bg-amber-800 hover:shadow-lg hover:scale-105"
         >
           Home
         </button>
       </div>
 
-      <div className="space-y-8 max-w-5xl mx-auto">
+      <div className="space-y-3 w-full mx-auto">
         {meetings.map((meeting) => (
           <div
             key={meeting._id}
-            className="bg-white rounded-xl shadow-lg p-6 border-l-8 border-blue-600 hover:shadow-xl transition"
+            onClick={() => navigate(`/adopter/${adopterId}/meetings/${meeting._id}`)}
+            className="bg-white rounded-2xl p-4 border border-blue-200 shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 cursor-pointer"
           >
-            {/* Meeting Summary */}
-            <div className="mb-4">
-              <p>
-                <span className="font-semibold text-blue-700">Status:</span>{" "}
-                <span
-                  className={`px-3 py-1 rounded-lg text-white ${
-                    meeting.status === "pending"
-                      ? "bg-yellow-500"
-                      : meeting.status === "accepted"
-                      ? "bg-green-600"
-                      : meeting.status === "fixed"
-                      ? "bg-blue-600"
-                      : "bg-red-600"
-                  }`}
-                >
-                  {meeting.status.toUpperCase()}
-                </span>
-              </p>
-              {meeting.fixedMeetDate && (
-                <p>
-                  <span className="font-semibold text-blue-700">
-                    Final Meeting:
-                  </span>{" "}
-                  {new Date(meeting.fixedMeetDate).toLocaleDateString()} at{" "}
-                  {meeting.fixedTimeSlot}
-                </p>
-              )}
-            </div>
-
-            {/* Meeting Timeline */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                Timeline
+            <div className="flex justify-between items-center">
+              <h3 className="text-xl font-semibold text-blue-900">
+                {meeting.ngoId?.name || "No NGO"}
               </h3>
-              <ol className="border-l-2 border-blue-400 ml-2 space-y-3">
-                {meeting.history.map((event, idx) => (
-                  <li key={idx} className="ml-4">
-                    <div className="flex flex-col">
-                      <span className="text-blue-700 font-medium">
-                        {event.status}
-                      </span>
-                      <span className="text-sm text-gray-500">
-                        by {event.changedBy} on{" "}
-                        {new Date(event.timestamp).toLocaleString()}
-                      </span>
-                      {event.note && (
-                        <span className="text-sm text-gray-700 italic">
-                          {event.note}
-                        </span>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ol>
+              <p
+                className={`px-3 py-1 rounded-full text-sm font-medium shadow-sm ${
+                  meeting.status === "pending"
+                    ? "bg-yellow-200 text-yellow-800"
+                    : meeting.status === "accepted"
+                    ? "bg-green-200 text-green-800"
+                    : meeting.status === "fixed"
+                    ? "bg-blue-200 text-blue-800"
+                    : "bg-red-200 text-red-800"
+                }`}
+              >
+                <span className="font-semibold">Status:</span>{" "}
+                {meeting.status === "accepted" ? "Approved" : meeting.status}
+              </p>
             </div>
 
-            {/* View Details Button */}
-            <div className="mt-4 text-right">
-              <button
-                onClick={() =>
-                  navigate(`/adopter/${adopterId}/meetings/${meeting._id}`)
-                }
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 hover:scale-105 transition"
-              >
-                View Details
-              </button>
+            <div className="mt-2 space-y-1 text-gray-700">
+              <p>
+                <span className="font-semibold text-blue-700">Email:</span>{" "}
+                {meeting.ngoId?.email || "Not available"}
+              </p>
+              <p>
+                <span className="font-semibold text-blue-700">Location:</span>{" "}
+                {meeting.ngoId?.location || "Not provided"}
+              </p>
+              <p>
+                <span className="font-semibold text-blue-700">Children Requested:</span>{" "}
+                {meeting.childIds?.map((c) => c.name).join(", ") || "No children"}
+              </p>
             </div>
+
+            {meeting.fixedMeetDate && (
+              <p className="mt-2 text-sm text-gray-600 italic">
+                Final Meeting Fixed:{" "}
+                {new Date(meeting.fixedMeetDate).toLocaleDateString()} at {meeting.fixedTimeSlot}
+              </p>
+            )}
+
+            <p className="text-blue-500 mt-2 text-sm italic">
+              Click to view more details
+            </p>
           </div>
         ))}
       </div>

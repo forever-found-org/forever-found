@@ -71,7 +71,7 @@ function PendingRequests_NGO() {
         <div className="space-y-5 w-full mx-auto">
           {meetings.map((meeting) => (
             <div
-              key={meeting._id}
+              key={meeting._id} 
               onClick={() =>
                 navigate(
                   `/ngo-home/${ngoId}/pending-requests/${meeting._id}`

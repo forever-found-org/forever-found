@@ -6,7 +6,7 @@ export const getMeetingsByAdopter = async (req: Request, res: Response) => {
     const { adopterId } = req.params;
 
     const meetings = await Meeting.find({ adopterId })
-      .populate("ngoId", "name email contact") // pick fields you want
+      .populate("ngoId", "name location email contact") // pick fields you want
       .populate("childIds", "name age gender") // pick fields you want
       .sort({ createdAt: -1 }); // latest first
 
@@ -102,7 +102,7 @@ export const getMeetingById = async (req: Request, res: Response) => {
       ngoId: meeting.ngoId,
       adopter: meeting.adopterId,
       meetDateChoices: meeting.meetDateChoices || [],
-      timeSlots: meeting.timeSlotChoices || [],
+      timeSlotChoices: meeting.timeSlotChoices || [],
       fixedMeetDate: meeting.fixedMeetDate || null,
       fixedTimeSlot: meeting.fixedTimeSlot || null,
       history: meeting.history || [],
@@ -114,8 +114,7 @@ export const getMeetingById = async (req: Request, res: Response) => {
 };
 
 
-
-
+//accept meeting
 export const acceptMeeting = async (req: Request, res: Response) => {
   try {
     const { id } = req.params; // meetingId
@@ -208,6 +207,40 @@ export const getNonPendingMeetingsForNGO = async (req: Request, res: Response) =
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+
+// Fetch meetings for NGO by status
+export const getMeetingsByStatusForNGO = async (req: Request, res: Response) => {
+  try {
+    const { meetingId } = req.params; // use the correct param
+    const meeting = await Meeting.findById(meetingId)
+      .populate(
+        "adopterId",
+        "fullName email contactNumber alternateContactNumber address gender dateOfBirth maritalStatus occupation salaryPerAnnum numberOfBiologicalChildren aadharNumber healthStatus"
+      )
+      .populate("childIds", "name")
+
+    if (!meeting) return res.status(404).json({ message: "Meeting not found" });
+    if (meeting.status === "pending")
+      return res.status(400).json({ message: "This is a pending meeting, use getMeetingById instead" });
+
+    res.status(200).json({
+      _id: meeting._id,
+      status: meeting.status,
+      adopter: meeting.adopterId, // make sure key matches your frontend
+      childIds: meeting.childIds,
+      ngoId: meeting.ngoId,
+      meetDateChoices: meeting.meetDateChoices || [],
+      timeSlotChoices: meeting.timeSlotChoices || [],
+      fixedMeetDate: meeting.fixedMeetDate || null,
+      fixedTimeSlot: meeting.fixedTimeSlot || null,
+      history: meeting.history || [],
+    });
+  } catch (error: any) {
+    console.error("Error fetching meeting details:", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 
 
 

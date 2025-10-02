@@ -123,8 +123,8 @@ function PendingRequestDetails_NGO() {
 
       const updatedMeeting = await res.json();
       setMeeting(updatedMeeting);
-      alert("Meeting rejected successfully!");
-      navigate(-1);
+      alert("Meeting rejected successfully!Check status in Meeting Status feature");
+      navigate(`/ngo-home/${ngoId}/meeting-status`);
     } catch (err) {
       console.error(err);
       alert("Error rejecting meeting: " + err.message);

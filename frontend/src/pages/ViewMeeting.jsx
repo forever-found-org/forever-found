@@ -82,6 +82,36 @@ function ViewMeeting() {
           )}
         </section>
 
+        {/* Timeline Section */}
+        <section className="bg-white shadow-md rounded-xl p-6">
+          <h3 className="text-xl font-semibold text-blue-800 mb-4">Timeline</h3>
+          {meeting.history && meeting.history.length > 0 ? (
+            <ol className="border-l-2 border-blue-400 ml-2 space-y-3">
+              {meeting.history.map((event, idx) => (
+                <li key={idx} className="ml-4">
+                  <div className="flex flex-col">
+                    <span className="text-blue-700 font-medium">
+                      {event.status}
+                    </span>
+                    <span className="text-sm text-gray-500">
+                      by {event.changedBy} on{" "}
+                      {new Date(event.timestamp).toLocaleString()}
+                    </span>
+                    {event.note && (
+                      <span className="text-sm text-gray-700 italic">
+                        {event.note}
+                      </span>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className="text-gray-600 italic">No history available</p>
+          )}
+        </section>
+
+
         {/* Time Slots Section */}
         <section className="bg-white shadow-md rounded-xl p-6">
           <h3 className="text-xl font-semibold text-blue-800 mb-4">Meeting Slots</h3>
