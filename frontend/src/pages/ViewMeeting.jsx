@@ -8,6 +8,7 @@ function ViewMeeting() {
   const [error, setError] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [fixed, setFixed] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,6 +39,35 @@ function ViewMeeting() {
   if (loading) return <p className="text-center mt-10 text-lg text-gray-600">Loading...</p>;
   if (error) return <p className="text-center mt-10 text-lg text-red-500">{error}</p>;
   if (!meeting) return <p className="text-center mt-10 text-lg text-gray-700">Meeting not found</p>;
+
+ 
+
+async function handleCancel() {
+  if (cancelling) return; // prevent double clicks
+  setCancelling(true);
+
+  try {
+    const res = await fetch(
+      `http://localhost:5000/api/meetings/${meetingId}/cancel`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!res.ok) throw new Error("Failed to cancel meeting");
+
+    const updatedMeeting = await res.json();
+    setMeeting(updatedMeeting); // update local state
+  } catch (err) {
+    alert(err.message);
+  } finally {
+    setCancelling(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-green-50 py-10 px-6 font-serif">
@@ -73,7 +103,7 @@ function ViewMeeting() {
                   <p className="font-semibold text-blue-700 mb-1">{child.name}</p>
                   <p>Age: {child.age}</p>
                   <p>Gender: {child.gender}</p>
-                  <p className="italic">Medical: {child.medicalCondition || "None"}</p>
+                  <p className="italic">Medical: {child.healthStatus || "None"}</p>
                 </div>
               ))}
             </div>
@@ -121,11 +151,11 @@ function ViewMeeting() {
             <p className="font-medium text-gray-800 mb-2">Time Slots Given by NGO:</p>
             {meeting.status === "pending" ? (
               <p className="text-gray-600 italic">Nothing given by NGO</p>
-            ) : meeting.status === "accepted" && meeting.timeSlots?.length > 0 ? (
+            ) : meeting.status === "accepted" && meeting.timeSlotChoices?.length > 0 ? (
               <div className="space-y-2">
-                {meeting.meetDateChoices && meeting.timeSlots && meeting.meetDateChoices.length > 0 ? (
+                {meeting.meetDateChoices && meeting.timeSlotChoices && meeting.meetDateChoices.length > 0 ? (
             meeting.meetDateChoices.map((date, idx) => {
-                const time = meeting.timeSlots[idx]; // corresponding time
+                const time = meeting.timeSlotChoices[idx]; // corresponding time
                 return (
                 <label
                     key={idx}
@@ -171,6 +201,26 @@ function ViewMeeting() {
               <p className="text-gray-600 italic">Nothing selected</p>
             )}
           </div>
+
+          {/* cancel meet button */}
+          {meeting.status !== "cancelled" && meeting.status!="rejected" && meeting.status!="pending" && (
+            <button
+              onClick={handleCancel}
+              disabled={cancelling}
+              className={`mr-2 px-5 py-2 rounded-md text-white transition hover:scale-105 ${
+                cancelling ? "bg-gray-400 cursor-not-allowed" : "bg-red-600 hover:bg-red-700"
+              }`}
+            >
+              {cancelling ? "Cancelling..." : "Cancel Meet"}
+            </button>
+          )}
+          {meeting.status === "cancelled" && (
+            <p className="mt-2 text-red-600 font-semibold">Meeting cancelled by you</p>
+          )}
+
+          {meeting.status === "rejected" && (
+            <p className="mt-2 text-red-600 font-semibold">Meeting rejected by NGO</p>
+          )}
 
           {/* Fix Meet Button */}
           {!fixed && meeting.status === "accepted" && selectedSlot && (

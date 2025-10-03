@@ -1,6 +1,6 @@
     import express from "express";
     import { getMeetingsByAdopter , createMeeting, getPendingMeetingsForNGO, getMeetingById } from "./meetingController";
-    import { acceptMeeting, rejectMeeting, getNonPendingMeetingsForNGO,getMeetingsByStatusForNGO } from "./meetingController";
+    import { acceptMeeting, rejectMeeting, cancelMeeting,getNonPendingMeetingsForNGO,getMeetingsByStatusForNGO } from "./meetingController";
 
     const router = express.Router();
 
@@ -16,6 +16,8 @@
 
     router.get("/:id", getMeetingById);
 
+
+    router.patch("/:id/cancel", cancelMeeting);
 
     router.patch("/:id/accept", acceptMeeting);
     router.patch("/:id/reject", rejectMeeting);

@@ -87,7 +87,7 @@ export const getMeetingById = async (req: Request, res: Response) => {
         "adopterId",
         "fullName email contactNumber alternateContactNumber address gender dateOfBirth maritalStatus occupation salaryPerAnnum numberOfBiologicalChildren aadharNumber healthStatus"
       )//adopter details
-      .populate("childIds", "name age gender medicalCondition") // Child details
+      .populate("childIds", "name age gender healthStatus") // Child details
       .populate("ngoId", "name location email contact"); // NGO details
 
     if (!meeting) {
@@ -242,7 +242,33 @@ export const getMeetingsByStatusForNGO = async (req: Request, res: Response) => 
 };
 
 
+export const cancelMeeting = async (req: Request, res: Response) => {
+  try {
+    const meetingId = req.params.id;
 
+    const meeting = await Meeting.findByIdAndUpdate(
+      meetingId,
+      {
+        $set: { status: "cancelled" },
+        $push: {
+          history: {
+            status: "cancelled",
+            changedBy: "adopter", // or "ngo"/"admin" depending on who is cancelling
+            timestamp: new Date(),
+            note: req.body.note || "Meeting cancelled",
+          },
+        },
+      },
+      { new: true }
+    );
 
+    if (!meeting) {
+      return res.status(404).json({ error: "Meeting not found" });
+    }
 
-
+    return res.status(200).json(meeting);
+  } catch (err) {
+    console.error("Cancel Meeting Error:", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+};
