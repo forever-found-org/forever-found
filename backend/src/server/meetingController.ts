@@ -270,3 +270,45 @@ export const cancelMeeting = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+
+export const fixMeeting = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const { fixedMeetDate, fixedTimeSlot } = req.body;
+
+    if (!fixedMeetDate || !fixedTimeSlot) {
+      return res.status(400).json({ error: "fixedMeetDate and fixedTimeSlot are required" });
+    }
+
+    const meeting = await Meeting.findByIdAndUpdate(
+      id,
+      {
+        status:"fixed",
+        fixedMeetDate:fixedMeetDate,
+        fixedTimeSlot:fixedTimeSlot,
+        $push: {
+          history: {
+            status: "fixed",
+            changedBy: "adopter", // adopter/ngo/admin depending who fixes
+            timestamp: new Date(),
+            note: `Meeting fixed for ${new Date(fixedMeetDate).toLocaleDateString()} at ${fixedTimeSlot}`,
+          },
+        },
+      },
+      { new: true }
+    )
+
+    .populate("ngoId", "name location email contact") 
+      .populate("childIds", "name age gender")            
+      .populate("adopterId", "fullName email contact");
+
+    if (!meeting) {
+      return res.status(404).json({ error: "Meeting not found" });
+    }
+
+    return res.status(200).json(meeting);
+  } catch (err) {
+    console.error("Fix Meeting Error:", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+};

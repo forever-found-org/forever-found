@@ -70,6 +70,33 @@ async function handleCancel() {
   }
 };
 
+async function handlefix() {
+  setFixed(true);
+  if (!selectedSlot) {
+    alert("Please select a time slot before fixing the meeting.");
+    return;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/meetings/${meetingId}/fix`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fixedMeetDate: selectedSlot.date,   // assuming selectedSlot contains date
+        fixedTimeSlot: selectedSlot.time,   // and time
+      }),
+    });
+
+    if (!res.ok) throw new Error("Failed to fix meeting");
+
+    const updatedMeeting = await res.json();
+    setMeeting(updatedMeeting);
+
+    //alert(`Your meeting has been fixed for ${updatedMeeting.fixedMeetDate} at ${updatedMeeting.fixedTimeSlot}`);
+  } catch (err) {
+    alert(err.message);
+  }
+}
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-green-50 py-10 px-6 font-serif">
@@ -205,7 +232,7 @@ async function handleCancel() {
           </div>
 
           {/* cancel meet button */}
-          {meeting.status !== "cancelled" && meeting.status!="rejected" && meeting.status!="pending" && (
+          {meeting.status != "cancelled"&& meeting.status!="fixed" && meeting.status!="rejected" && meeting.status!="pending" && (
             <button
               onClick={handleCancel}
               disabled={cancelling}
@@ -223,11 +250,15 @@ async function handleCancel() {
           {meeting.status === "rejected" && (
             <p className="mt-2 text-red-600 font-semibold">Meeting rejected by NGO</p>
           )}
+          
+          {meeting.status === "fixed" && (
+            <p className="mt-2 text-green-600 font-semibold">Meeting fixed on {new Date(meeting.fixedMeetDate).toLocaleDateString()} at {meeting.fixedTimeSlot}</p>
+          )}
 
           {/* Fix Meet Button */}
           {!fixed && meeting.status === "accepted" && selectedSlot && (
             <button
-              onClick={() => setFixed(true)}
+              onClick={handlefix}
               className="mt-2 bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 hover:scale-105 transition"
             >
               Fix Meet
