@@ -44,14 +44,18 @@ function ViewMeeting() {
 
   // Prepare slots with disabled flag if expired
   const slots = meeting.meetDateChoices?.map((date, idx) => {
-    const slotDate = new Date(date);
-    const expired = slotDate.getTime() < now.getTime();
-    return {
-      date: slotDate,
-      time: meeting.timeSlotChoices[idx],
-      expired,
-    };
-  }) || [];
+  const slotDate = new Date(date);
+
+  // Check if the slot's day is today or in the past
+  const expired = slotDate.setHours(0, 0, 0, 0) <= now.setHours(0, 0, 0, 0);
+
+  return {
+    date: slotDate,
+    time: meeting.timeSlotChoices[idx],
+    expired,
+  };
+}) || [];
+
 
   async function handleCancel() {
     if (cancelling) return; // prevent double clicks
