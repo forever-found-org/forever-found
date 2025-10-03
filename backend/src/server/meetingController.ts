@@ -241,34 +241,32 @@ export const getMeetingsByStatusForNGO = async (req: Request, res: Response) => 
   }
 };
 
-
+//handles cancel meet
 export const cancelMeeting = async (req: Request, res: Response) => {
   try {
-    const meetingId = req.params.id;
+    const { id } = req.params;
 
-    const meeting = await Meeting.findByIdAndUpdate(
-      meetingId,
+    const updatedMeeting = await Meeting.findByIdAndUpdate(
+      id,
       {
-        $set: { status: "cancelled" },
+        status: "cancelled",
         $push: {
           history: {
             status: "cancelled",
-            changedBy: "adopter", // or "ngo"/"admin" depending on who is cancelling
+            changedBy: "adopter",
             timestamp: new Date(),
-            note: req.body.note || "Meeting cancelled",
+            note: "Meeting cancelled by Adopter",
           },
         },
       },
       { new: true }
     );
 
-    if (!meeting) {
-      return res.status(404).json({ error: "Meeting not found" });
-    }
+    if (!updatedMeeting) return res.status(404).json({ message: "Meeting not found" });
 
-    return res.status(200).json(meeting);
-  } catch (err) {
-    console.error("Cancel Meeting Error:", err);
-    return res.status(500).json({ error: "Server error" });
+    res.status(200).json(updatedMeeting);
+  } catch (err: any) {
+    console.error("Error cancelling meeting:", err.message);
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 };

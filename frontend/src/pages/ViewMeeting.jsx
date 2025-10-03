@@ -43,6 +43,8 @@ function ViewMeeting() {
  
 
 async function handleCancel() {
+
+  console.log("Cancelling meeting:", meetingId);
   if (cancelling) return; // prevent double clicks
   setCancelling(true);
 
