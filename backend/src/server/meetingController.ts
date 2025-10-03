@@ -88,7 +88,7 @@ export const getMeetingById = async (req: Request, res: Response) => {
         "fullName email contactNumber alternateContactNumber address gender dateOfBirth maritalStatus occupation salaryPerAnnum numberOfBiologicalChildren aadharNumber healthStatus"
       )//adopter details
       .populate("childIds", "name age gender healthStatus") // Child details
-      .populate("ngoId", "name location email contact"); // NGO details
+      .populate("ngoId", "name location city state email contact"); // NGO details
 
     if (!meeting) {
       return res.status(404).json({ message: "Meeting not found" });

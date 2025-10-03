@@ -42,6 +42,8 @@ function NgoDetails() {
           <h2 className="text-2xl font-bold mb-4">Basic Details</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
             <p><strong>Location:</strong> {ngoData.location}</p>
+            <p><strong>City:</strong> {ngoData.city}</p>
+            <p><strong>State:</strong> {ngoData.state}</p>
             <p><strong>Year of Establishment:</strong> {ngoData.yearOfEstablishment}</p>
             <p><strong>Website:</strong> <a href={ngoData.website} className="text-blue-500">{ngoData.website}</a></p>
             <p><strong>Contact:</strong> {ngoData.contact}</p>

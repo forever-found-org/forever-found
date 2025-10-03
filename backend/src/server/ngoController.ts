@@ -47,6 +47,8 @@ export const getNGODetails = async (req: Request, res: Response) => {
       id: ngo._id,
       name: ngo.name,
       location: ngo.location,
+      city:ngo.city,
+      state:ngo.state,
       image: ngo.image,
       yearOfEstablishment: ngo.yearOfEstablishment,
       website: ngo.website,
