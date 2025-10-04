@@ -52,6 +52,8 @@ export default function NgoProfile() {
 
         {/* Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12 text-gray-800 text-lg md:text-xl">
+          <p><span className="font-semibold text-green-700">City:</span> {ngo.city}</p>
+          <p><span className="font-semibold text-green-700">State:</span> {ngo.state}</p>
           <p><span className="font-semibold text-green-700">Website:</span> <a href={ngo.website} target="_blank" className="underline text-blue-600">{ngo.website}</a></p>
           <p><span className="font-semibold text-green-700">Contact:</span> {ngo.contact}</p>
           <p><span className="font-semibold text-green-700">Year Established:</span> {ngo.yearOfEstablishment}</p>

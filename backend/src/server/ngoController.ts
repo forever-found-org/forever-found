@@ -29,7 +29,7 @@ export const loginNGO = async (req: Request, res: Response) => {
 // Fetch all NGOs (for cards page)
 export const getAllNGOs = async (req: Request, res: Response) => {
   try {
-    const ngos = await NGO.find({}, "name location image");
+    const ngos = await NGO.find({}, "name location image city state");
     res.json(ngos);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch NGOs" });

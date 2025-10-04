@@ -10,6 +10,8 @@ export default function EditNgoProfile() {
   const [saving, setSaving] = useState(false);
 
   const [formData, setFormData] = useState({
+    city:"",
+    state:"",
     location: "",
     contact: "",
     website: "",
@@ -28,6 +30,8 @@ export default function EditNgoProfile() {
         setNgo(data);
 
         setFormData({
+          city:data.city||"",
+          state:data.state||"",
           location: data.location || "",
           contact: data.contact || "",
           website: data.website || "",
@@ -126,6 +130,14 @@ export default function EditNgoProfile() {
 
         {/* Editable fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-800 text-lg md:text-xl">
+          <div>
+            <label className="font-semibold text-green-700">City:</label>
+            <input type="text" name="city" value={formData.city} onChange={handleChange} className="w-full border p-2 rounded mt-1"/>
+          </div>
+          <div>
+            <label className="font-semibold text-green-700">State:</label>
+            <input type="text" name="state" value={formData.state} onChange={handleChange} className="w-full border p-2 rounded mt-1"/>
+          </div>
           <div>
             <label className="font-semibold text-green-700">Location:</label>
             <input type="text" name="location" value={formData.location} onChange={handleChange} className="w-full border p-2 rounded mt-1"/>
