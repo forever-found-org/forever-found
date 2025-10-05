@@ -17,10 +17,23 @@ const adopterSchema = new mongoose.Schema({
   aadharImage: { type: String, required: true },
   socialId: { type: String, required: true },
   password: { type: String, required: true }, // should be hashed in production
+
+  // Medical details
   healthStatus: {
-    type: [String], // array of strings
-    default: [],    // start as empty array
-  }
+    type: [String], // e.g. ["Diabetes", "Hypertension"]
+    default: [],
+  },
+  medicalCertificates: {
+    type: [String], // file paths/URLs of uploaded certificates
+    default: [],
+  },
+
+  // Verification status
+  status: {
+    type: String,
+    enum: ["pending", "approved", "rejected"],
+    default: "pending",
+  },
 });
 
 const Adopter = mongoose.model("Adopter", adopterSchema);

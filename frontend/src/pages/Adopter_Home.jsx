@@ -28,12 +28,14 @@ function Adopter_Home() {
         setNgos(data);
         setFilteredNgos(data);
 
-        // Extract unique cities and states
-        const uniqueCities = ["All", ...new Set(data.map((ngo) => ngo.city).filter(Boolean))];
+        // Extract unique states
         const uniqueStates = ["All", ...new Set(data.map((ngo) => ngo.state).filter(Boolean))];
-
-        setCities(uniqueCities);
         setStates(uniqueStates);
+
+        // Initially show all cities
+        const uniqueCities = ["All", ...new Set(data.map((ngo) => ngo.city).filter(Boolean))];
+        setCities(uniqueCities);
+
         setLoading(false);
       })
       .catch((err) => {
@@ -43,16 +45,31 @@ function Adopter_Home() {
       });
   }, []);
 
+  // Update cities when stateFilter changes
+  useEffect(() => {
+    if (stateFilter === "All") {
+      const uniqueCities = ["All", ...new Set(ngos.map((ngo) => ngo.city).filter(Boolean))];
+      setCities(uniqueCities);
+    } else {
+      const filteredCities = ngos
+        .filter((ngo) => ngo.state === stateFilter)
+        .map((ngo) => ngo.city)
+        .filter(Boolean);
+      setCities(["All", ...new Set(filteredCities)]);
+    }
+    setCityFilter("All"); // reset city when state changes
+  }, [stateFilter, ngos]);
+
   // Apply filters whenever cityFilter, stateFilter, or searchName changes
   useEffect(() => {
     let filtered = ngos;
 
-    if (cityFilter !== "All") {
-      filtered = filtered.filter((ngo) => ngo.city === cityFilter);
-    }
-
     if (stateFilter !== "All") {
       filtered = filtered.filter((ngo) => ngo.state === stateFilter);
+    }
+
+    if (cityFilter !== "All") {
+      filtered = filtered.filter((ngo) => ngo.city === cityFilter);
     }
 
     if (searchName.trim() !== "") {
@@ -73,22 +90,6 @@ function Adopter_Home() {
 
         {/* Filters */}
         <div className="mt-2 flex space-x-12 justify-center items-center">
-          {/* City Filter */}
-          <div>
-            <label className="mr-2 font-medium font-serif text-lg">Filter by City:</label>
-            <select
-              value={cityFilter}
-              onChange={(e) => setCityFilter(e.target.value)}
-              className="border rounded px-2 py-1 font-serif"
-            >
-              {cities.map((city, idx) => (
-                <option key={idx} value={city}>
-                  {city}
-                </option>
-              ))}
-            </select>
-          </div>
-
           {/* State Filter */}
           <div>
             <label className="mr-2 font-medium font-serif text-lg">Filter by State:</label>
@@ -100,6 +101,22 @@ function Adopter_Home() {
               {states.map((state, idx) => (
                 <option key={idx} value={state}>
                   {state}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* City Filter (depends on State) */}
+          <div>
+            <label className="mr-2 font-medium font-serif text-lg">Filter by City:</label>
+            <select
+              value={cityFilter}
+              onChange={(e) => setCityFilter(e.target.value)}
+              className="border rounded px-2 py-1 font-serif"
+            >
+              {cities.map((city, idx) => (
+                <option key={idx} value={city}>
+                  {city}
                 </option>
               ))}
             </select>

@@ -1,5 +1,4 @@
-function FormValidator(adopterData)
-{
+function FormValidator(adopterData) {
   const errors = {};
 
   const regexPattern = {
@@ -13,27 +12,22 @@ function FormValidator(adopterData)
     password: /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
   };
 
-  for (let key in adopterData)
-  {
+  // Existing validations
+  for (let key in adopterData) {
     const value = adopterData[key];
     if (value === null || (typeof value === "string" && value.trim() === ""))
-            errors[key] = "*Required field.";
+      errors[key] = "*Required field.";
   }
 
   if (Object.keys(errors).length > 0) {
-  alert("Form Incomplete");
-}
+    alert("Form Incomplete");
+  }
 
-  if (!regexPattern.name.test(adopterData.name)) 
-    errors.name = "*Use only alphabets and spaces.";
-  
+  if (!regexPattern.name.test(adopterData.name)) errors.name = "*Use only alphabets and spaces.";
+  if (!regexPattern.religion.test(adopterData.religion)) errors.religion = "*Use only alphabets and spaces.";
 
-  if (!regexPattern.religion.test(adopterData.religion)) 
-    errors.religion = "*Use only alphabets and spaces.";
-  
   const dob = new Date(adopterData.dob);
   const today = new Date();
-
   if (!adopterData.dob) {
     errors.dob = "*Date of Birth is required.";
   } else if (dob > today) {
@@ -42,56 +36,54 @@ function FormValidator(adopterData)
     const ageDiff = today.getTime() - dob.getTime();
     const ageDate = new Date(ageDiff);
     const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-    if (age < 25) {
-      errors.dob = "*You must be at least \n 25 years old to adopt.";
-    }
+    if (age < 25) errors.dob = "*You must be at least \n 25 years old to adopt.";
   }
 
-  if (!regexPattern.email.test(adopterData.email)) 
-    errors.email = "*Invalid Email address.";
-  
-
-  if (!regexPattern.contact.test(adopterData.contact)) 
-    errors.contact = "*Invalid Contact number.";
-
-  if (!regexPattern.altcontact.test(adopterData.altcontact)) 
-    errors.altcontact = "*Invalid alternate Contact number."
+  if (!regexPattern.email.test(adopterData.email)) errors.email = "*Invalid Email address.";
+  if (!regexPattern.contact.test(adopterData.contact)) errors.contact = "*Invalid Contact number.";
+  if (!regexPattern.altcontact.test(adopterData.altcontact)) errors.altcontact = "*Invalid alternate Contact number.";
 
   const children = Number(adopterData.bioChildren);
-  if (isNaN(children) || children < 0 || !Number.isInteger(children)) 
-    errors.bioChildren = "*Use poitive integer.";
-  
-
-  if (!regexPattern.occupation.test(adopterData.occupation)) 
-    errors.occupation = "*use only alphabets and spaces.";
-  
+  if (isNaN(children) || children < 0 || !Number.isInteger(children)) errors.bioChildren = "*Use positive integer.";
+  if (!regexPattern.occupation.test(adopterData.occupation)) errors.occupation = "*Use only alphabets and spaces.";
 
   const salary = Number(adopterData.salary);
-  if (isNaN(salary) || salary <= 0) 
-    errors.salary = "*Salary must be positive.";
-  
+  if (isNaN(salary) || salary <= 0) errors.salary = "*Salary must be positive.";
 
-  if (!regexPattern.aadhar.test(adopterData.aadhar)) 
-    errors.aadhar = "*must be exactly 12 digits.";
+  if (!regexPattern.aadhar.test(adopterData.aadhar)) errors.aadhar = "*Must be exactly 12 digits.";
 
-  const file=adopterData.aadharimg;
+  const file = adopterData.aadharimg;
   const validTypes = ["image/jpeg", "image/png", "image/jpg"];
   const maxSize = 2 * 1024 * 1024;
-  if (!file) 
-  {
+  if (!file) {
     errors.aadharimg = "*Aadhar image is required.";
   } else if (!validTypes.includes(file.type)) {
-      errors.aadharimg = "*Only JPEG, JPG or PNG images are allowed.";
+    errors.aadharimg = "*Only JPEG, JPG or PNG images are allowed.";
   } else if (file.size > maxSize) {
-      errors.aadharimg = "*Image must be less than 2MB.";
+    errors.aadharimg = "*Image must be less than 2MB.";
   }
-  
-  if (!regexPattern.password.test(adopterData.pass)) 
-    errors.pass = "*Invalid Password";
+
+  if (!regexPattern.password.test(adopterData.pass)) errors.pass = "*Invalid Password";
+
+  // ===== NEW: Medical Section Validation =====
+  // Serious medical conditions field mandatory
+  // For validation, treat healthStatus as string first
+if (!adopterData.healthStatus ||adopterData.healthStatus.trim() === "")
+    errors.healthStatus ="*Please mention your serious medical conditions or write 'Healthy'.";
+
+
+
+  // Medical certificate file mandatory
+  const medFile = adopterData.medicalCertificates;
+  if (!medFile) {
+    errors.medicalCertificates = "*Medical certificate is required.";
+  } else if (!validTypes.includes(medFile.type)) {
+    errors.medicalCertificates = "*Only JPEG, JPG or PNG images are allowed for the certificate.";
+  } else if (medFile.size > maxSize) {
+    errors.medicalCertificates = "*Medical certificate must be less than 2MB.";
+  }
 
   return errors;
-
 }
 
 export default FormValidator;

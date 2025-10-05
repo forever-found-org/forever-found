@@ -22,6 +22,10 @@ function SignUpAdopter() {
         aadharimg: null,
         bioChildren: "",
         pass: "",
+        confirmPass: "",
+        healthStatus: "",          // NEW
+        medicalCertificates: [],   // NEW
+        status: "pending",         // NEW
     });
 
     useEffect(()=>{
@@ -47,9 +51,15 @@ function SignUpAdopter() {
 
     function handleChange(e) {
         const { name, value, files } = e.target;
+
         setAdopterData((prev) => ({
             ...prev,
-            [name]: name==="aadharimg" ? files[0]: value,
+            [name]:
+                name === "aadharimg" || name === "medicalCertificates"
+                    ? files[0]
+                    : name === "healthStatus"
+                    ? value // keep as string for now
+                    : value,
         }));
 
         setErrors((prevErrors) => ({
@@ -57,26 +67,45 @@ function SignUpAdopter() {
             [name]: "",
         }));
     }
+
     
     const navigator=useNavigate();
     function handleClick(e) {
         e.preventDefault();
         const validationErrors = FormValidator(adopterData);
+        // Check password match
+        if (adopterData.pass !== adopterData.confirmPass) {
+            validationErrors.confirmPass = "*Passwords do not match.";
+        }
         setErrors(validationErrors);
 
-        if (Object.keys(validationErrors).length === 0){
-            navigator("/review-signup-form",{state: {formData: adopterData, role: "adopter"}});
-            window.scrollTo(0,0);
+        if (Object.keys(validationErrors).length === 0) {
+            const dataToSend = {
+                ...adopterData,
+                // split the string by comma and trim whitespace
+                healthStatus: adopterData.healthStatus
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter((s) => s !== ""), // remove empty entries
+            };
+
+            navigator("/review-signup-form", {
+                state: { formData: dataToSend, role: "adopter" },
+            });
+            window.scrollTo(0, 0);
         }
-        //also working for validationErrors.length===0 (check later)
     }
+
 
     return (
         <div className="flex items-center font-serif justify-center min-h-screen bg-[#fff0e5]">
             <div className="flex flex-col w-full max-w-lg p-6 m-10 bg-[#fffdfc] border border-gray-300 rounded-md shadow-lg">
-                <h2 className="text-3xl font-bold font-serif text-[#3c3c3c] text-center mb-4 bg-white shadow-sm p-2 uppercase tracking-wider">
+                <div className="flex justify-between items-center shadow-sm">
+                    <h2 className="text-2xl font-bold font-serif text-[#3c3c3c] text-center mb-4 bg-white  p-2 uppercase tracking-wider">
                     Adopter Signup Form
-                </h2>
+                    </h2>
+                    <button onClick={() => navigator("/")} className="text-black bg-[#fff0e5] mb-4 px-1 py-1 font-semibold border border-black rounded-md hover:scale-105">Home</button>
+                </div>
 
                 <div className="border border-gray-300 rounded-md bg-[#f2e8cf] shadow-sm my-2">
                     <h3 className="text-lg underline font-semibold font-serif ml-4 my-3">Personal Information</h3>
@@ -192,6 +221,55 @@ function SignUpAdopter() {
                         </div>
                 </div>
 
+                {/* Medical Information */}
+                <div className="border border-gray-300 rounded-md bg-[#f2e8cf] my-2 shadow-sm p-4">
+                <h3 className="text-lg underline font-semibold font-serif mb-2">Medical Information</h3>
+
+                {/* Serious Medical Conditions */}
+                <div className="flex flex-col mb-4">
+                    <label className="text-sm font-medium mb-1">Serious Medical Conditions (comma separated)</label>
+                    <input
+                    type="text"
+                    name="healthStatus"
+                    value={adopterData.healthStatus}
+                    onChange={handleChange}
+                    placeholder="e.g. Diabetes, Heart Disease or write 'Healthy'"
+                    className="border border-gray-400 rounded-md p-2 focus:ring-2 focus:ring-[#5a8f7b] w-full"
+                    />
+                    {errors.healthStatus && <p className="text-red-600 text-sm mt-1">{errors.healthStatus}</p>}
+                    <p className="text-[#5c5c5c] font-medium text-xs mt-1">
+                    *In caseof no serious medical condition, write "Healthy".
+                    </p>
+                </div>
+
+                {/* Medical Certificate Upload */}
+                <div className="flex flex-col mb-2">
+                    <label className="block text-sm font-medium mb-1">Upload Medical Certificate</label>
+                    <input
+                    type="file"
+                    name="medicalCertificates"
+                    accept="image/png, image/jpeg, image/jpg"
+                    onChange={handleChange}
+                    className="file:border file:border-gray-400 file:rounded-lg file:mr-4 p-1"
+                    />
+                    {adopterData.medicalCertificates && adopterData.medicalCertificates.name && (
+                    <p className="text-sm text-gray-600 ml-1 mt-1">Selected file: {adopterData.medicalCertificates.name}</p>
+                    )}
+                    {errors.medicalCertificates && <p className="text-red-600 text-sm mt-1">{errors.medicalCertificates}</p>}
+                    <div className="w-full mt-1">
+                    <p className="text-[#5c5c5c] font-medium text-xs">
+                        *Upload a medical certificate signed by a certified doctor.
+                        </p>
+                        <p className="text-[#5c5c5c] font-medium text-xs">
+                        *The certificate should clearly mention either all serious medical conditions or state that you are fully healthy.
+                        </p>
+                    <p className="text-[#5c5c5c] font-medium text-xs">*Image should be of JPG, JPEG, or PNG format.</p>
+                    <p className="text-[#5c5c5c] font-medium text-xs mb-2">*Image must be less than 2MB.</p>
+                    </div>
+                </div>
+                </div>
+
+
                 <div className="border border-gray-300 rounded-md bg-[#dbeaf3] my-2 shadow-sm">
                     <h3 className="text-lg underline font-semibold font-serif ml-4 mt-2">Account and Security</h3>
                     <div className="my-2">
@@ -200,6 +278,11 @@ function SignUpAdopter() {
                         {errors.pass && <p className="text-red-600 ml-4 -mt-3 mb-2 text-sm">{errors.pass}</p>}
                         <p className="text-[#5c5c5c] font-medium ml-4 mt-0 text-xs">*Password must have at least 8 characters.</p>
                         <p className="text-[#5c5c5c] font-medium ml-4 mt-0 text-xs">*Must include a capital letter, a special character, and a number.</p>
+                    </div>
+                    <div className="my-2">
+                        <label className="block ml-4 mt-1 text-sm font-medium text-[#3c3c3c]">Confirm Password</label>
+                        <PasswordInput name="confirmPass" value={adopterData.confirmPass} onChange={handleChange} placeholder="Re-enter Password" className="w-full border border-black rounded-md ml-2 p-2 pr-10" />
+                        {errors.confirmPass && <p className="text-red-600 ml-4 -mt-2 mb-2 text-sm">{errors.confirmPass}</p>}
                     </div>
                 </div>
 
