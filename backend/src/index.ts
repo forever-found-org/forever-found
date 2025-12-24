@@ -7,6 +7,7 @@ import ngoRoutes from "./server/ngoRoutes";
 import childrenRoutes from "./server/childrenRoutes";
 import adopterRoutes from "./server/adopterRoutes";
 import meetingRoutes from "./server/meetingRoutes";
+import adminRoutes from "./server/adminRoutes";
 import { cancelExpiredMeetings } from "./autoCancel";
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.use("/api/ngos", ngoRoutes);
 app.use("/api/children", childrenRoutes);
 app.use("/api/adopter", adopterRoutes);
 app.use("/api/meetings", meetingRoutes);
+app.use("/api/admin",adminRoutes);
 
 // Connect to DB
 connectDB();

@@ -11,6 +11,7 @@ import About from './pages/About';
 import Help from './pages/Help';
 import FormReviewPage from './pages/FormReviewPage';
 import AdoptiveGuidelines from './pages/AdoptiveGuidelines';
+import AdopterAckForm from './pages/AdopterAckForm';
 import NGoAckForm from './pages/NgoAckForm';
 import Ngo_Home from './pages/Ngo_Home';
 import AdopterProfile from './pages/AdopterProfile';
@@ -25,6 +26,8 @@ import PendingRequestDetails_NGO from './pages/PendingRequestDetails_NGO';
 import Meeting_Status_NGO from './pages/Meeting_Status_NGO';
 import ViewMeeting from './pages/ViewMeeting';
 import Meeting_Status_Details from './pages/Meeting_Status_Details';
+
+import Admin_Home from './admin_pages/home';
 
 function App() {
  
@@ -45,6 +48,7 @@ function App() {
 
       <Route path="/review-signup-form" element={<FormReviewPage />} />
       <Route path="/review-signup-form/ngo-acknowledgement" element={<NGoAckForm/>}></Route>
+      <Route path="/review-signup-form/adopter-acknowledgement" element={<AdopterAckForm/>}></Route>
       <Route path="/adoptive-guidelines" element={<AdoptiveGuidelines/>}/>
 
       <Route path="/adopter-home/:id" element={<Adopter_Home />} />
@@ -59,6 +63,8 @@ function App() {
       <Route path="/ngo-home/:id/pending-requests/:meetingId" element={<PendingRequestDetails_NGO/>}></Route>
       <Route path="/ngo-home/:id/meeting-status" element={<Meeting_Status_NGO/>}></Route>
       <Route path="/ngo-home/:id/meeting-status-details/:meetingId" element={<Meeting_Status_Details/>}></Route>
+
+      <Route path="/admin/login" element={<Admin_Home/>}></Route>
       
       </Routes>
     </Router>  

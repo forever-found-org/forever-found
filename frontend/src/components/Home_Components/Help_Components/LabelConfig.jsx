@@ -4,6 +4,8 @@ const LabelConfig={
     altcontact: "Alternate Contact Number",
     email: "Email Address",
     address: "Address",
+    city:"City",
+    state:"State",
     dob: "Date Of Birth",
     gender: "Gender",
     maritalStatus: "Marital Status",

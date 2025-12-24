@@ -30,12 +30,12 @@ if (!formData || !role)
         if(role === "adopter")
         {
             alert("Form Submitted successfully");
-            navigate("/adopter-home");
+            navigate("/review-signup-form/adopter-acknowledgement");
             window.scrollTo(0,0);
         }
         else
         {
-            //alert("Form Submitted successfully");
+            alert("Form Submitted successfully");
             navigate("/review-signup-form/ngo-acknowledgement");//change to ngo home
             window.scrollTo(0,0);
         } 

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Shreyansh Chadhary",
+    "email": "shreyansh.admin@example.com",
+    "password": "shrey",
+    "role": "ADMIN",
+    "status": "ACTIVE",
+    "createdAt": "2025-12-13T10:00:00.000Z",
+    "updatedAt": "2025-12-13T10:00:00.000Z",
+    "lastLogin": null
+  },
+  {
+    "name": "Smitika Pandit",
+    "email": "smitika.admin@example.com",
+    "password": "smitika",
+    "role": "ADMIN",
+    "status": "ACTIVE",
+    "createdAt": "2025-12-13T11:15:00.000Z",
+    "updatedAt": "2025-12-13T11:15:00.000Z",
+    "lastLogin": null
+  }
+]

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Child from "../db/childrenModel";
+import Meeting from "../db/meetingsModel";
 
 // Map age groups to ranges
 const ageGroups: Record<string, [number, number]> = {
@@ -37,12 +38,26 @@ export const findChildrenMatches = async (req: Request, res: Response) => {
   }
 };
 
-export const getChilByID = async (req: Request, res: Response) => {
+//child details
+export const getChildWithEffectiveStatus = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const child = await Child.findById(id);
     if (!child) return res.status(404).json({ message: "Child not found" });
-    res.json(child);
+
+    // Fetch all active meetings for this child
+    const meetings = await Meeting.find({ 
+      childIds: child._id,
+      status: { $in: ["pending", "accepted", "fixed"] }
+    });
+
+    // Determine effective status
+    let effectiveStatus = child.adoptionStatus === "Available" ? "available" : null;
+    if (meetings.some(m => m.status === "fixed")) effectiveStatus = "fixed";
+    else if (meetings.some(m => m.status === "accepted")) effectiveStatus = "accepted";
+    else if (meetings.some(m => m.status === "pending")) effectiveStatus = "pending";
+
+    res.json({ child, effectiveStatus });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });

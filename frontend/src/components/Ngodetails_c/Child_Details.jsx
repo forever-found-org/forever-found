@@ -2,19 +2,21 @@ import { useEffect, useState } from "react";
 
 function Child_Details({ childId, onClose }) {
   const [child, setChild] = useState(null);
+  const [meetingStatus, setMeetingStatus] = useState("available");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (!childId) return;
 
-    const fetchChild = async () => {
+    const fetchChildDetails = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:5000/api/children/${childId}`);
+        const res = await fetch(`http://localhost:5000/api/children/${childId}/details`);
         if (!res.ok) throw new Error("Failed to fetch child details");
         const data = await res.json();
-        setChild(data);
+        setChild(data.child);
+        setMeetingStatus(data.effectiveStatus || "available");
         setError("");
       } catch (err) {
         console.error(err);
@@ -24,10 +26,38 @@ function Child_Details({ childId, onClose }) {
       }
     };
 
-    fetchChild();
+    fetchChildDetails();
   }, [childId]);
 
   if (!childId) return null;
+
+  // Status messages and chance percentages
+  const statusMessages = {
+    available: {
+      message: "This child is open for adoption. You can request a meeting to begin the process.",
+      chance: "95-100%",
+      color: "bg-green-600",
+      label: "Available for Adoption",
+    },
+    pending: {
+      message: "Another adopter has shown interest, but you can still express yours.",
+      chance: "80-90%",
+      color: "bg-yellow-500",
+      label: "Interest Shown",
+    },
+    accepted: {
+      message: "An adopter's request has been accepted, but the process isn't finalized yet — your interest is still welcome.",
+      chance: "70-80%",
+      color: "bg-orange-500",
+      label: "Request Accepted",
+    },
+    fixed: {
+      message: "A meeting is underway, but adoption is not finalized — you could still be considered!",
+      chance: "40-50%",
+      color: "bg-blue-500",
+      label: "Meeting Scheduled",
+    },
+  };
 
   return (
     <div className="fixed inset-0 z-50 font-serif flex items-center justify-center">
@@ -57,8 +87,17 @@ function Child_Details({ childId, onClose }) {
               <p><strong>Date of Birth:</strong> {new Date(child.dateOfBirth).toLocaleDateString()}</p>
               <p><strong>Health Status:</strong> {child.healthStatus}</p>
               <p><strong>Education Level:</strong> {child.educationLevel}</p>
-              <p><strong>Status:</strong> {child.adoptionStatus}</p>
             </div>
+
+            {/* Status Tag */}
+            <span className={`inline-block mt-3 px-3 py-1 text-sm font-medium rounded-full text-white ${statusMessages[meetingStatus].color}`}>
+              {statusMessages[meetingStatus].label}
+            </span>
+
+            {/* Status Message */}
+            <p className="text-sm mt-3 text-gray-800 italic leading-snug">
+              {statusMessages[meetingStatus].message} Approx. chance: {statusMessages[meetingStatus].chance}
+            </p>
 
             {/* Verification Badge */}
             {child.gallery && child.gallery.length > 0 ? (
