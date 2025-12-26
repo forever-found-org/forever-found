@@ -27,7 +27,11 @@ import Meeting_Status_NGO from './pages/Meeting_Status_NGO';
 import ViewMeeting from './pages/ViewMeeting';
 import Meeting_Status_Details from './pages/Meeting_Status_Details';
 
-import Admin_Home from './admin_pages/home';
+import Admin_Login from './admin_pages/Admin_Login';
+import Admin_Home from './admin_pages/Admin_Home';
+import ViewNGOS from './admin_pages/ViewNGOs';
+import ManageChildren from './admin_pages/ManageChildren';
+import ManageAdopters from './admin_pages/ManageAdopters';
 
 function App() {
  
@@ -64,7 +68,13 @@ function App() {
       <Route path="/ngo-home/:id/meeting-status" element={<Meeting_Status_NGO/>}></Route>
       <Route path="/ngo-home/:id/meeting-status-details/:meetingId" element={<Meeting_Status_Details/>}></Route>
 
-      <Route path="/admin/login" element={<Admin_Home/>}></Route>
+      <Route path="/admin/login" element={<Admin_Login/>}></Route>
+      <Route path="/admin/home" element={<Admin_Home/>}></Route>
+      <Route path="/admin/view-ngos" element={<ViewNGOS/>}></Route>
+
+      <Route path="/admin/manage-children" element={<ManageChildren/>}></Route>
+
+      <Route path="/admin/manage-adopters" element={<ManageAdopters/>}></Route>
       
       </Routes>
     </Router>  

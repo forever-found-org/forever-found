@@ -37,7 +37,7 @@ const AdminLogin = () => {
       }
 
       localStorage.setItem("admin", JSON.stringify(data));
-      navigate("/admin/dashboard");
+      navigate("/admin/home");
     } catch {
       setErrors({ server: "Server error" });
     } finally {
