@@ -6,7 +6,7 @@ function Admin_Nav({ onLogoutClick }) {
   const navigate = useNavigate();
 
   const handleHome = () => {
-    navigate("/admin/dashboard");
+    navigate("/admin/home");
     window.scrollTo(0, 0);
   };
 

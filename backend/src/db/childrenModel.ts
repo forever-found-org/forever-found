@@ -11,8 +11,18 @@ const childSchema = new mongoose.Schema({
   gallery: {type: [String],default: []},
   adoptionStatus: {type: String,enum: ["Available", "Adopted"],default: "Available"},
   adopterId: { type: mongoose.Schema.Types.ObjectId, ref: "Adopter", default: null },
-  canEdit: { type: Boolean, default: true }
-});
+  canEdit: {
+      type: Boolean,
+      default: true,
+    },
+    blockReason: {
+      type: String,
+    },
+    blockedAt: {
+      type: Date,
+    },
+},{ timestamps: true }
+);
 
 const Child = mongoose.model("Child", childSchema);
 export default Child;

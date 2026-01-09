@@ -32,6 +32,9 @@ import Admin_Home from './admin_pages/Admin_Home';
 import ViewNGOS from './admin_pages/ViewNGOs';
 import ManageChildren from './admin_pages/ManageChildren';
 import ManageAdopters from './admin_pages/ManageAdopters';
+import AdopterDetails from './admin_pages/AdopterDetails';
+import NGODetails from './admin_pages/NGODetails';
+import ChildrenDetails from './admin_pages/ChildrenDetails';
 
 function App() {
  
@@ -71,10 +74,13 @@ function App() {
       <Route path="/admin/login" element={<Admin_Login/>}></Route>
       <Route path="/admin/home" element={<Admin_Home/>}></Route>
       <Route path="/admin/view-ngos" element={<ViewNGOS/>}></Route>
+      <Route path="/admin/ngos/:id" element={<NGODetails/>}></Route>
 
       <Route path="/admin/manage-children" element={<ManageChildren/>}></Route>
+      <Route path="/admin/children/:id" element={<ChildrenDetails/>}></Route>
 
       <Route path="/admin/manage-adopters" element={<ManageAdopters/>}></Route>
+      <Route path="/admin/adopters/:id" element={<AdopterDetails/>}></Route>
       
       </Routes>
     </Router>  

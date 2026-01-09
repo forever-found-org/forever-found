@@ -3,6 +3,7 @@ import Admin from "../db/adminModel";
 import NGO from "../db/ngoModel";
 import Child from "../db/childrenModel";
 import Adopter from "../db/adopterModel";
+import Meeting from "../db/meetingsModel";
 
 export const loginAdmin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -66,11 +67,126 @@ export const getApprovedNGOsForAdmin = async (
     res.status(500).json({ message: "Failed to fetch NGOs" });
   }
 };
+// Get single NGO
+export const getNGODetails = async (req: Request, res: Response) => {
+  try {
+    const ngo = await NGO.findById(req.params.id).select("-password");
+
+    if (!ngo) {
+      return res.status(404).json({ message: "NGO not found" });
+    }
+
+    res.status(200).json(ngo);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch NGO" });
+  }
+};
+
+
+// BLOCK NGO
+export const blockNgo = async (req: Request, res: Response) => {
+  try {
+    const { reason } = req.body;
+
+    if (!reason) {
+      return res.status(400).json({
+        message: "Blocking reason is required",
+      });
+    }
+
+    const ngo = await NGO.findByIdAndUpdate(
+      req.params.id,
+      {
+        isBlocked: true,
+        canEdit: false,
+        blockReason: reason,
+        blockedAt: new Date(),
+      },
+      { new: true }
+    );
+
+    if (!ngo) {
+      return res.status(404).json({
+        message: "NGO not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "NGO blocked successfully",
+    });
+  } catch (error) {
+    console.error("Error blocking NGO:", error);
+    res.status(500).json({
+      message: "Failed to block NGO",
+    });
+  }
+};
 
 
 
+// UNBLOCK NGO
+export const unblockNgo = async (req: Request, res: Response) => {
+  try {
+    const ngo = await NGO.findByIdAndUpdate(
+      req.params.id,
+      {
+        isBlocked: false,
+        canEdit: true,
+        blockReason: null,
+        blockedAt: null,
+      },
+      { new: true }
+    );
 
+    if (!ngo) {
+      return res.status(404).json({
+        message: "NGO not found",
+      });
+    }
 
+    res.status(200).json({
+      message: "NGO unblocked successfully",
+    });
+  } catch (error) {
+    console.error("Error unblocking NGO:", error);
+    res.status(500).json({
+      message: "Failed to unblock NGO",
+    });
+  }
+};
+
+//ngo meeting
+export const getMeetingsForNGO = async (req: Request, res: Response) => {
+  try {
+    const meetings = await Meeting.find({ ngoId: req.params.id })
+      .populate("adopterId", "fullName email")
+      .populate("childIds", "name")
+      .sort({ updatedAt: -1 });
+
+    res.status(200).json(meetings);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch meetings" });
+  }
+};
+
+//adopted children for ngo
+export const getAdoptedChildrenByNGO = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params; // NGO ID
+
+    const children = await Child.find({
+      adoptionStatus: "Adopted",
+      ngoId: id,
+    })
+      .populate("adopterId", "fullName contactNumber")
+      .populate("ngoId", "name");
+
+    res.status(200).json(children);
+  } catch {
+    res.status(500).json({ message: "Failed to fetch adopted children" });
+  }
+};
 
 
 
@@ -112,9 +228,98 @@ export const getAllChildrenForAdmin = async (
   }
 };
 
+// GET: Single child details for admin
+export const getChildDetailsForAdmin = async (req: Request, res: Response) => {
+  try {
+    const child = await Child.findById(req.params.id)
+      .populate("ngoId", "name email contact")
+      .populate("adopterId", "fullName email")
+      .lean();
 
+    if (!child) {
+      return res.status(404).json({ message: "Child not found" });
+    }
 
+    res.status(200).json(child);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch child details" });
+  }
+};
 
+//meetings for children
+export const getMeetingsByChildForAdmin = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const meetings = await Meeting.find({
+      childIds: req.params.id,
+    })
+      .populate("ngoId", "name")
+      .populate("adopterId", "fullName")
+      .sort({ updatedAt: -1 });
+
+    res.status(200).json(meetings);
+  } catch {
+    res.status(500).json({ message: "Failed to fetch meetings" });
+  }
+};
+
+//block
+export const blockChild = async (req: Request, res: Response) => {
+  try {
+    const { blockReason } = req.body;
+
+    if (!blockReason) {
+      return res.status(400).json({
+        message: "Blocking reason is required",
+      });
+    }
+
+    const child = await Child.findByIdAndUpdate(
+      req.params.id,
+      {
+        canEdit: false,
+        blockReason,
+        blockedAt: new Date(),
+      },
+      { new: true }
+    );
+
+    if (!child) {
+      return res.status(404).json({ message: "Child not found" });
+    }
+
+    res.status(200).json(child); 
+  } catch (error) {
+    console.error("Error blocking child:", error);
+    res.status(500).json({ message: "Failed to block child" });
+  }
+};
+
+//unblock
+export const unblockChild = async (req: Request, res: Response) => {
+  try {
+    const child = await Child.findByIdAndUpdate(
+      req.params.id,
+      {
+        canEdit: true,
+        blockReason: null,
+        blockedAt: null,
+      },
+      { new: true }
+    );
+
+    if (!child) {
+      return res.status(404).json({ message: "Child not found" });
+    }
+
+    res.status(200).json(child); 
+  } catch (error) {
+    console.error("Error unblocking child:", error);
+    res.status(500).json({ message: "Failed to unblock child" });
+  }
+};
 
 
 
@@ -140,3 +345,130 @@ export const getAllAdopters = async (req: Request, res: Response) => {
   }
 };
 
+/* GET SINGLE ADOPTER DETAILS */
+export const getAdopterDetails = async (req: Request, res: Response) => {
+  try {
+    const adopter = await Adopter.findById(req.params.id).select("-password");
+
+    if (!adopter) {
+      return res.status(404).json({ message: "Adopter not found" });
+    }
+
+    res.status(200).json(adopter);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch adopter" });
+  }
+};
+
+//adopter meetings
+export const getAdopterMeetings = async (req: Request, res: Response) => {
+  try {
+    const meetings = await Meeting.find({
+      adopterId: req.params.id,
+    })
+      .populate("ngoId", "name")
+      .populate("childIds", "name")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(meetings);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch meetings" });
+  }
+};
+
+// BLOCK ADOPTER
+export const blockAdopter = async (req: Request, res: Response) => {
+  try {
+    const { reason } = req.body;
+
+    if (!reason) {
+      return res.status(400).json({
+        message: "Blocking reason is required",
+      });
+    }
+
+    const adopter = await Adopter.findByIdAndUpdate(
+      req.params.id,
+      {
+        isBlocked: true,
+        blockReason: reason,
+        blockedAt: new Date(),
+      },
+      { new: true }
+    );
+
+    if (!adopter) {
+      return res.status(404).json({ message: "Adopter not found" });
+    }
+
+    res.status(200).json({
+      message: "Adopter blocked successfully",
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to block adopter" });
+  }
+};
+
+
+// UNBLOCK ADOPTER
+export const unblockAdopter = async (req: Request, res: Response) => {
+  try {
+    const adopter = await Adopter.findByIdAndUpdate(
+      req.params.id,
+      {
+        isBlocked: false,
+        blockReason: null,
+        blockedAt: null,
+      },
+      { new: true }
+    );
+
+    if (!adopter) {
+      return res.status(404).json({ message: "Adopter not found" });
+    }
+
+    res.status(200).json(adopter);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to unblock adopter" });
+  }
+};
+
+
+//aadhar
+export const getAdopterAadhaar = async (req: Request, res: Response) => {
+  try {
+    const adopter = await Adopter.findById(req.params.id).select(
+      "aadharNumber aadharImage"
+    );
+
+    if (!adopter) {
+      return res.status(404).json({ message: "Adopter not found" });
+    }
+
+    res.status(200).json({
+      aadharNumber: adopter.aadharNumber,
+      aadharImage: adopter.aadharImage,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch Aadhaar details" });
+  }
+};
+
+//adopted children
+export const getAdoptedChildren = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const children = await Child.find({
+      adoptionStatus: "Adopted",
+      adopterId: id,
+    })
+      .populate("ngoId", "name")
+      .populate("adopterId", "fullName email");
+
+    res.status(200).json(children);
+  } catch {
+    res.status(500).json({ message: "Failed to fetch adopted children" });
+  }
+};

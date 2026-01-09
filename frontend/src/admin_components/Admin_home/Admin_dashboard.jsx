@@ -37,11 +37,11 @@ function Admin_Dashboard() {
       Icon: Baby,
       path: "/admin/manage-children",
     },
-    {
+    /*{
       label: "Manage Users",
       Icon: UserCog,
       path: "/admin/manage-users",
-    },
+    },*/
   ];
 
   return (

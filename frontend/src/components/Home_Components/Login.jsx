@@ -68,20 +68,29 @@ function Login(){
           body: JSON.stringify({ email: user }),
         });
 
+        // BLOCKED USER CHECK
+        if (res.status === 403) {
+          const data = await res.json();
+          alert(
+            `Your account has been blocked.\n\nReason: ${
+              data.reason || "No reason provided"
+            }\n\nPlease contact support@foreverfound.org`
+          );
+          return;
+        }
+
+        // OTHER LOGIN ERRORS
         if (!res.ok) {
           const errData = await res.json();
           setError({ ...error, user: errData.error || "Login failed" });
           return;
         }
 
+        // SUCCESS
         const adopterData = await res.json();
 
-        // Save adopter info locally
         localStorage.setItem("adopter", JSON.stringify(adopterData));
-        //console.log("Full adopterData:", adopterData);
-
         localStorage.setItem("adopterId", adopterData.id);
-        //console.log("Adopter ID saved:", localStorage.getItem("adopterId"));
 
         navigate(`/adopter-home/${adopterData.id}`);
       } catch (err) {

@@ -16,25 +16,38 @@ const adopterSchema = new mongoose.Schema({
   aadharNumber: { type: String, required: true, unique: true },
   aadharImage: { type: String, required: true },
   socialId: { type: String, required: true },
-  password: { type: String, required: true }, // should be hashed in production
+  password: { type: String, required: true },
 
   // Medical details
   healthStatus: {
-    type: [String], // e.g. ["Diabetes", "Hypertension"]
+    type: [String],
     default: [],
   },
   medicalCertificates: {
-    type: [String], // file paths/URLs of uploaded certificates
+    type: [String],
     default: [],
   },
 
-  // Verification status
+  // Approval workflow
   status: {
     type: String,
     enum: ["pending", "approved", "rejected"],
     default: "pending",
   },
-});
+
+  // 🔒 Admin control (NEW)
+  isBlocked: {
+    type: Boolean,
+    default: false,
+  },
+  blockReason: {
+    type: String,
+  },
+  blockedAt: {
+    type: Date,
+  },
+
+}, { timestamps: true });
 
 const Adopter = mongoose.model("Adopter", adopterSchema);
 export default Adopter;

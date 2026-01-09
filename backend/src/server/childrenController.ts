@@ -22,6 +22,7 @@ export const findChildrenMatches = async (req: Request, res: Response) => {
     const query: any = {
       ngoId,
       adoptionStatus: "Available",
+      canEdit: "true"
     };
 
     if (gender && gender !== "Any") query.gender = gender;
