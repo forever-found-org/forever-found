@@ -1,11 +1,21 @@
 import express from "express";
 import { loginAdmin,getApprovedNGOsForAdmin,getAllChildrenForAdmin,getAllAdopters } from "./adminController";
+import { getPendingAdopters,approveAdopter,rejectAdopter,getPendingNGOs,approveNgo,rejectNgo } from "./adminController";
 import { getAdopterDetails,getAdopterMeetings,blockAdopter,unblockAdopter,getAdopterAadhaar,getAdoptedChildren } from "./adminController";
 import { getNGODetails,blockNgo,unblockNgo,getMeetingsForNGO,getAdoptedChildrenByNGO } from "./adminController";
 import { getChildDetailsForAdmin,getMeetingsByChildForAdmin,blockChild,unblockChild } from "./adminController";
 const router = express.Router();
 
 router.post("/login", loginAdmin);
+
+router.get("/pending-adopters", getPendingAdopters);
+router.patch("/adopters/:id/approve", approveAdopter);
+router.patch("/adopters/:id/reject", rejectAdopter);
+
+router.get("/pending-ngos", getPendingNGOs);
+router.patch("/ngos/:id/approve", approveNgo);
+router.patch("/ngos/:id/reject", rejectNgo);
+
 router.get("/ngos", getApprovedNGOsForAdmin);
 router.get("/ngos/:id", getNGODetails);
 router.patch("/ngos/:id/block", blockNgo);

@@ -19,7 +19,16 @@ const ngoSchema = new mongoose.Schema(
     registrationNumber: String,
     caraRegistrationNumber: String,
 
-    verified: { type: Boolean, default: false },
+    status: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
+
+    rejectionReason: {
+      type: String,
+      default: null,
+    },
 
     about: String,
     numberOfChildren: { type: Number, default: 0 },
@@ -39,14 +48,12 @@ const ngoSchema = new mongoose.Schema(
     passwordResetToken: String,
     passwordResetExpires: Date,
 
-    //Blocking related
+    // Optional admin control (not approval-related)
     canEdit: { type: Boolean, default: true },
     blockReason: { type: String, default: null },
     blockedAt: { type: Date, default: null },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 const NGO = mongoose.model("NGO", ngoSchema);

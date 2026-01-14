@@ -35,6 +35,10 @@ import ManageAdopters from './admin_pages/ManageAdopters';
 import AdopterDetails from './admin_pages/AdopterDetails';
 import NGODetails from './admin_pages/NGODetails';
 import ChildrenDetails from './admin_pages/ChildrenDetails';
+import Adopter_Approval from './admin_pages/Adopter_Approval';
+import Adopter_Approval_details from './admin_pages/Adopter_Approval_details';
+import NGO_Approval from './admin_pages/NGO_Approval';
+import NGO_Approval_details from './admin_pages/NGO_Approval_details';
 
 function App() {
  
@@ -73,6 +77,13 @@ function App() {
 
       <Route path="/admin/login" element={<Admin_Login/>}></Route>
       <Route path="/admin/home" element={<Admin_Home/>}></Route>
+
+      <Route path="/admin/adopter-approval" element={<Adopter_Approval/>}></Route>
+      <Route path="/admin/adopter-approval/:id" element={<Adopter_Approval_details/>}></Route>
+
+      <Route path="/admin/ngo-approval" element={<NGO_Approval/>}></Route>
+      <Route path="/admin/ngo-approval/:id" element={<NGO_Approval_details/>}></Route>
+
       <Route path="/admin/view-ngos" element={<ViewNGOS/>}></Route>
       <Route path="/admin/ngos/:id" element={<NGODetails/>}></Route>
 

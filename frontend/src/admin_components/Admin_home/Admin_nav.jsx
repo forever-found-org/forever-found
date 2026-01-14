@@ -5,10 +5,6 @@ import logo from "../../images/logo.png";
 function Admin_Nav({ onLogoutClick }) {
   const navigate = useNavigate();
 
-  const handleHome = () => {
-    navigate("/admin/home");
-    window.scrollTo(0, 0);
-  };
 
   return (
     <div className="h-24 p-2 pr-20 flex items-center justify-between bg-[#006D77]">
@@ -21,12 +17,6 @@ function Admin_Nav({ onLogoutClick }) {
       </h1>
 
       <div className="flex items-center gap-6">
-        <button
-          onClick={handleHome}
-          className="h-10 font-serif border border-white p-2 rounded-md text-white hover:bg-white hover:text-black hover:font-bold capitalize"
-        >
-          home
-        </button>
 
         <button
           onClick={onLogoutClick}

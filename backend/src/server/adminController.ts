@@ -47,26 +47,175 @@ export const loginAdmin = async (req: Request, res: Response) => {
   }
 };
 
-// --- Get all approved NGOs (Admin Page 1) ---
+
+/* GET PENDING ADOPTERS (SUMMARY) */
+export const getPendingAdopters = async (req: Request, res: Response) => {
+  try {
+    const adopters = await Adopter.find(
+      { status: "pending" },
+      "fullName gender occupation contactNumber createdAt updatedAt"
+    ).sort({ createdAt: -1 });
+
+    res.status(200).json(adopters);
+  } catch {
+    res.status(500).json({ message: "Failed to fetch pending adopters" });
+  }
+};
+
+//approve adopter
+export const approveAdopter = async (req: Request, res: Response) => {
+  try {
+    const adopter = await Adopter.findByIdAndUpdate(
+      req.params.id,
+      { status: "approved" },
+      { new: true }
+    );
+
+    if (!adopter) {
+      return res.status(404).json({ message: "Adopter not found" });
+    }
+
+    res.status(200).json({ message: "Adopter approved successfully" });
+  } catch {
+    res.status(500).json({ message: "Failed to approve adopter" });
+  }
+};
+
+//reject adopter
+export const rejectAdopter = async (req: Request, res:Response) => {
+  try {
+    const { reason } = req.body;
+
+    if (!reason) {
+      return res.status(400).json({
+        message: "Rejection reason is required",
+      });
+    }
+
+    const adopter = await Adopter.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: "rejected",
+        rejectionReason: reason,
+      },
+      { new: true }
+    );
+
+    if (!adopter) {
+      return res.status(404).json({
+        message: "Adopter not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "Adopter rejected successfully",
+    });
+  } catch (error) {
+    console.error("Error rejecting adopter:", error);
+    res.status(500).json({
+      message: "Failed to reject adopter",
+    });
+  }
+};
+
+/* GET PENDING NGOs (SUMMARY) */
+export const getPendingNGOs = async (req: Request, res: Response) => {
+  try {
+    const ngos = await NGO.find(
+      { status: "pending" },
+      "name city contact numberOfChildren createdAt"
+    ).sort({ createdAt: -1 });
+
+    res.status(200).json(ngos);
+  } catch (error) {
+    console.error("Error fetching pending NGOs:", error);
+    res.status(500).json({ message: "Failed to fetch pending NGOs" });
+  }
+};
+
+// approve NGO
+export const approveNgo = async (req: Request, res: Response) => {
+  try {
+    const ngo = await NGO.findByIdAndUpdate(
+      req.params.id,
+      { status: "approved", rejectionReason: null },
+      { new: true }
+    );
+
+    if (!ngo) {
+      return res.status(404).json({ message: "NGO not found" });
+    }
+
+    res.status(200).json({ message: "NGO approved successfully" });
+  } catch {
+    res.status(500).json({ message: "Failed to approve NGO" });
+  }
+};
+
+// reject NGO
+export const rejectNgo = async (req: Request, res: Response) => {
+  try {
+    const { reason } = req.body;
+
+    if (!reason) {
+      return res.status(400).json({
+        message: "Rejection reason is required",
+      });
+    }
+
+    const ngo = await NGO.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: "rejected",
+        rejectionReason: reason,
+      },
+      { new: true }
+    );
+
+    if (!ngo) {
+      return res.status(404).json({ message: "NGO not found" });
+    }
+
+    res.status(200).json({ message: "NGO rejected successfully" });
+  } catch {
+    res.status(500).json({ message: "Failed to reject NGO" });
+  }
+};
+
+
+
+
 export const getApprovedNGOsForAdmin = async (
   req: Request,
   res: Response
 ) => {
   try {
-    const ngos = await NGO.find(
-      { verified: true },
-      "name city numberOfChildren verified"
-    ).lean();
+    const ngos = await NGO.find()
+      .select("name city numberOfChildren status canEdit")
+      .lean();
 
-    res.json({
-      totalNGOs: ngos.length,
-      ngos,
+    const formattedNGOs = ngos.map((ngo: any) => ({
+      _id: ngo._id,
+      name: ngo.name,
+      city: ngo.city,
+      numberOfChildren: ngo.numberOfChildren,
+      status: ngo.status,
+      canEdit: ngo.canEdit,
+    }));
+
+    res.status(200).json({
+      total: formattedNGOs.length,
+      ngos: formattedNGOs,
     });
   } catch (error) {
-    console.error("Error fetching approved NGOs:", error);
-    res.status(500).json({ message: "Failed to fetch NGOs" });
+    console.error("Error fetching NGOs for admin:", error);
+    res.status(500).json({
+      message: "Failed to fetch NGOs",
+    });
   }
 };
+
+
 // Get single NGO
 export const getNGODetails = async (req: Request, res: Response) => {
   try {
@@ -202,7 +351,7 @@ export const getAllChildrenForAdmin = async (
     const children = await Child.find()
       .populate("ngoId", "name") // only NGO name
       .select(
-        "name age gender adoptionStatus canEdit ngoId"
+        "name age gender status canEdit ngoId"
       )
       .lean();
 
@@ -211,7 +360,7 @@ export const getAllChildrenForAdmin = async (
       name: child.name,
       age: child.age,
       gender: child.gender,
-      adoptionStatus: child.adoptionStatus,
+      adoptionStatus: child.status,
       canEdit: child.canEdit,
       ngoName: child.ngoId?.name || "N/A",
     }));
