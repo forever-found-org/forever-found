@@ -10,7 +10,10 @@ function ReviewForm({ formData, role, onEdit, onSubmit }) {
       
 
       <div className="space-y-4">
-        {Object.entries(formData).map(([key, value]) => (
+        {Object.entries(formData)
+          .filter(([key]) => key !== "confirmPass")
+          .map(([key, value]) => (
+
           <div
             key={key}
             className="grid grid-cols-3 gap-4 items-center border-b p-4 bg-gray-50"

@@ -22,8 +22,6 @@ function Meeting_Status_Details() {
         if (!res.ok) throw new Error("Failed to fetch meeting details");
         const data = await res.json();
 
-        //  console.log("Fetched meeting:", data);
-        //  console.log("Time slot choices:", data.timeSlotChoices);
 
         if (data.status === "pending") {
           navigate(-1); // redirect back if pending

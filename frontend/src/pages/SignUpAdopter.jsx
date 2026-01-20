@@ -28,11 +28,19 @@ function SignUpAdopter() {
         status: "pending",         // NEW
     });
 
-    useEffect(()=>{
-        if(location.state?.formData){
-            setAdopterData(location.state.formData);
-        }
-    },[location.state]);
+    useEffect(() => {
+  if (location.state?.formData) {
+    const fd = location.state.formData;
+
+    setAdopterData({
+      ...fd,
+      healthStatus: Array.isArray(fd.healthStatus)
+        ? fd.healthStatus.join(", ")
+        : fd.healthStatus || "",
+    });
+  }
+}, [location.state]);
+
     
 
 
@@ -52,20 +60,21 @@ function SignUpAdopter() {
     function handleChange(e) {
         const { name, value, files } = e.target;
 
+        function handleChange(e) {
+        const { name, value, files } = e.target;
+
         setAdopterData((prev) => ({
             ...prev,
             [name]:
-                name === "aadharimg" || name === "medicalCertificates"
-                    ? files[0]
-                    : name === "healthStatus"
-                    ? value // keep as string for now
-                    : value,
+            name === "aadharimg"
+                ? files[0]
+                : name === "medicalCertificates"
+                ? files        // ✅ keep as FileList / array
+                : value,
         }));
 
-        setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: "",
-        }));
+        setErrors((prev) => ({ ...prev, [name]: "" }));
+        }
     }
 
     
@@ -80,17 +89,8 @@ function SignUpAdopter() {
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
-            const dataToSend = {
-                ...adopterData,
-                // split the string by comma and trim whitespace
-                healthStatus: adopterData.healthStatus
-                    .split(",")
-                    .map((s) => s.trim())
-                    .filter((s) => s !== ""), // remove empty entries
-            };
-
             navigator("/review-signup-form", {
-                state: { formData: dataToSend, role: "adopter" },
+                state: { formData: adopterData, role: "adopter" },
             });
             window.scrollTo(0, 0);
         }

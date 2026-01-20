@@ -1,4 +1,5 @@
 import express from "express";
+import cloudUpload from "../cloudUpload";
 import { getAllNGOs, getNGODetails, validateNgoId, loginNGO,updateNGODetails } from "./ngoController";
 
 const router = express.Router();
@@ -15,6 +16,6 @@ router.post("/validate-ngo", validateNgoId);
 // --- NEW: NGO login route ---
 router.post("/login", loginNGO);
 
-router.put("/:id", updateNGODetails);
+router.put("/:id",cloudUpload.array("newGallery", 3), updateNGODetails);
 
 export default router;

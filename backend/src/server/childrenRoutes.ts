@@ -1,22 +1,28 @@
 import express from "express";
-import multer from "multer";
-import { findChildrenMatches } from "./childrenController";
-import { getChildWithEffectiveStatus } from "./childrenController";
-import { createChild } from "./childrenController";
-import { upload } from "../multer";
-import { getChildrenByNgo } from "./childrenController";
-import { updateChild } from "./childrenController";
+import cloudUpload from "../cloudUpload";
+import {
+  findChildrenMatches,
+  getChildWithEffectiveStatus,
+  createChild,
+  getChildrenByNgo,
+  updateChild,
+} from "./childrenController";
 
 const router = express.Router();
+
+// match children
 router.post("/match", findChildrenMatches);
-//view children
+
+// view children by NGO
 router.get("/ngo/:ngoId", getChildrenByNgo);
-router.get("/:id/details",getChildWithEffectiveStatus);
-//creating new child
-router.post("/create", upload.array("gallery"), createChild);
 
+// view single child
+router.get("/:id/details", getChildWithEffectiveStatus);
 
-router.put("/update/:id", upload.array("gallery"), updateChild);
+// create child → text + images
+router.post("/create", cloudUpload.array("gallery"), createChild);
 
+// update child → text + add images
+router.put("/update/:id", cloudUpload.array("gallery"), updateChild);
 
 export default router;

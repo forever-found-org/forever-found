@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import SubmitStatus from "../components/Common_Components/SubmitStatus";
 
 function PendingRequestDetails_NGO() {
   const params = useParams();
@@ -10,6 +11,7 @@ function PendingRequestDetails_NGO() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showSlots, setShowSlots] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
   const [slots, setSlots] = useState([
     { date: "", startTime: "", endTime: "" },
     { date: "", startTime: "", endTime: "" },
@@ -69,15 +71,17 @@ function PendingRequestDetails_NGO() {
 
     const slotDate = new Date(date);
     if (slotDate < today) {
-      alert(`Date cannot be before today: ${date}`);
-      return;
+      setSubmitStatus({type: "error", message: `Date cannot be before today: ${date}`,});
+    return;
+
     }
 
     // Check max duration (2 hours)
     const duration = toMinutes(endTime) - toMinutes(startTime);
     if (duration > 120) {
-      alert(`Slot ${startTime} - ${endTime} exceeds maximum duration of 2 hours.`);
-      return;
+      setSubmitStatus({type: "error",message: `Slot ${startTime} - ${endTime} exceeds maximum duration of 2 hours.`,});
+    return;
+
     }
 
     meetDateChoices.push(date);
@@ -85,7 +89,12 @@ function PendingRequestDetails_NGO() {
   }
 
   if (meetDateChoices.length === 0) {
-    alert("Please enter at least one valid slot.");
+    setSubmitStatus({
+    type: "error",
+    message: "Please enter at least one valid slot.",
+});
+return;
+
     return;
   }
 
@@ -101,11 +110,17 @@ function PendingRequestDetails_NGO() {
     const updatedMeeting = await res.json();
     setMeeting(updatedMeeting);
     setShowSlots(false);
-    alert("Meeting Approved! Check status in Meeting Status feature");
-    navigate(`/ngo-home/${ngoId}/meeting-status`);
+    setSubmitStatus({
+    type: "success",
+    message: "Meeting approved successfully!",
+    onOk: () => navigate(`/ngo-home/${ngoId}/meeting-status`),
+    });
   } catch (err) {
     console.error(err);
-    alert("Error updating meeting: " + err.message);
+   setSubmitStatus({
+    type: "error",
+    message: "Error updating meeting. Please try again.",
+    });
   }
 };
 
@@ -123,11 +138,18 @@ function PendingRequestDetails_NGO() {
 
       const updatedMeeting = await res.json();
       setMeeting(updatedMeeting);
-      alert("Meeting rejected successfully!Check status in Meeting Status feature");
-      navigate(`/ngo-home/${ngoId}/meeting-status`);
+      setSubmitStatus({
+      type: "success",
+      message: "Meeting rejected successfully.",
+      onOk: () => navigate(`/ngo-home/${ngoId}/meeting-status`),
+    });
+
     } catch (err) {
       console.error(err);
-      alert("Error rejecting meeting: " + err.message);
+      setSubmitStatus({
+      type: "error",
+      message: "Error rejecting meeting. Please try again.",
+    });
     }
   };
 
@@ -264,6 +286,16 @@ function PendingRequestDetails_NGO() {
           </div>
         )}
       </div>
+      {submitStatus && (
+        <SubmitStatus
+          status={submitStatus.type}
+          message={submitStatus.message}
+          onOk={() => {
+            submitStatus.onOk?.();
+            setSubmitStatus(null);
+          }}
+        />
+      )}
     </div>
   );
 }

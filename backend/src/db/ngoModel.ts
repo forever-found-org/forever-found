@@ -32,7 +32,7 @@ const ngoSchema = new mongoose.Schema(
 
     about: String,
     numberOfChildren: { type: Number, default: 0 },
-    image: String,
+    logo: { type: String, default: ""},
 
     testimonials: [
       {
@@ -41,8 +41,7 @@ const ngoSchema = new mongoose.Schema(
         feedback: String,
       },
     ],
-    gallery: [String],
-
+    gallery: { type: [String],default: [] },
     socialId: String,
     password: { type: String, required: true, minlength: 8 },
     passwordResetToken: String,

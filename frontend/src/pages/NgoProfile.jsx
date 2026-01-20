@@ -70,7 +70,7 @@ export default function NgoProfile() {
             <h3 className="text-2xl font-semibold mb-4 text-green-800">Gallery</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {ngo.gallery.map((img, idx) => (
-                <img key={idx} src={`/ngo_gallery/${img}`} alt={`Gallery ${idx}`} className="rounded-lg shadow-md" />
+                <img key={idx} src={img} alt={`Gallery ${idx}`} className="rounded-lg shadow-md" />
               ))}
             </div>
           </div>

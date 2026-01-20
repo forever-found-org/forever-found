@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Child from "../db/childrenModel";
 import Meeting from "../db/meetingsModel";
 
-// Map age groups to ranges
+// ---------------- MATCH CHILDREN ----------------
 const ageGroups: Record<string, [number, number]> = {
   "2-4": [2, 4],
   "5-8": [5, 8],
@@ -18,11 +18,10 @@ export const findChildrenMatches = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "NGO ID is required" });
     }
 
-    // Build dynamic query
     const query: any = {
       ngoId,
       adoptionStatus: "Available",
-      canEdit: "true"
+      canEdit: true,
     };
 
     if (gender && gender !== "Any") query.gender = gender;
@@ -39,24 +38,23 @@ export const findChildrenMatches = async (req: Request, res: Response) => {
   }
 };
 
-//child details
+// ---------------- CHILD DETAILS ----------------
 export const getChildWithEffectiveStatus = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const child = await Child.findById(id);
     if (!child) return res.status(404).json({ message: "Child not found" });
 
-    // Fetch all active meetings for this child
-    const meetings = await Meeting.find({ 
+    const meetings = await Meeting.find({
       childIds: child._id,
-      status: { $in: ["pending", "accepted", "fixed"] }
+      status: { $in: ["pending", "accepted", "fixed"] },
     });
 
-    // Determine effective status
-    let effectiveStatus = child.adoptionStatus === "Available" ? "available" : null;
+    let effectiveStatus: string | null = null;
     if (meetings.some(m => m.status === "fixed")) effectiveStatus = "fixed";
     else if (meetings.some(m => m.status === "accepted")) effectiveStatus = "accepted";
     else if (meetings.some(m => m.status === "pending")) effectiveStatus = "pending";
+    else if (child.adoptionStatus === "Available") effectiveStatus = "available";
 
     res.json({ child, effectiveStatus });
   } catch (err) {
@@ -65,28 +63,37 @@ export const getChildWithEffectiveStatus = async (req: Request, res: Response) =
   }
 };
 
-// Controller to create a new child
+// ---------------- CREATE CHILD ----------------
 export const createChild = async (req: Request, res: Response) => {
   try {
-    console.log("REQ.BODY:", req.body);
-    console.log("REQ.FILES:", req.files);
-
-    const { ngoId, name, age, gender, dateOfBirth, healthStatus, educationLevel } = req.body;
-
-    if (!ngoId || !name || !age || !gender) {
-      return res.status(400).json({ message: "NGO ID, name, age, and gender are required" });
-    }
-
-    const gallery = req.files
-      ? (req.files as Express.Multer.File[]).map(file => file.filename)
-      : [];
-
-    const newChild = new Child({
+    const {
       ngoId,
       name,
       age,
       gender,
       dateOfBirth,
+      healthStatus,
+      educationLevel,
+    } = req.body;
+
+    if (!ngoId || !name || !age || !gender) {
+      return res.status(400).json({
+        message: "NGO ID, name, age, and gender are required",
+      });
+    }
+
+    // Cloudinary URLs
+    const gallery =
+      req.files && Array.isArray(req.files)
+        ? (req.files as Express.Multer.File[]).map(file => file.path)
+        : [];
+
+    const newChild = new Child({
+      ngoId,
+      name,
+      age: Number(age),
+      gender,
+      dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : undefined,
       healthStatus,
       educationLevel,
       gallery,
@@ -95,18 +102,21 @@ export const createChild = async (req: Request, res: Response) => {
     });
 
     await newChild.save();
-    res.status(201).json({ message: "Child created successfully", child: newChild });
+
+    res.status(201).json({
+      message: "Child created successfully",
+      child: newChild,
+    });
   } catch (error) {
     console.error("Error creating child:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// View children by NGO
+// ---------------- VIEW CHILDREN BY NGO ----------------
 export const getChildrenByNgo = async (req: Request, res: Response) => {
   try {
     const { ngoId } = req.params;
-
     if (!ngoId) {
       return res.status(400).json({ message: "NGO ID is required" });
     }
@@ -114,12 +124,12 @@ export const getChildrenByNgo = async (req: Request, res: Response) => {
     const children = await Child.find({ ngoId }).select("-adopterId");
     res.json(children);
   } catch (error) {
-    console.error("Error fetching children:", error);
+    console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// ✅ Update child (new)
+// ---------------- UPDATE CHILD ----------------
 export const updateChild = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -129,24 +139,27 @@ export const updateChild = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Child not found" });
     }
 
-    // Update only allowed fields
     const { age, healthStatus, educationLevel } = req.body;
-    if (age !== undefined) child.age = age;
+
+    if (age !== undefined) child.age = Number(age);
     if (healthStatus !== undefined) child.healthStatus = healthStatus;
     if (educationLevel !== undefined) child.educationLevel = educationLevel;
 
-    // Handle new medical certificate uploads
+    // Append ONLY new medical certificates
     if (req.files && Array.isArray(req.files)) {
-      const uploadedFiles = (req.files as Express.Multer.File[]).map(f => f.filename);
+      const newImages = (req.files as Express.Multer.File[]).map(
+        file => file.path // Cloudinary URL
+      );
 
-      // Append new medical certificates to the gallery
-      child.gallery = [...child.gallery, ...uploadedFiles];
+      child.gallery.push(...newImages);
     }
 
     await child.save();
 
-    // Return full child details including gallery
-    res.json({ message: "Child updated successfully", child });
+    res.json({
+      message: "Child updated successfully",
+      child,
+    });
   } catch (error) {
     console.error("Error updating child:", error);
     res.status(500).json({ message: "Server error" });

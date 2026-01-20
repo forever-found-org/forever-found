@@ -29,7 +29,7 @@ export const loginNGO = async (req: Request, res: Response) => {
 // Fetch all NGOs (for cards page)
 export const getAllNGOs = async (req: Request, res: Response) => {
   try {
-    const ngos = await NGO.find({}, "name location image city state");
+    const ngos = await NGO.find({}, "name location logo city state");
     res.json(ngos);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch NGOs" });
@@ -49,14 +49,13 @@ export const getNGODetails = async (req: Request, res: Response) => {
       location: ngo.location,
       city:ngo.city,
       state:ngo.state,
-      image: ngo.image,
+      logo: ngo.logo,
       yearOfEstablishment: ngo.yearOfEstablishment,
       website: ngo.website,
       contact: ngo.contact,
       email: ngo.email,
       ngoRegistrationNumber: ngo.registrationNumber, // make sure this exists in DB
       caraRegistrationNumber: ngo.caraRegistrationNumber,
-      verified: ngo.verified,
       about: ngo.about,
       numberOfChildren: ngo.numberOfChildren,
       gallery: ngo.gallery,
@@ -98,17 +97,61 @@ export const updateNGODetails = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const updatedNgo = await NGO.findByIdAndUpdate(
-      id,
-      { $set: req.body },   // frontend sends updated fields
-      { new: true }
-    );
-
-    if (!updatedNgo) {
+    const ngo = await NGO.findById(id);
+    if (!ngo) {
       return res.status(404).json({ message: "NGO not found" });
     }
 
-    res.json(updatedNgo);
+    const {
+      about,
+      website,
+      contact,
+      alternateContact,
+      testimonials,
+      city,
+      state,
+      location,
+      numberOfChildren,
+      existingGallery, // 👈 ADD THIS
+    } = req.body;
+
+    // ---------------- Text fields ----------------
+    ngo.about = about ?? ngo.about;
+    ngo.website = website ?? ngo.website;
+    ngo.contact = contact ?? ngo.contact;
+    ngo.alternateContact = alternateContact ?? ngo.alternateContact;
+    ngo.city = city ?? ngo.city;
+    ngo.state = state ?? ngo.state;
+    ngo.location = location ?? ngo.location;
+    ngo.numberOfChildren = numberOfChildren ?? ngo.numberOfChildren;
+    ngo.testimonials = testimonials
+      ? JSON.parse(testimonials)
+      : ngo.testimonials;
+
+    // ---------------- GALLERY FIX ----------------
+    let updatedGallery: string[] = [];
+
+    // 1️⃣ Keep remaining images (after delete)
+    if (existingGallery) {
+      updatedGallery = JSON.parse(existingGallery);
+    }
+
+    // 2️⃣ Add newly uploaded images
+    if (req.files && Array.isArray(req.files)) {
+      const uploadedImages = (req.files as Express.Multer.File[]).map(
+        (file) => file.path
+      );
+
+      updatedGallery.push(...uploadedImages);
+    }
+
+    // 3️⃣ Enforce max limit = 3
+    ngo.gallery = updatedGallery.slice(0, 3);
+
+    // ------------------------------------------------
+
+    await ngo.save();
+    res.json(ngo);
   } catch (error) {
     console.error("Error updating NGO:", error);
     res.status(500).json({ message: "Failed to update NGO" });

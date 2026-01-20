@@ -1,7 +1,8 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import path from "path";
 import connectDB from "./db/db";
 import ngoRoutes from "./server/ngoRoutes";
 import childrenRoutes from "./server/childrenRoutes";
@@ -10,17 +11,12 @@ import meetingRoutes from "./server/meetingRoutes";
 import adminRoutes from "./server/adminRoutes";
 import { cancelExpiredMeetings } from "./autoCancel";
 
-dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
 
-// Serve static folders
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
-app.use("/ngo_gallery", express.static(path.join(__dirname, "../ngo_gallery")));
-app.use("/multer_uploads", express.static(path.join(__dirname, "../multer_uploads")));
 
 // Routes
 app.use("/api/ngos", ngoRoutes);

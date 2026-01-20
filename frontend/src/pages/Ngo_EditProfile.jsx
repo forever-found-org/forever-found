@@ -17,8 +17,8 @@ export default function EditNgoProfile() {
     website: "",
     about: "",
     numberOfChildren: 0,
-    gallery: [], // dynamic gallery array
-    testimonials: [], // dynamic testimonials array
+    gallery: [],
+    testimonials: [],
   });
 
   useEffect(() => {
@@ -53,16 +53,19 @@ export default function EditNgoProfile() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // Gallery handlers
-  const handleGalleryChange = (index, value) => {
+  /* =========================
+     GALLERY LOGIC (UPDATED)
+     ========================= */
+
+  const handleGalleryChange = (index, file) => {
     const newGallery = [...formData.gallery];
-    newGallery[index] = value;
+    newGallery[index] = file;
     setFormData((prev) => ({ ...prev, gallery: newGallery }));
   };
 
   const addGalleryImage = () => {
     if (formData.gallery.length < 3) {
-      setFormData((prev) => ({ ...prev, gallery: [...prev.gallery, ""] }));
+      setFormData((prev) => ({ ...prev, gallery: [...prev.gallery, null] }));
     }
   };
 
@@ -71,7 +74,10 @@ export default function EditNgoProfile() {
     setFormData((prev) => ({ ...prev, gallery: newGallery }));
   };
 
-  // Testimonial handlers
+  /* =========================
+     TESTIMONIAL LOGIC (UNCHANGED)
+     ========================= */
+
   const handleTestimonialChange = (index, field, value) => {
     const newTestimonials = [...formData.testimonials];
     newTestimonials[index][field] = value;
@@ -82,7 +88,7 @@ export default function EditNgoProfile() {
     if (formData.testimonials.length < 3) {
       setFormData((prev) => ({
         ...prev,
-        testimonials: [...prev.testimonials, { name: "", role: "", message: "" }],
+        testimonials: [...prev.testimonials, { name: "", role: "", feedback: "" }],
       }));
     }
   };
@@ -92,17 +98,38 @@ export default function EditNgoProfile() {
     setFormData((prev) => ({ ...prev, testimonials: newTestimonials }));
   };
 
+ //save logoc
   const handleSave = async () => {
     setSaving(true);
     try {
+      const payload = new FormData();
+
+      Object.entries(formData).forEach(([key, value]) => {
+        if (key === "gallery") {
+          // send new uploaded images
+          value.forEach((img) => {
+            if (img instanceof File) {
+              payload.append("newGallery", img);
+            }
+          });
+
+          // send remaining existing images (AFTER delete)
+          const existingImages = value.filter((img) => typeof img === "string");
+          payload.append("existingGallery", JSON.stringify(existingImages));
+        } else if (key === "testimonials") {
+          payload.append("testimonials", JSON.stringify(value));
+        } else {
+          payload.append(key, value);
+        }
+      });
+
       const res = await fetch(`http://localhost:5000/api/ngos/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: payload,
       });
+
       if (!res.ok) throw new Error("Failed to update NGO profile");
-      await res.json();
-      navigate(`/ngo-home/${id}`); // back to profile
+      navigate(`/ngo-home/${id}`);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -128,7 +155,8 @@ export default function EditNgoProfile() {
           <p><span className="font-semibold text-green-700">CARA Registration No:</span> {ngo.caraRegistrationNumber}</p>
         </div>
 
-        {/* Editable fields */}
+
+          {/* Editable fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-800 text-lg md:text-xl">
           <div>
             <label className="font-semibold text-green-700">City:</label>
@@ -155,7 +183,7 @@ export default function EditNgoProfile() {
 
           <div>
             <label className="font-semibold text-green-700">Number of Children:</label>
-            <input type="number" name="numberOfChildren" value={formData.numberOfChildren} onChange={handleChange} min={0} className="w-full border p-2 rounded mt-1"/>
+            <input type="number" name="numberOfChildren" value={formData.numberOfChildren} onChange={handleChange} min={0} className="w-full border p-2 	     rounded mt-1"/>
           </div>
 
           <div className="md:col-span-2">
@@ -165,26 +193,71 @@ export default function EditNgoProfile() {
 
           {/* Gallery Section */}
           <div className="md:col-span-2">
-            <label className="font-semibold text-green-700">Gallery Images (max 3):</label>
-            {formData.gallery.map((img, index) => (
-              <div key={index} className="flex gap-2 items-center mt-1">
-                <input type="text" value={img} onChange={(e) => handleGalleryChange(index, e.target.value)} placeholder={`Image URL ${index + 1}`} className="w-full border p-2 rounded"/>
-                <button type="button" onClick={() => removeGalleryImage(index)} className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Remove</button>
-              </div>
-            ))}
+            <label className="font-semibold text-green-700">
+              Gallery Images (max 3):
+            </label>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+              {formData.gallery.map((img, index) => (
+                <div
+                  key={index}
+                  className="border rounded-lg p-3 flex flex-col gap-2 shadow-sm"
+                >
+                  {/* Image Preview */}
+                  {img ? (
+                    <img
+                      src={img instanceof File ? URL.createObjectURL(img) : img}
+                      alt={`Gallery ${index + 1}`}
+                      className="h-40 w-full object-cover rounded-md border"
+                    />
+                  ) : (
+                    <div className="h-40 w-full flex items-center justify-center border rounded-md text-gray-400 text-sm">
+                      No Image Selected
+                    </div>
+                  )}
+
+                  {/* File Input */}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      handleGalleryChange(index, e.target.files[0])
+                    }
+                    className="w-full border p-2 rounded"
+                  />
+
+                  {/* Remove Button */}
+                  <button
+                    type="button"
+                    onClick={() => removeGalleryImage(index)}
+                    className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+
             {formData.gallery.length < 3 && (
-              <button type="button" onClick={addGalleryImage} className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add Image</button>
+              <button
+                type="button"
+                onClick={addGalleryImage}
+                className="mt-3 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                Add Image
+              </button>
             )}
           </div>
 
-          {/* Testimonials Section */}
+
+          {/* Testimonials Section (UNCHANGED) */}
           <div className="md:col-span-2 mt-4">
             <label className="font-semibold text-green-700">Testimonials (max 3):</label>
             {formData.testimonials.map((t, index) => (
               <div key={index} className="border p-3 rounded mt-2 flex flex-col gap-2">
                 <input type="text" placeholder="Person Name" value={t.name} onChange={(e) => handleTestimonialChange(index, "name", e.target.value)} className="border p-2 rounded"/>
                 <input type="text" placeholder="Role" value={t.role} onChange={(e) => handleTestimonialChange(index, "role", e.target.value)} className="border p-2 rounded"/>
-                <textarea placeholder="Feedback" value={t.feedback} onChange={(e) => handleTestimonialChange(index, "message", e.target.value)} rows={2} className="border p-2 rounded"/>
+                <textarea placeholder="Feedback" value={t.feedback} onChange={(e) => handleTestimonialChange(index, "feedback", e.target.value)} rows={2} className="border p-2 rounded"/>
                 <button type="button" onClick={() => removeTestimonial(index)} className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 w-max mt-1">Remove</button>
               </div>
             ))}

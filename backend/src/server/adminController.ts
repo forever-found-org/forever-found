@@ -351,7 +351,7 @@ export const getAllChildrenForAdmin = async (
     const children = await Child.find()
       .populate("ngoId", "name") // only NGO name
       .select(
-        "name age gender status canEdit ngoId"
+        "name age gender adoptionStatus canEdit ngoId"
       )
       .lean();
 
@@ -360,7 +360,7 @@ export const getAllChildrenForAdmin = async (
       name: child.name,
       age: child.age,
       gender: child.gender,
-      adoptionStatus: child.status,
+      adoptionStatus: child.adoptionStatus,
       canEdit: child.canEdit,
       ngoName: child.ngoId?.name || "N/A",
     }));

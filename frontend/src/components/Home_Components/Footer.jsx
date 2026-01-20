@@ -9,7 +9,7 @@ function Footer(){
     return (
         <footer>
             <div className="bg-slate-300 ">
-                <div className="p-8 pb-5 flex justify-evenly">
+                <div className="p-5 pb-4 flex justify-evenly">
                     <div >
                         <h1 className="mb-2 text-lg font-semibold">Support and Legal</h1>
                         <ul>

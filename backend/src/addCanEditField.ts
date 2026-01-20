@@ -6,31 +6,26 @@ dotenv.config();
 const run = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI!);
-    console.log("✅ Connected");
+    console.log("✅ Connected to MongoDB");
 
     const res = await mongoose.connection
       .collection("ngos")
       .updateMany(
+        {},
         {
-          createdAt: { $exists: false },
-          updatedAt: { $exists: true },
-        },
-        [
-          {
-            $set: {
-              createdAt: "$updatedAt",
-            },
+          $unset: {
+            image: "",
           },
-        ]
+        }
       );
 
-    console.log("Matched:", res.matchedCount);
-    console.log("Modified:", res.modifiedCount);
+    console.log("NGOs matched:", res.matchedCount);
+    console.log("NGOs modified:", res.modifiedCount);
 
     await mongoose.disconnect();
-    console.log("✅ Done");
+    console.log("✅ image field removed from NGOs");
   } catch (err) {
-    console.error("❌ Failed:", err);
+    console.error("❌ Migration failed:", err);
     process.exit(1);
   }
 };

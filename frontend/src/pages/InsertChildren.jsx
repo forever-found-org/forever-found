@@ -2,24 +2,35 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Validator from "../components/InsertChild/Validator";
 import Confirm from "../components/InsertChild/Confirm";
+import SubmitStatus from "../components/Common_Components/SubmitStatus";
+
+const initialFormState = {
+  ngoId: "",
+  name: "",
+  age: "",
+  gender: "",
+  dateOfBirth: "",
+  healthStatus: "",
+  educationLevel: "",
+  gallery: [],
+  adoptionStatus: "Available",
+  adopterId: ""
+};
 
 function InsertChildren() {
-  const [formData, setFormData] = useState({
-    ngoId: "",
-    name: "",
-    age: "",
-    gender: "",
-    dateOfBirth: "",
-    healthStatus: "",
-    educationLevel: "",
-    gallery: [],
-    adoptionStatus: "Available",
-    adopterId: ""
-  });
-
+  const [formData, setFormData] = useState(initialFormState);
   const [errors, setErrors] = useState({});
   const [showConfirm, setShowConfirm] = useState(false);
+  const [fileKey, setFileKey] = useState(Date.now());
+
+  const [submitStatus, setSubmitStatus] = useState({
+    show: false,
+    status: "loading", // loading | success | error
+    message: ""
+  });
+
   const navigate = useNavigate();
+  const ngoData = JSON.parse(localStorage.getItem("ngo")) || {};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,14 +38,14 @@ function InsertChildren() {
   };
 
   const handleGalleryChange = (e, index) => {
-  const file = e.target.files[0];
-  setFormData((prev) => {
-    const updatedGallery = [...prev.gallery];
-    updatedGallery[index] = file; // put file in correct slot
-    return { ...prev, gallery: updatedGallery };
-  });
-};
-  const ngoData = JSON.parse(localStorage.getItem("ngo")) || {};
+    const file = e.target.files[0];
+    setFormData((prev) => {
+      const updatedGallery = [...prev.gallery];
+      updatedGallery[index] = file;
+      return { ...prev, gallery: updatedGallery };
+    });
+  };
+
   const handleClick = (e) => {
     e.preventDefault();
     navigate(`/ngo-home/${ngoData.id}`);
@@ -45,53 +56,58 @@ function InsertChildren() {
     const validErrors = await Validator(formData);
     setErrors(validErrors);
 
-    if (Object.keys(validErrors).length === 0) setShowConfirm(true);
+    if (Object.keys(validErrors).length === 0) {
+      setShowConfirm(true);
+    }
   };
 
   const handleConfirm = async () => {
-    const submitData = new FormData();
-    submitData.append("name", formData.name);
-    submitData.append("age", formData.age.toString());
-    submitData.append("gender", formData.gender);
-    submitData.append("ngoId", formData.ngoId);
-    submitData.append("healthStatus", formData.healthStatus);
-    submitData.append("educationLevel", formData.educationLevel);
-    submitData.append("dateOfBirth", formData.dateOfBirth);
+    setShowConfirm(false);
 
-    formData.gallery.forEach(file => submitData.append("gallery", file));
+    setSubmitStatus({
+      show: true,
+      status: "loading",
+      message: ""
+    });
 
     try {
-      const response = await fetch("/api/children/create", {
+      const submitData = new FormData();
+
+      submitData.append("name", formData.name);
+      submitData.append("age", String(formData.age));
+      submitData.append("gender", formData.gender);
+      submitData.append("ngoId", formData.ngoId);
+      submitData.append("healthStatus", formData.healthStatus);
+      submitData.append("educationLevel", formData.educationLevel);
+      submitData.append("dateOfBirth", formData.dateOfBirth);
+
+      formData.gallery.forEach((file) => {
+        if (file instanceof File) {
+          submitData.append("gallery", file);
+        }
+      });
+
+      const res = await fetch("/api/children/create", {
         method: "POST",
-        body: submitData
+        body: submitData,
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        alert(`Error: ${error.message}`);
-        return;
-      }
+      const text = await res.text();
+      if (!res.ok) throw new Error(text);
 
-      const data = await response.json();
-      alert("Child inserted successfully!");
-      console.log(data.child);
-
-      setShowConfirm(false);
-      setFormData({
-        ngoId: "",
-        name: "",
-        age: "",
-        gender: "",
-        dateOfBirth: "",
-        healthStatus: "",
-        educationLevel: "",
-        gallery: [],
-        adoptionStatus: "Available",
-        adopterId: ""
+      setSubmitStatus({
+        show: true,
+        status: "success",
+        message: "Child inserted successfully."
       });
+
     } catch (err) {
       console.error(err);
-      alert("An unexpected error occurred.");
+      setSubmitStatus({
+        show: true,
+        status: "error",
+        message: "Insert failed. Please try again."
+      });
     }
   };
 
@@ -99,18 +115,35 @@ function InsertChildren() {
     setShowConfirm(false);
   };
 
+  const handleStatusOk = () => {
+  setSubmitStatus({ show: false, status: "loading", message: "" });
+  setErrors({});
+  setFormData(initialFormState);
+  setFileKey(Date.now());
+
+  window.scrollTo(0, 0);
+};
+
+
   return (
     <div className="max-w-2xl mx-auto mt-12 p-8 rounded-3xl shadow-2xl 
                     bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-100 
                     font-serif">
+
       <div className="flex items-center justify-between">
         <h2 className="text-4xl font-bold mb-8 ml-32 text-center text-amber-800 drop-shadow-sm">
           CHILD RECORD
         </h2>
-        <button onClick={handleClick} className="bg-amber-600 border border-amber-600 rounded-md p-2 mb-6 font-semibold hover:bg-amber-700 hover:shadow-lg hover:scale-105">Home</button>
+        <button
+          onClick={handleClick}
+          className="bg-amber-600 border border-amber-600 rounded-md p-2 mb-6 font-semibold hover:bg-amber-700 hover:shadow-lg hover:scale-105"
+        >
+          Home
+        </button>
       </div>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
+
         {/* NGO ID */}
         <div>
           <label className="block ml-3 text-sm font-bold text-amber-600">NGO ID</label>
@@ -141,7 +174,7 @@ function InsertChildren() {
 
         {/* Age */}
         <div>
-          <label className="block ml-3 text-sm font-bold text-amber-600" >Age</label>
+          <label className="block ml-3 text-sm font-bold text-amber-600">Age</label>
           <input
             type="number"
             min="2"
@@ -215,33 +248,51 @@ function InsertChildren() {
 
         {/* Gallery */}
         <div>
-            <div>
-                <label className="block ml-3 text-sm font-bold text-amber-600">Upload CWC Image</label>
-                <input type="file" name="gallery" onChange={(e) => handleGalleryChange(e, 0)} className="w-full p-3 border border-amber-200 rounded-xl bg-white shadow-sm focus:border-amber-400 focus:ring-2 focus:ring-amber-100 transition duration-300 hover:shadow-md"/>
-                {errors.cwc && <p className="text-red-600 ml-4 text-sm">{errors.cwc}</p>}
-            </div>
-            <div className="my-4">
-                <label className="block ml-3 text-sm font-bold text-amber-600">Upload Police Verification Image</label>
-                <input type="file" name="gallery" onChange={(e) => handleGalleryChange(e, 1)} className="w-full p-3 border border-amber-200 rounded-xl bg-white shadow-sm focus:border-amber-400 focus:ring-2 focus:ring-amber-100 transition duration-300 hover:shadow-md"/>
-                {errors.police && <p className="text-red-600 ml-4 text-sm">{errors.police}</p>}
-            </div>
-            <div>
-                <label className="block ml-3 text-sm font-bold text-amber-600">Upload Medical Certificate</label>
-                <input type="file" name="gallery" onChange={(e) => handleGalleryChange(e, 2)} className="w-full p-3 border border-amber-200 rounded-xl bg-white shadow-sm focus:border-amber-400 focus:ring-2 focus:ring-amber-100 transition duration-300 hover:shadow-md"/>
-            </div>
-        </div>
-        
+          <div>
+            <label className="block ml-3 text-sm font-bold text-amber-600">Upload CWC Image</label>
+            <input key={fileKey} type="file" onChange={(e) => handleGalleryChange(e, 0)} 
+              className="w-full p-3 border border-amber-200 rounded-xl bg-white shadow-sm"/>
+            {errors.cwc && <p className="text-red-600 ml-4 text-sm">{errors.cwc}</p>}
+          </div>
 
-        {/* Submit Button */}
+          <div className="my-4">
+            <label className="block ml-3 text-sm font-bold text-amber-600">Upload Police Verification Image</label>
+            <input key={fileKey + 1} type="file" onChange={(e) => handleGalleryChange(e, 1)}
+              className="w-full p-3 border border-amber-200 rounded-xl bg-white shadow-sm"/>
+            {errors.police && <p className="text-red-600 ml-4 text-sm">{errors.police}</p>}
+          </div>
+
+          <div>
+            <label className="block ml-3 text-sm font-bold text-amber-600">Upload Medical Certificate</label>
+            <input key={fileKey + 2} type="file" onChange={(e) => handleGalleryChange(e, 2)}
+              className="w-full p-3 border border-amber-200 rounded-xl bg-white shadow-sm"/>
+          </div>
+        </div>
+
         <button
           type="submit"
-          className="w-full bg-amber-600 text-white py-3 px-6 rounded-xl hover:bg-amber-700 transition duration-300 shadow-md hover:shadow-lg"
+          className="w-full py-3 px-6 rounded-xl transition duration-300 shadow-md hover:shadow-lg
+                     bg-amber-600 hover:bg-amber-700 text-white"
         >
           Insert Child
         </button>
       </form>
 
-      {showConfirm && <Confirm formData={formData} onCancel={handleCancel} onConfirm={handleConfirm} />}
+      {showConfirm && (
+        <Confirm
+          formData={formData}
+          onCancel={handleCancel}
+          onConfirm={handleConfirm}
+        />
+      )}
+
+      {submitStatus.show && (
+        <SubmitStatus
+          status={submitStatus.status}
+          message={submitStatus.message}
+          onOk={handleStatusOk}
+        />
+      )}
     </div>
   );
 }

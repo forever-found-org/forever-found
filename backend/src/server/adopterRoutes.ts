@@ -2,6 +2,7 @@ import express from "express";
 import { loginAdopter } from "./adopterControllers"; // import your controller
 import { getAdopterById } from "./adopterControllers";
 import { updateAdopter } from "./adopterControllers";
+
 const router = express.Router();
 
 // POST /api/adopters/login

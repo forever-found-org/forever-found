@@ -150,7 +150,7 @@ function Adopter_Home() {
             <NGOcard
               key={ngo._id}
               id={ngo._id}
-              image={ngo.image}
+              image={ngo.logo}
               name={ngo.name}
               location={ngo.location}
             />

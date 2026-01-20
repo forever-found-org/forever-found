@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function NGOcard({ id, image, name, location }) {
   // Prepend backend URL for images stored in /uploads
-  const imageUrl = image.startsWith("http") ? image : `http://localhost:5000/uploads/${image}`;
+  const imageUrl =image && image.startsWith("http") ? image : "/placeholder-ngo.png";
 
   return (
     <Link to={`/adopter-home/${id}/details`}>

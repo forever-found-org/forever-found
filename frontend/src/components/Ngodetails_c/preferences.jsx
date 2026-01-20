@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ChildCard from "./Childcard";
 import Child_Details from "./Child_Details";
+import SubmitStatus from "../Common_Components/SubmitStatus";
 
 function Preferences() {
   const { id: ngoId } = useParams();
@@ -12,6 +13,7 @@ function Preferences() {
   const [error, setError] = useState("");
   const [hitFindMatch, setHitFindMatch] = useState(false);
   const [selectedChildId, setSelectedChildId] = useState(null);
+  const [submitStatus, setSubmitStatus] = useState(null);
   const navigate = useNavigate();
 
   // Fetch filtered children
@@ -41,41 +43,52 @@ function Preferences() {
 
   // Request a meeting for all filtered children
   const handleReqMeet = async () => {
-    // ✅ Require at least one preference
-    if (!gender && !ageGroup) {
-      setError("Please select at least one preference before requesting a meeting.");
-      setChildren([]);
-      setHitFindMatch(false);
-      return;
-    }
-    if (selectedChildIds.length === 0) {
-      alert("No children available to request a meeting!");
-      return;
-    }
+  if (!gender && !ageGroup) {
+    setError("Please select at least one preference before requesting a meeting.");
+    setChildren([]);
+    setHitFindMatch(false);
+    return;
+  }
 
-    try {
-      const response = await fetch("http://localhost:5000/api/meetings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          adopterId: localStorage.getItem("adopterId"),
-          ngoId,
-          childIds: selectedChildIds,
-        }),
-      });
+  if (selectedChildIds.length === 0) {
+    setSubmitStatus({
+      type: "error",
+      message: "No children available to request a meeting!",
+    });
+    return;
+  }
 
-      if (!response.ok) throw new Error("Failed to request meeting");
+  try {
+    setSubmitStatus({ type: "loading" });
 
-      await response.json();
-      alert("Meeting requested successfully! ✅");
+    const response = await fetch("http://localhost:5000/api/meetings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        adopterId: localStorage.getItem("adopterId"),
+        ngoId,
+        childIds: selectedChildIds,
+      }),
+    });
 
-      // Redirect to Meeting History
-      navigate(`/adopter/${localStorage.getItem("adopterId")}/meetings`);
-    } catch (err) {
-      console.error(err);
-      alert("Could not create meeting. Try again.");
-    }
-  };
+    if (!response.ok) throw new Error("Failed to request meeting");
+
+    await response.json();
+
+    setSubmitStatus({
+      type: "success",
+      message: "Meeting requested successfully!",
+    });
+
+  } catch (err) {
+    console.error(err);
+    setSubmitStatus({
+      type: "error",
+      message: "Could not create meeting. Try again.",
+    });
+  }
+};
+
 
   return (
     <div className="flex flex-col items-center bg-[#F3E8FF] min-h-screen py-10 px-4">
@@ -178,7 +191,21 @@ function Preferences() {
           </div>
         </div>
       )}
+      {submitStatus && (
+  <SubmitStatus
+    status={submitStatus.type}
+    message={submitStatus.message}
+    onOk={() => {
+      if (submitStatus.type === "success") {
+        navigate(`/adopter/${localStorage.getItem("adopterId")}/meetings`);
+      }
+      setSubmitStatus(null);
+    }}
+  />
+)}
+
     </div>
+    
   );
 }
 

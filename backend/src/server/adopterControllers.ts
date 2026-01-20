@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Adopter from "../db/adopterModel";
 
+
 export const loginAdopter = async (req: Request, res: Response) => {
   const { email } = req.body;
   console.log("Login attempt for email:", email);
