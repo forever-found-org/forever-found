@@ -57,9 +57,6 @@ function SignUpAdopter() {
             
     const [errors, setErrors] = useState({});
 
-    function handleChange(e) {
-        const { name, value, files } = e.target;
-
         function handleChange(e) {
         const { name, value, files } = e.target;
 
@@ -69,13 +66,13 @@ function SignUpAdopter() {
             name === "aadharimg"
                 ? files[0]
                 : name === "medicalCertificates"
-                ? files        // ✅ keep as FileList / array
+                ? Array.from(files) // ✅ always array
                 : value,
         }));
 
         setErrors((prev) => ({ ...prev, [name]: "" }));
         }
-    }
+
 
     
     const navigator=useNavigate();
@@ -244,28 +241,49 @@ function SignUpAdopter() {
 
                 {/* Medical Certificate Upload */}
                 <div className="flex flex-col mb-2">
-                    <label className="block text-sm font-medium mb-1">Upload Medical Certificate</label>
-                    <input
+                <label className="block text-sm font-medium mb-1">
+                    Upload Medical Certificate(s)
+                </label>
+
+                <input
                     type="file"
                     name="medicalCertificates"
+                    multiple
                     accept="image/png, image/jpeg, image/jpg"
                     onChange={handleChange}
                     className="file:border file:border-gray-400 file:rounded-lg file:mr-4 p-1"
-                    />
-                    {adopterData.medicalCertificates && adopterData.medicalCertificates.name && (
-                    <p className="text-sm text-gray-600 ml-1 mt-1">Selected file: {adopterData.medicalCertificates.name}</p>
-                    )}
-                    {errors.medicalCertificates && <p className="text-red-600 text-sm mt-1">{errors.medicalCertificates}</p>}
-                    <div className="w-full mt-1">
-                    <p className="text-[#5c5c5c] font-medium text-xs">
-                        *Upload a medical certificate signed by a certified doctor.
-                        </p>
-                        <p className="text-[#5c5c5c] font-medium text-xs">
-                        *The certificate should clearly mention either all serious medical conditions or state that you are fully healthy.
-                        </p>
-                    <p className="text-[#5c5c5c] font-medium text-xs">*Image should be of JPG, JPEG, or PNG format.</p>
-                    <p className="text-[#5c5c5c] font-medium text-xs mb-2">*Image must be less than 2MB.</p>
+                />
+
+                {/* Selected files preview */}
+                {Array.isArray(adopterData.medicalCertificates) &&
+                    adopterData.medicalCertificates.length > 0 && (
+                    <div className="text-sm text-gray-600 ml-1 mt-1 space-y-1">
+                        {adopterData.medicalCertificates.map((file, index) => (
+                        <p key={index}>• {file.name}</p>
+                        ))}
                     </div>
+                    )}
+
+                {errors.medicalCertificates && (
+                    <p className="text-red-600 text-sm mt-1">
+                    {errors.medicalCertificates}
+                    </p>
+                )}
+
+                <div className="w-full mt-1">
+                    <p className="text-[#5c5c5c] font-medium text-xs">
+                    *Upload medical certificate(s) signed by a certified doctor.
+                    </p>
+                    <p className="text-[#5c5c5c] font-medium text-xs">
+                    *Certificate should mention medical conditions or state full fitness.
+                    </p>
+                    <p className="text-[#5c5c5c] font-medium text-xs">
+                    *Image format: JPG, JPEG, PNG.
+                    </p>
+                    <p className="text-[#5c5c5c] font-medium text-xs mb-2">
+                    *Each image must be less than 2MB.
+                    </p>
+                </div>
                 </div>
                 </div>
 

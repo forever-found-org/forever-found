@@ -159,7 +159,26 @@ function Adopter_Approval_details() {
                 : "Healthy"
             }
           />
+
+          {/* Medical Certificate */}
+          {adopter.medicalCertificates ? (
+            <div className="mt-4">
+              <p className="text-sm text-gray-600 mb-1">
+                Medical Certificate
+              </p>
+              <img
+                src={adopter.medicalCertificates}
+                alt="Medical Certificate"
+                className="border rounded-md max-h-80"
+              />
+            </div>
+          ) : (
+            <p className="mt-3 text-sm italic text-gray-500">
+              No medical certificate uploaded
+            </p>
+          )}
         </Section>
+
 
         {/* DOCUMENTS */}
         <Section title="Identity Verification" bg="bg-[#f2f7f4]">
@@ -203,10 +222,10 @@ function Adopter_Approval_details() {
         </div>
       </div>
 
-      {/* AADHAAR MODAL (UNMASKED) */}
+      {/* AADHAAR MODAL */}
       {showAadhaar && aadhaarData && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-md w-96 shadow-lg">
+          <div className="bg-white p-12 rounded-md w-96 shadow-lg">
             <h3 className="text-lg font-bold mb-3">Aadhaar Details</h3>
 
             <p className="mb-2">

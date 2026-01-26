@@ -16,8 +16,8 @@ const ngoSchema = new mongoose.Schema(
     contactPersonDesignation: { type: String, default: null },
 
     email: { type: String, required: true, unique: true },
-    registrationNumber: String,
-    caraRegistrationNumber: String,
+    registrationNumber: {type: String,required: true,unique: true,trim: true},
+    caraRegistrationNumber: {type: String,unique: true,required: true, trim: true},
 
     status: {
       type: String,
@@ -41,7 +41,19 @@ const ngoSchema = new mongoose.Schema(
         feedback: String,
       },
     ],
-    gallery: { type: [String],default: [] },
+    gallery: [
+      {
+        type: {
+          type: String,
+          enum: ["registration", "cara", "gallery"],
+          required: true,
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     socialId: String,
     password: { type: String, required: true, minlength: 8 },
     passwordResetToken: String,

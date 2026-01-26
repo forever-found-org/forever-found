@@ -1,5 +1,122 @@
 import { Request, Response } from "express";
+import bcrypt from "bcryptjs";
 import NGO from "../db/ngoModel";
+
+export const registerNGO = async (req: Request, res: Response) => {
+  try {
+    const {
+      name,
+      location,
+      city,
+      state,
+      yearOfEstablishment,
+      website,
+      contact,
+      alternateContact,
+      contactPersonName,
+      contactPersonDesignation,
+      email,
+      registrationNumber,
+      caraRegistrationNumber,
+      about,
+      pass,
+      numberOfChildren,
+      testimonials,
+      socialId,
+    } = req.body;
+
+    const existing = await NGO.findOne({
+      $or: [{ email }, { registrationNumber }, { caraRegistrationNumber }],
+    });
+
+    if (existing) {
+      return res.status(400).json({
+        message: "NGO already registered with provided details",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(pass, 10);
+
+    const files = req.files as {
+      [fieldname: string]: Express.Multer.File[];
+    };
+
+    const logo = files?.logo?.[0]?.path;
+    const registrationCert = files?.registrationCert?.[0]?.path;
+    const caraCert = files?.caraCert?.[0]?.path;
+
+    if (!logo || !registrationCert || !caraCert) {
+      return res.status(400).json({
+        message:
+          "Logo, Registration Certificate & CARA Certificate are required",
+      });
+    }
+
+    const gallery = [
+      { type: "registration", url: registrationCert },
+      { type: "cara", url: caraCert },
+    ];
+
+    if (files?.gallery) {
+      files.gallery.slice(0, 3).forEach((file) => {
+        gallery.push({ type: "gallery", url: file.path });
+      });
+    }
+
+    let parsedTestimonials = [];
+    if (testimonials) {
+      try {
+        parsedTestimonials = JSON.parse(testimonials);
+      } catch {
+        return res.status(400).json({
+          message: "Invalid testimonials format",
+        });
+      }
+    }
+
+    const ngo = await NGO.create({
+      name,
+      location,
+      city,
+      state,
+      yearOfEstablishment: yearOfEstablishment
+        ? Number(yearOfEstablishment)
+        : undefined,
+      numberOfChildren: numberOfChildren
+        ? Number(numberOfChildren)
+        : 0,
+      website,
+      contact,
+      alternateContact,
+      contactPersonName,
+      contactPersonDesignation,
+      email,
+      registrationNumber,
+      caraRegistrationNumber,
+      about,
+      logo,
+      gallery,
+      testimonials: parsedTestimonials,
+      socialId,
+      password: hashedPassword,
+      status: "pending",
+      rejectionReason: null,
+      canEdit: true,
+    });
+
+    return res.status(201).json({
+      message: "NGO registration successful. Await admin approval.",
+      ngoId: ngo._id,
+    });
+  } catch (error) {
+    console.error("REGISTER NGO ERROR:", error);
+    return res.status(500).json({
+      message: "NGO registration failed",
+    });
+  }
+};
+
+
 
 // --- Login NGO by email ---
 export const loginNGO = async (req: Request, res: Response) => {
@@ -92,12 +209,11 @@ export const validateNgoId = async (req: Request, res: Response) => {
   }
 };
 
-// --- Update NGO Details (gallery + testimonials included) ---
 export const updateNGODetails = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-
     const ngo = await NGO.findById(id);
+
     if (!ngo) {
       return res.status(404).json({ message: "NGO not found" });
     }
@@ -112,10 +228,10 @@ export const updateNGODetails = async (req: Request, res: Response) => {
       state,
       location,
       numberOfChildren,
-      existingGallery, // 👈 ADD THIS
+      existingGallery,
     } = req.body;
 
-    // ---------------- Text fields ----------------
+    // ---------- TEXT ----------
     ngo.about = about ?? ngo.about;
     ngo.website = website ?? ngo.website;
     ngo.contact = contact ?? ngo.contact;
@@ -124,31 +240,37 @@ export const updateNGODetails = async (req: Request, res: Response) => {
     ngo.state = state ?? ngo.state;
     ngo.location = location ?? ngo.location;
     ngo.numberOfChildren = numberOfChildren ?? ngo.numberOfChildren;
-    ngo.testimonials = testimonials
-      ? JSON.parse(testimonials)
-      : ngo.testimonials;
 
-    // ---------------- GALLERY FIX ----------------
-    let updatedGallery: string[] = [];
+    if (testimonials) {
+      ngo.testimonials = JSON.parse(testimonials);
+    }
 
-    // 1️⃣ Keep remaining images (after delete)
+    // ---------- GALLERY ----------
+    let updatedGallery: { type: "registration" | "cara" | "gallery"; url: string }[] = [];
+
+    // Keep existing images
     if (existingGallery) {
       updatedGallery = JSON.parse(existingGallery);
     }
 
-    // 2️⃣ Add newly uploaded images
+    // Add new uploads
     if (req.files && Array.isArray(req.files)) {
-      const uploadedImages = (req.files as Express.Multer.File[]).map(
-        (file) => file.path
-      );
-
-      updatedGallery.push(...uploadedImages);
+      (req.files as Express.Multer.File[]).forEach((file) => {
+        updatedGallery.push({
+          type: "gallery",
+          url: file.path,
+        });
+      });
     }
 
-    // 3️⃣ Enforce max limit = 3
-    ngo.gallery = updatedGallery.slice(0, 3);
+    // Enforce max gallery images (only gallery type)
+    const finalGallery = [
+      ...updatedGallery.filter(img => img.type !== "gallery"),
+      ...updatedGallery.filter(img => img.type === "gallery").slice(0, 3),
+    ];
 
-    // ------------------------------------------------
+    // ✅ IMPORTANT FIX
+    ngo.set("gallery", finalGallery);
 
     await ngo.save();
     res.json(ngo);

@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 import Parenting_guide from "./pages/Parenting_guide";
-
 import SignupNgo from './pages/SignupNgo';
 import Home from "./pages/Home";
 import SignUpAdopter from "./pages/SignUpAdopter";

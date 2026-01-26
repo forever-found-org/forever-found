@@ -10,6 +10,18 @@ const NGODetails = () => {
   const [meetings, setMeetings] = useState([]);
   const [adoptedChildren, setAdoptedChildren] = useState([]);
 
+  const registrationImage = ngo?.gallery?.find(
+      (img) => img.type === "registration"
+    );
+
+    const caraImage = ngo?.gallery?.find(
+      (img) => img.type === "cara"
+    );
+
+    const galleryImages = ngo?.gallery?.filter(
+      (img) => img.type === "gallery"
+    );
+
   // 🔹 Block states (same as AdopterDetails)
   const [blockReason, setBlockReason] = useState("");
   const [actionLoading, setActionLoading] = useState(false);
@@ -213,6 +225,19 @@ const NGODetails = () => {
             </Grid>
           </Section>
 
+          {/*logo*/}
+        <Section title="NGO Logo" bg="bg-[#f2f7f4]">
+          {ngo.logo ? (
+            <img
+              src={ngo.logo}
+              alt="NGO Logo"
+              className="h-32 object-contain border rounded-md bg-white p-2"
+            />
+          ) : (
+            <p className="text-gray-500 italic">No logo uploaded</p>
+          )}
+        </Section>
+
           {/* LOCATION */}
           <Section id="location" title="Location Details" bg="bg-[#dbeaf3]">
             <Grid>
@@ -233,6 +258,44 @@ const NGODetails = () => {
               <Info label="CARA Registration Number" value={ngo.caraRegistrationNumber} />
             </Grid>
           </Section>
+
+          <Section title="Official Certificates" bg="bg-[#dbeaf3]">
+          <div className="grid grid-cols-2 gap-6">
+
+            {/* Registration Certificate */}
+            <div>
+              <p className="text-sm text-gray-600 mb-1">
+                Registration Certificate
+              </p>
+              {registrationImage ? (
+                <img
+                  src={registrationImage.url}
+                  alt="Registration Certificate"
+                  className="border rounded-md max-h-80"
+                />
+              ) : (
+                <p className="text-gray-500 italic">Not uploaded</p>
+              )}
+            </div>
+
+            {/* CARA Certificate */}
+            <div>
+              <p className="text-sm text-gray-600 mb-1">
+                CARA Certificate
+              </p>
+              {caraImage ? (
+                <img
+                  src={caraImage.url}
+                  alt="CARA Certificate"
+                  className="border rounded-md max-h-80"
+                />
+              ) : (
+                <p className="text-gray-500 italic">Not uploaded</p>
+              )}
+            </div>
+
+          </div>
+        </Section>
 
           {/* ABOUT */}
           <Section id="about" title="About the NGO" bg="bg-[#dbeaf3]">
@@ -256,6 +319,24 @@ const NGODetails = () => {
               <p>No testimonials available.</p>
             )}
           </Section>
+
+          {/* Gallery Images */}
+          <Section title="NGO Gallery" bg="bg-[#f2f7f4]">
+              {galleryImages && galleryImages.length > 0 ? (
+                <div className="grid grid-cols-3 gap-4">
+                  {galleryImages.map((img, index) => (
+                    <img
+                      key={index}
+                      src={img.url}
+                      alt={`Gallery ${index + 1}`}
+                      className="border rounded-md h-40 object-cover"
+                    />
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 italic">No gallery images uploaded</p>
+              )}
+            </Section>
 
           {/* MEETINGS */}
           <Section id="meetings" title="Meetings History" bg="bg-[#fffdfc]">

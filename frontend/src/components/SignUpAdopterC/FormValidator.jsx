@@ -65,23 +65,33 @@ function FormValidator(adopterData) {
 
   if (!regexPattern.password.test(adopterData.pass)) errors.pass = "*Invalid Password";
 
-  // ===== NEW: Medical Section Validation =====
-  // Serious medical conditions field mandatory
-  // For validation, treat healthStatus as string first
-if (!adopterData.healthStatus ||adopterData.healthStatus.trim() === "")
-    errors.healthStatus ="*Please mention your serious medical conditions or write 'Healthy'.";
+// ===== Medical Section Validation =====
 
+// Health status mandatory
+if (!adopterData.healthStatus || adopterData.healthStatus.trim() === "") {
+  errors.healthStatus =
+    "*Please mention your serious medical conditions or write 'Healthy'.";
+}
 
+// Medical certificates (can be single or multiple)
+const medFiles = adopterData.medicalCertificates;
 
-  // Medical certificate file mandatory
-  const medFile = adopterData.medicalCertificates;
-  if (!medFile) {
-    errors.medicalCertificates = "*Medical certificate is required.";
-  } else if (!validTypes.includes(medFile.type)) {
-    errors.medicalCertificates = "*Only JPEG, JPG or PNG images are allowed for the certificate.";
-  } else if (medFile.size > maxSize) {
-    errors.medicalCertificates = "*Medical certificate must be less than 2MB.";
+if (!medFiles || !Array.isArray(medFiles) || medFiles.length === 0) {
+  errors.medicalCertificates = "*Medical certificate is required.";
+} else {
+  for (let file of medFiles) {
+    if (!validTypes.includes(file.type)) {
+      errors.medicalCertificates =
+        "*Only JPEG, JPG or PNG images are allowed for the certificate.";
+      break;
+    }
+    if (file.size > maxSize) {
+      errors.medicalCertificates =
+        "*Each medical certificate image must be less than 2MB.";
+      break;
+    }
   }
+}
 
   return errors;
 }

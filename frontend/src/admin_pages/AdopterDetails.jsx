@@ -247,16 +247,34 @@ const AdopterDetails = () => {
           </Section>
 
           {/* MEDICAL */}
-          <Section id="medical" title="Medical Information" bg="bg-[#dbeaf3]">
-            <Info
-              label="Health Status"
-              value={
-                adopter.healthStatus?.length
-                  ? adopter.healthStatus.join(", ")
-                  : "Healthy"
-              }
-            />
-          </Section>
+        <Section title="Medical Information" bg="bg-[#dbeaf3]">
+          <Info
+            label="Health Status"
+            value={
+              adopter.healthStatus?.length
+                ? adopter.healthStatus.join(", ")
+                : "Healthy"
+            }
+          />
+
+          {/* Medical Certificate */}
+          {adopter.medicalCertificates ? (
+            <div className="mt-4">
+              <p className="text-sm text-gray-600 mb-1">
+                Medical Certificate
+              </p>
+              <img
+                src={adopter.medicalCertificates}
+                alt="Medical Certificate"
+                className="border rounded-md max-h-80"
+              />
+            </div>
+          ) : (
+            <p className="mt-3 text-sm italic text-gray-500">
+              No medical certificate uploaded
+            </p>
+          )}
+        </Section>
 
           <div className="flex justify-center">
             <button
@@ -344,12 +362,23 @@ const AdopterDetails = () => {
       {/* AADHAAR MODAL */}
       {showAadhaar && aadhaarData && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-md w-96">
-            <p>**** **** {aadhaarData.aadharNumber.slice(-4)}</p>
-            <img src={aadhaarData.aadharImage} alt="Aadhaar" />
+          <div className="bg-white p-12 rounded-md w-96 shadow-lg">
+            <h3 className="text-lg font-bold mb-3">Aadhaar Details</h3>
+
+            <p className="mb-2">
+              <span className="font-semibold">Aadhaar Number:</span>{" "}
+              {aadhaarData.aadharNumber}
+            </p>
+
+            <img
+              src={aadhaarData.aadharImage}
+              alt="Aadhaar"
+              className="border rounded mb-4"
+            />
+
             <button
               onClick={() => setShowAadhaar(false)}
-              className="mt-4 px-4 py-1 bg-red-500 text-white rounded"
+              className="px-4 py-2 bg-red-600 text-white rounded"
             >
               Close
             </button>

@@ -16,7 +16,7 @@ const adopterSchema = new mongoose.Schema(
     salaryPerAnnum: { type: Number, required: true },
     aadharNumber: { type: String, required: true, unique: true },
     aadharImage: { type: String, default: "" },
-    socialId: { type: String, required: true },
+    socialId: { type: String, required: false },
     password: { type: String, required: true },
 
     // Medical details

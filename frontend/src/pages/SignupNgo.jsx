@@ -34,9 +34,11 @@ function SignupNgo() {
     galimg1: null,
     galimg2: null,
     galimg3: null,
-    testimonial1: "",
-    testimonial2: "",
-    testimonial3: "",
+    testimonials: [
+    { name: "", role: "", feedback: "" },
+    { name: "", role: "", feedback: "" },
+    { name: "", role: "", feedback: "" },
+  ],
     pass: "",
     confirmPass: "",
   });
@@ -113,6 +115,12 @@ function SignupNgo() {
     const { name, value, files } = e.target;
     if (files && files.length > 0) handleFileChange(name, files[0]);
     else setNGOData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleTestimonialChange = (index, field, value) => {
+    const updated = [...NGOData.testimonials];
+    updated[index][field] = value;
+    setNGOData((prev) => ({ ...prev, testimonials: updated }));
   };
 
   const handleFileChange = (name, file) => {
@@ -374,12 +382,54 @@ function SignupNgo() {
                         {NGOData.galimg3 && (<p className="text-sm text-gray-600 mt-1 ml-4">Selected file: {NGOData.galimg3.name}</p>)}
                         {errors.galimg3&&<p className="ml-5 mt-1 text-red-500">{errors.galimg3}</p>}
                     </div>
-                    <div className="mt-5 flex flex-col ">
-                        <label className="block ml-5 mb-1 text-md font-semibold text-[#3c3c3c]">Testimonials/Quotes (optional)</label>
-                        <textarea name="testimonial1" value={NGOData.testimonial1} onChange={handleChange} rows={3} maxLength={1000} placeholder="testimonial 1" className="w-60 border border-gray-400 rounded-md p-2 mx-4 focus:ring-2 focus:ring-[#5a8f7b]"></textarea>
-                        <textarea name="testimonial2" value={NGOData.testimonial2} onChange={handleChange} rows={3} maxLength={1000} placeholder="testimonial 2" className="mt-3 w-60 border border-gray-400 rounded-md p-2 mx-4 focus:ring-2 focus:ring-[#5a8f7b]"></textarea>
-                        <textarea name="testimonial3" value={NGOData.testimonial3} onChange={handleChange} rows={3} maxLength={1000} placeholder="testimonial 3" className="mt-3 w-60 border border-gray-400 rounded-md p-2 mx-4 focus:ring-2 focus:ring-[#5a8f7b]"></textarea>
-                    </div>
+                        <div className="mt-5 flex flex-col">
+                        <label className="block ml-5 mb-2 text-md font-semibold text-[#3c3c3c]">
+                          Testimonials / Quotes (optional)
+                        </label>
+
+                        {NGOData.testimonials.map((t, index) => (
+                          <div
+                            key={index}
+                            className="border border-gray-300 rounded-md p-3 mx-4 mb-4 flex flex-col gap-2"
+                          >
+                            <p className="text-sm font-semibold text-gray-600">
+                              Testimonial {index + 1}
+                            </p>
+
+                            <input
+                              type="text"
+                              placeholder="Person Name"
+                              value={t.name}
+                              onChange={(e) =>
+                                handleTestimonialChange(index, "name", e.target.value)
+                              }
+                              className="border border-gray-400 rounded-md p-2 focus:ring-2 focus:ring-[#5a8f7b]"
+                            />
+
+                            <input
+                              type="text"
+                              placeholder="Role / Designation"
+                              value={t.role}
+                              onChange={(e) =>
+                                handleTestimonialChange(index, "role", e.target.value)
+                              }
+                              className="border border-gray-400 rounded-md p-2 focus:ring-2 focus:ring-[#5a8f7b]"
+                            />
+
+                            <textarea
+                              placeholder="Feedback"
+                              value={t.feedback}
+                              onChange={(e) =>
+                                handleTestimonialChange(index, "feedback", e.target.value)
+                              }
+                              rows={3}
+                              maxLength={1000}
+                              className="border border-gray-400 rounded-md p-2 focus:ring-2 focus:ring-[#5a8f7b]"
+                            />
+                          </div>
+                        ))}
+                      </div>
+
                 </div>
 
                 <div className="w-[88%] p-3 border border-gray-300 rounded-md bg-[#dbeaf3] shadow-sm my-2 mb-4">
