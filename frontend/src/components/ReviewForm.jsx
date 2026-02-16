@@ -1,6 +1,20 @@
+import { useState } from "react";
 import LabelConfig from "./Home_Components/Help_Components/LabelConfig";
 
 function ReviewForm({ formData, role, onEdit, onSubmit }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    if (isSubmitting) return; // prevent double click
+
+    try {
+      setIsSubmitting(true);
+      await onSubmit();
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="font-serif min-h-screen bg-[#F9F4F1] py-5 px-4">
       <div className="mt-5 max-w-3xl mx-auto space-y-10">
@@ -24,7 +38,7 @@ function ReviewForm({ formData, role, onEdit, onSubmit }) {
                   </div>
 
                   <div className="col-span-2">
-                    {/* ✅ TESTIMONIALS */}
+                    {/* TESTIMONIALS */}
                     {key === "testimonials" ? (
                       value.length > 0 ? (
                         <div className="space-y-3">
@@ -50,8 +64,6 @@ function ReviewForm({ formData, role, onEdit, onSubmit }) {
                           Not provided
                         </span>
                       )
-
-                    /* ✅ MULTIPLE FILES (arrays except testimonials) */
                     ) : Array.isArray(value) ? (
                       value.length > 0 ? (
                         <div className="flex gap-2 flex-wrap">
@@ -76,8 +88,6 @@ function ReviewForm({ formData, role, onEdit, onSubmit }) {
                           Not provided
                         </span>
                       )
-
-                    /* ✅ SINGLE FILE */
                     ) : value instanceof File ? (
                       value.type.startsWith("image/") ? (
                         <img
@@ -88,8 +98,6 @@ function ReviewForm({ formData, role, onEdit, onSubmit }) {
                       ) : (
                         <span>{value.name}</span>
                       )
-
-                    /* ✅ NORMAL TEXT */
                     ) : (
                       value || (
                         <span className="text-gray-400 italic">
@@ -102,19 +110,32 @@ function ReviewForm({ formData, role, onEdit, onSubmit }) {
               ))}
           </div>
 
+          {/* Processing Indicator */}
+          {isSubmitting && (
+            <div className="mt-6 text-center text-gray-600 font-medium">
+              Processing your submission, please wait...
+            </div>
+          )}
+
           <div className="flex justify-between mt-8">
             <button
               onClick={onEdit}
-              className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-xl shadow-md"
+              disabled={isSubmitting}
+              className={`px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-xl shadow-md ${
+                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
               Edit
             </button>
 
             <button
-              onClick={onSubmit}
-              className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl shadow-md"
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className={`px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl shadow-md ${
+                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
-              Submit
+              {isSubmitting ? "Submitting..." : "Submit"}
             </button>
           </div>
         </div>

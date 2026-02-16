@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import NGO from "../db/ngoModel";
+import crypto from "crypto";
+import { sendVerificationEmail } from "../sendEmail";
+
 
 export const registerNGO = async (req: Request, res: Response) => {
   try {
@@ -74,6 +77,9 @@ export const registerNGO = async (req: Request, res: Response) => {
       }
     }
 
+    // ✅ Generate email verification token
+    const emailVerificationToken = crypto.randomBytes(32).toString("hex");
+
     const ngo = await NGO.create({
       name,
       location,
@@ -102,7 +108,20 @@ export const registerNGO = async (req: Request, res: Response) => {
       status: "pending",
       rejectionReason: null,
       canEdit: true,
+
+      // Email verification fields
+      emailVerified: false,
+      emailVerificationToken,
+      emailVerificationExpires: Date.now() + 2 * 60 * 60 * 1000,
     });
+
+    // Send verification email
+    await sendVerificationEmail(
+      email,
+      emailVerificationToken,
+      "ngos",
+      ngo._id.toString()
+    );
 
     return res.status(201).json({
       message: "NGO registration successful. Await admin approval.",
@@ -115,6 +134,48 @@ export const registerNGO = async (req: Request, res: Response) => {
     });
   }
 };
+
+// verifying email
+export const verifyNGOEmail = async (req: Request, res: Response) => {
+  try {
+    const ngo = await NGO.findOne({
+      emailVerificationToken: req.params.token,
+    });
+
+    // If token not found (already used OR invalid)
+    if (!ngo) {
+      return res.json({
+        message: "Email already verified or invalid token",
+      });
+    }
+
+    // If already verified
+    if (ngo.emailVerified) {
+      return res.json({ message: "Email already verified" });
+    }
+
+    // If token expired
+    if (
+      !ngo.emailVerificationExpires ||
+      ngo.emailVerificationExpires.getTime() < Date.now()
+    ) {
+      return res.status(400).json({ message: "Token expired" });
+    }
+
+    // Mark as verified
+    ngo.emailVerified = true;
+    ngo.emailVerificationToken = null;
+    ngo.emailVerificationExpires = null;
+
+    await ngo.save();
+
+    return res.json({ message: "Email verified successfully" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Verification failed" });
+  }
+};
+
 
 
 
@@ -178,6 +239,7 @@ export const getNGODetails = async (req: Request, res: Response) => {
       gallery: ngo.gallery,
       testimonials: ngo.testimonials,
       socialId: ngo.socialId,
+      emailVerified: ngo.emailVerified,
     });
   } catch (error) {
     console.error(error);

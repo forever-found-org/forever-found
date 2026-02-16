@@ -48,7 +48,7 @@ function FormReviewPage() {
         return;
       }
 
-      navigate("/review-signup-form/adopter-acknowledgement");
+      navigate(`/review-signup-form/verify/adopter/${result.adopterId}`);
       window.scrollTo(0, 0);
     } catch (err) {
       console.error(err);
@@ -117,7 +117,7 @@ function FormReviewPage() {
         return;
       }
 
-      navigate("/review-signup-form/ngo-acknowledgement");
+      navigate(`/review-signup-form/verify/ngos/${result.ngoId}`);
       window.scrollTo(0, 0);
     } catch (err) {
       console.error("NGO Signup Error:", err);

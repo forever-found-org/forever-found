@@ -227,14 +227,32 @@ const AdopterDetails = () => {
           </Section>
 
           {/* CONTACT */}
-          <Section id="contact" title="Contact Details" bg="bg-[#dbeaf3]">
+          <Section title="Contact Details" bg="bg-[#dbeaf3]">
             <Grid>
               <Info label="Email" value={adopter.email} />
               <Info label="Phone" value={adopter.contactNumber} />
-              <Info label="Alternate Phone" value={adopter.alternateContactNumber || "-"} />
+              <Info
+                label="Alternate Phone"
+                value={adopter.alternateContactNumber || "-"}
+              />
+              <Info
+                label="Email Verification Status"
+                value={
+                  adopter.emailVerified ? (
+                    <span className="text-green-600 font-semibold">
+                      ✅ Verified
+                    </span>
+                  ) : (
+                    <span className="text-red-600 font-semibold">
+                      ❌ Not Verified
+                    </span>
+                  )
+                }
+              />
               <Info label="Address" value={adopter.address} wide />
             </Grid>
           </Section>
+
 
           {/* FAMILY */}
           <Section id="family" title="Family & Financial Information" bg="bg-[#f2e8cf]">

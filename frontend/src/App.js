@@ -10,6 +10,7 @@ import About from './pages/About';
 import Help from './pages/Help';
 import FormReviewPage from './pages/FormReviewPage';
 import AdoptiveGuidelines from './pages/AdoptiveGuidelines';
+import VerificationPage from './pages/VerificationPage';
 import AdopterAckForm from './pages/AdopterAckForm';
 import NGoAckForm from './pages/NgoAckForm';
 import Ngo_Home from './pages/Ngo_Home';
@@ -57,6 +58,7 @@ function App() {
       <Route path="ngo-home/:id/profile/edit" element={<EditNgoProfile/>}></Route>
 
       <Route path="/review-signup-form" element={<FormReviewPage />} />
+      <Route path="/review-signup-form/verify/:userType/:id" element={<VerificationPage />} />
       <Route path="/review-signup-form/ngo-acknowledgement" element={<NGoAckForm/>}></Route>
       <Route path="/review-signup-form/adopter-acknowledgement" element={<AdopterAckForm/>}></Route>
       <Route path="/adoptive-guidelines" element={<AdoptiveGuidelines/>}/>

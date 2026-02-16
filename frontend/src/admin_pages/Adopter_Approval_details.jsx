@@ -132,9 +132,24 @@ function Adopter_Approval_details() {
               label="Alternate Phone"
               value={adopter.alternateContactNumber || "-"}
             />
+            <Info
+              label="Email Verification Status"
+              value={
+                adopter.emailVerified ? (
+                  <span className="text-green-600 font-semibold">
+                    ✅ Verified
+                  </span>
+                ) : (
+                  <span className="text-red-600 font-semibold">
+                    ❌ Not Verified
+                  </span>
+                )
+              }
+            />
             <Info label="Address" value={adopter.address} wide />
           </Grid>
         </Section>
+
 
         {/* FAMILY & FINANCIAL */}
         <Section title="Family & Financial Information" bg="bg-[#f2e8cf]">

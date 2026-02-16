@@ -214,14 +214,30 @@ const NGODetails = () => {
             </div>
           </Section>
 
-          {/* BASIC */}
-          <Section id="basic" title="Basic NGO Details" bg="bg-[#f2e8cf]">
+          {/* BASIC DETAILS */}
+          <Section title="Basic NGO Details" bg="bg-[#f2e8cf]">
             <Grid>
               <Info label="NGO Name" value={ngo.name} />
-              <Info label="Email" value={ngo.email} />
-              <Info label="Contact Number" value={ngo.contact} />
-              <Info label="Alternate Contact Number" value={ngo.alternateContact} />
               <Info label="Website" value={ngo.website || "—"} />
+              <Info label="Email" value={ngo.email} />
+
+              <Info
+                label="Email Verification Status"
+                value={
+                  ngo.emailVerified ? (
+                    <span className="text-green-600 font-semibold">
+                      ✅ Verified
+                    </span>
+                  ) : (
+                    <span className="text-red-600 font-semibold">
+                      ❌ Not Verified
+                    </span>
+                  )
+                }
+              />
+
+              <Info label="Contact Number" value={ngo.contact} />
+              <Info label="Alternate Contact" value={ngo.alternateContact} />  
             </Grid>
           </Section>
 

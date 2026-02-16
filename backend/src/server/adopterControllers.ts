@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import Adopter from "../db/adopterModel";
+import { sendVerificationEmail } from "../sendEmail";
 
 export const registerAdopter = async (req: Request, res: Response) => {
   try {
@@ -63,6 +65,11 @@ export const registerAdopter = async (req: Request, res: Response) => {
         ? healthStatus.split(",").map((h: string) => h.trim())
         : [];
 
+    //generating verification tokens
+    const emailVerificationToken = crypto.randomBytes(32).toString("hex");
+    //const phoneOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+    //creating adopter
     const adopter = await Adopter.create({
       fullName: name,
       religion,
@@ -86,7 +93,16 @@ export const registerAdopter = async (req: Request, res: Response) => {
       medicalCertificates,
       status: "pending",
       isBlocked: false,
+      emailVerified: false,
+      phoneVerified: false,
+      emailVerificationToken,
+      emailVerificationExpires: Date.now() + 2 * 60 * 60 * 1000,
+      //phoneOTP,
+      //phoneOTPExpires: Date.now() + 10 * 60 * 1000,
     });
+
+    //sending verification email
+    await sendVerificationEmail(email, emailVerificationToken, "adopter", adopter._id.toString());
 
     return res.status(201).json({
       message: "Adopter registration successful. Await admin approval.",
@@ -100,8 +116,84 @@ export const registerAdopter = async (req: Request, res: Response) => {
   }
 };
 
+//verify email
+export const verifyAdopterEmail = async (req: Request, res: Response) => {
+  try {
+    const adopter = await Adopter.findOne({
+      emailVerificationToken: req.params.token,
+    });
+
+    // If token not found
+    if (!adopter) {
+      // Check if already verified (token was cleared)
+      const alreadyVerified = await Adopter.findOne({
+        emailVerified: true,
+      });
+
+      if (alreadyVerified) {
+        return res.json({ message: "Email already verified" });
+      }
+
+      return res.status(400).json({ message: "Invalid token" });
+    }
+
+    if (adopter.emailVerified) {
+      return res.json({ message: "Email already verified" });
+    }
+
+    if (
+      !adopter.emailVerificationExpires ||
+      adopter.emailVerificationExpires.getTime() < Date.now()
+    ) {
+      return res.status(400).json({ message: "Token expired" });
+    }
+
+    adopter.emailVerified = true;
+    adopter.emailVerificationToken = null;
+    adopter.emailVerificationExpires = null;
+
+    await adopter.save();
+
+    res.json({ message: "Email verified successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Verification failed" });
+  }
+};
 
 
+
+/*verify phone
+export const verifyAdopterPhone = async (req: Request, res: Response) => {
+  const { adopterId, otp } = req.body;
+
+  try {
+    const adopter = await Adopter.findById(adopterId);
+
+    if (!adopter) {
+      return res.status(404).json({ message: "Adopter not found" });
+    }
+
+    if (adopter.phoneOTP !== otp) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    if (!adopter.phoneOTPExpires || adopter.phoneOTPExpires.getTime() < Date.now()) {
+      return res.status(400).json({ message: "OTP expired" });
+    }
+
+    adopter.phoneVerified = true;
+    adopter.phoneOTP = null;
+    adopter.phoneOTPExpires = null;
+
+    await adopter.save();
+
+    res.json({ message: "Phone verified successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Phone verification failed" });
+  }
+};*/
+
+//login adopter
 export const loginAdopter = async (req: Request, res: Response) => {
   const { email } = req.body;
   console.log("Login attempt for email:", email);

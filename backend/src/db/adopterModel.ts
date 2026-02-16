@@ -55,6 +55,49 @@ const adopterSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    // --- Email verification ---
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    emailVerificationToken: {
+      type: String,
+      default: null,
+      required: false,
+    },
+    emailVerificationExpires: {
+      type: Date,
+      default: null,
+      required: false,
+    },
+
+    // --- Phone verification ---
+    phoneVerified: {
+      type: Boolean,
+      default: false,
+    },
+    phoneOTP: {
+      type: String,
+      default: null,
+      required: false
+    },
+    phoneOTPExpires: {
+      type: Date,
+      default: null,
+      required: false
+    },
+
+    // --- Session tokens ---
+    sessions: [
+      {
+        token: { type: String, required: true },
+        createdAt: { type: Date, default: Date.now },
+        expiresAt: { type: Date, required: true },
+        userAgent: { type: String },
+        ipAddress: { type: String },
+      },
+    ],
+
   },
   { timestamps: true }
 );
