@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, Users } from "lucide-react";
+import { adminFetch } from "../securitymiddlewares/adminFetch";
 
 function ManageAdopters() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function ManageAdopters() {
   useEffect(() => {
     const fetchAdopters = async () => {
       try {
-        const res = await fetch(
+        const res = await adminFetch(
           "http://localhost:5000/api/admin/adopters"
         );
         const data = await res.json();

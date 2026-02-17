@@ -36,7 +36,7 @@ const AdminLogin = () => {
         return;
       }
 
-      localStorage.setItem("admin", JSON.stringify(data));
+      localStorage.setItem("adminToken", data.token);
       navigate("/admin/home");
     } catch {
       setErrors({ server: "Server error" });

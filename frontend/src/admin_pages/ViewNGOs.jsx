@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Building2, Users, Search } from "lucide-react";
+import { adminFetch } from "../securitymiddlewares/adminFetch";
 
 function ViewNGOs() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function ViewNGOs() {
   useEffect(() => {
     const fetchNGOs = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/admin/ngos");
+        const res = await adminFetch("http://localhost:5000/api/admin/ngos");
         if (!res.ok) throw new Error();
 
         const data = await res.json();

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import Adopter from "../db/adopterModel";
+import Child from "../db/childrenModel";
 import { sendVerificationEmail } from "../sendEmail";
 
 export const registerAdopter = async (req: Request, res: Response) => {
@@ -228,6 +229,7 @@ export const loginAdopter = async (req: Request, res: Response) => {
   }
 };
 
+//single adopter
 export const getAdopterById = async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -244,6 +246,7 @@ export const getAdopterById = async (req: Request, res: Response) => {
   }
 };
 
+//update adopter
 export const updateAdopter = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -285,5 +288,57 @@ export const updateAdopter = async (req: Request, res: Response) => {
   } catch (err: any) {
     console.error("Error updating adopter:", err);
     res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+//get adopter adoption history
+export const getAdoptionHistoryByAdopter = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { adopterId } = req.params;
+
+    const adoptedChildren = await Child.find({
+      adopterId,
+      adoptionStatus: "Adopted",
+    })
+      .populate("ngoId", "name email location")
+      .sort({ updatedAt: -1 });
+
+    res.status(200).json(adoptedChildren);
+  } catch (error) {
+    console.error("Adoption history error:", error);
+    res.status(500).json({
+      message: "Failed to fetch adoption history",
+    });
+  }
+};
+
+//single child adoption details
+export const getSingleAdoptedChild = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { adopterId, childId } = req.params;
+
+    const child = await Child.findOne({
+      _id: childId,
+      adopterId,
+      adoptionStatus: "Adopted",
+    }).populate("ngoId");
+
+    if (!child) {
+      return res.status(404).json({
+        message: "Adoption record not found",
+      });
+    }
+
+    res.status(200).json(child);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch adoption details",
+    });
   }
 };

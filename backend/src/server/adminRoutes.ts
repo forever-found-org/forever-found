@@ -1,4 +1,5 @@
 import express from "express";
+import { adminAuth } from "../securitymiddlewares/adminAuth";
 import { loginAdmin,getApprovedNGOsForAdmin,getAllChildrenForAdmin,getAllAdopters } from "./adminController";
 import { getPendingAdopters,approveAdopter,rejectAdopter,getPendingNGOs,approveNgo,rejectNgo } from "./adminController";
 import { getAdopterDetails,getAdopterMeetings,blockAdopter,unblockAdopter,getAdopterAadhaar,getAdoptedChildren } from "./adminController";
@@ -8,33 +9,33 @@ const router = express.Router();
 
 router.post("/login", loginAdmin);
 
-router.get("/pending-adopters", getPendingAdopters);
-router.patch("/adopters/:id/approve", approveAdopter);
-router.patch("/adopters/:id/reject", rejectAdopter);
+router.get("/pending-adopters",adminAuth, getPendingAdopters);
+router.patch("/adopters/:id/approve",adminAuth, approveAdopter);
+router.patch("/adopters/:id/reject",adminAuth, rejectAdopter);
 
-router.get("/pending-ngos", getPendingNGOs);
-router.patch("/ngos/:id/approve", approveNgo);
-router.patch("/ngos/:id/reject", rejectNgo);
+router.get("/pending-ngos",adminAuth, getPendingNGOs);
+router.patch("/ngos/:id/approve",adminAuth, approveNgo);
+router.patch("/ngos/:id/reject",adminAuth, rejectNgo);
 
-router.get("/ngos", getApprovedNGOsForAdmin);
-router.get("/ngos/:id", getNGODetails);
-router.patch("/ngos/:id/block", blockNgo);
-router.patch("/ngos/:id/unblock", unblockNgo);
-router.get("/ngos/:id/meetings", getMeetingsForNGO);
-router.get("/ngos/:id/adopted-children", getAdoptedChildrenByNGO);
+router.get("/ngos",adminAuth, getApprovedNGOsForAdmin);
+router.get("/ngos/:id",adminAuth, getNGODetails);
+router.patch("/ngos/:id/block",adminAuth, blockNgo);
+router.patch("/ngos/:id/unblock",adminAuth, unblockNgo);
+router.get("/ngos/:id/meetings",adminAuth, getMeetingsForNGO);
+router.get("/ngos/:id/adopted-children",adminAuth, getAdoptedChildrenByNGO);
 
-router.get("/children", getAllChildrenForAdmin);
-router.get("/children/:id", getChildDetailsForAdmin);
-router.get("/children/:id/meetings", getMeetingsByChildForAdmin);
-router.patch("/children/:id/block", blockChild);
-router.patch("/children/:id/unblock", unblockChild);
+router.get("/children",adminAuth, getAllChildrenForAdmin);
+router.get("/children/:id",adminAuth, getChildDetailsForAdmin);
+router.get("/children/:id/meetings",adminAuth, getMeetingsByChildForAdmin);
+router.patch("/children/:id/block",adminAuth, blockChild);
+router.patch("/children/:id/unblock",adminAuth, unblockChild);
 
-router.get("/adopters", getAllAdopters);
-router.get("/adopters/:id", getAdopterDetails);
-router.get("/adopters/:id/meetings", getAdopterMeetings);
-router.patch("/adopters/:id/block", blockAdopter);
-router.patch("/adopters/:id/unblock", unblockAdopter);
-router.get("/adopters/:id/aadhaar", getAdopterAadhaar);
-router.get("/adopters/:id/adopted-children", getAdoptedChildren);
+router.get("/adopters",adminAuth, getAllAdopters);
+router.get("/adopters/:id",adminAuth, getAdopterDetails);
+router.get("/adopters/:id/meetings",adminAuth, getAdopterMeetings);
+router.patch("/adopters/:id/block",adminAuth, blockAdopter);
+router.patch("/adopters/:id/unblock",adminAuth, unblockAdopter);
+router.get("/adopters/:id/aadhaar",adminAuth, getAdopterAadhaar);
+router.get("/adopters/:id/adopted-children",adminAuth, getAdoptedChildren);
 
 export default router;

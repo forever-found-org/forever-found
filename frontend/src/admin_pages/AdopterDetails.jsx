@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { adminFetch } from "../securitymiddlewares/adminFetch";
 
 const AdopterDetails = () => {
   const { id } = useParams();
@@ -21,9 +22,9 @@ const AdopterDetails = () => {
     const fetchData = async () => {
       try {
         const [adopterRes, meetingsRes, adoptedRes] = await Promise.all([
-          fetch(`/api/admin/adopters/${id}`, { credentials: "include" }),
-          fetch(`/api/admin/adopters/${id}/meetings`, { credentials: "include" }),
-          fetch(`/api/admin/adopters/${id}/adopted-children`, {
+          adminFetch(`/api/admin/adopters/${id}`, { credentials: "include" }),
+          adminFetch(`/api/admin/adopters/${id}/meetings`, { credentials: "include" }),
+          adminFetch(`/api/admin/adopters/${id}/adopted-children`, {
             credentials: "include",
           }),
         ]);
@@ -63,7 +64,7 @@ const AdopterDetails = () => {
       return;
 
     try {
-      const res = await fetch(`/api/admin/adopters/${id}/aadhaar`, {
+      const res = await adminFetch(`/api/admin/adopters/${id}/aadhaar`, {
         credentials: "include",
       });
       if (!res.ok) throw new Error();
@@ -82,7 +83,7 @@ const AdopterDetails = () => {
     try {
       setActionLoading(true);
 
-      const res = await fetch(`/api/admin/adopters/${id}/block`, {
+      const res = await adminFetch(`/api/admin/adopters/${id}/block`, {
         method: "PATCH",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -91,7 +92,7 @@ const AdopterDetails = () => {
 
       if (!res.ok) throw new Error();
 
-      const updated = await fetch(`/api/admin/adopters/${id}`, {
+      const updated = await adminFetch(`/api/admin/adopters/${id}`, {
         credentials: "include",
       }).then((r) => r.json());
 
@@ -108,14 +109,14 @@ const AdopterDetails = () => {
     try {
       setActionLoading(true);
 
-      const res = await fetch(`/api/admin/adopters/${id}/unblock`, {
+      const res = await adminFetch(`/api/admin/adopters/${id}/unblock`, {
         method: "PATCH",
         credentials: "include",
       });
 
       if (!res.ok) throw new Error();
 
-      const updated = await fetch(`/api/admin/adopters/${id}`, {
+      const updated = await adminFetch(`/api/admin/adopters/${id}`, {
         credentials: "include",
       }).then((r) => r.json());
 

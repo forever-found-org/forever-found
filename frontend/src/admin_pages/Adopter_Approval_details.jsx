@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { adminFetch } from "../securitymiddlewares/adminFetch";
 
 function Adopter_Approval_details() {
   const { id } = useParams();
@@ -20,7 +21,7 @@ function Adopter_Approval_details() {
 
   const fetchAdopter = async () => {
     try {
-      const res = await fetch(
+      const res = await adminFetch(
         `http://localhost:5000/api/admin/adopters/${id}`
       );
       if (!res.ok) throw new Error();
@@ -37,7 +38,7 @@ function Adopter_Approval_details() {
   const handleApprove = async () => {
     try {
       setActionLoading(true);
-      const res = await fetch(
+      const res = await adminFetch(
         `http://localhost:5000/api/admin/adopters/${id}/approve`,
         { method: "PATCH" }
       );
@@ -58,7 +59,7 @@ function Adopter_Approval_details() {
 
     try {
       setActionLoading(true);
-      const res = await fetch(
+      const res = await adminFetch(
         `http://localhost:5000/api/admin/adopters/${id}/reject`,
         {
           method: "PATCH",
@@ -81,7 +82,7 @@ function Adopter_Approval_details() {
       return;
 
     try {
-      const res = await fetch(
+      const res = await adminFetch(
         `http://localhost:5000/api/admin/adopters/${id}/aadhaar`
       );
       if (!res.ok) throw new Error();

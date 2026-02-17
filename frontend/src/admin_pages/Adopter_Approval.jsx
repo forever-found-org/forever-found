@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Users } from "lucide-react";
+import { adminFetch } from "../securitymiddlewares/adminFetch";
 
 function Adopter_Approval() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Adopter_Approval() {
 
   const fetchPendingAdopters = async () => {
     try {
-      const res = await fetch(
+      const res = await adminFetch(
         "http://localhost:5000/api/admin/pending-adopters"
       );
 

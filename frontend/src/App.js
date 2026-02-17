@@ -26,6 +26,8 @@ import PendingRequestDetails_NGO from './pages/PendingRequestDetails_NGO';
 import Meeting_Status_NGO from './pages/Meeting_Status_NGO';
 import ViewMeeting from './pages/ViewMeeting';
 import Meeting_Status_Details from './pages/Meeting_Status_Details';
+import Adopter_History from './pages/Adopter_History';
+import Adopter_History_Details from './pages/Adopter_History_Details';
 
 import Admin_Login from './admin_pages/Admin_Login';
 import Admin_Home from './admin_pages/Admin_Home';
@@ -71,6 +73,8 @@ function App() {
       
       <Route path="/adopter/:adopterId/meetings/:meetingId" element={<ViewMeeting/>}/>
       <Route path="/adopter/:adopterId/meetings" element={<MeetingHistory/>}></Route>
+      <Route path="/adopter/:adopterId/adoption-history" element={<Adopter_History/>}></Route>
+      <Route path="/adopter/:adopterId/adoption-history/:childId" element={<Adopter_History_Details/>}></Route>
       <Route path="/ngo-home/:id/pending-requests" element={<PendingRequests_NGO/>}></Route>
       <Route path="/ngo-home/:id/pending-requests/:meetingId" element={<PendingRequestDetails_NGO/>}></Route>
       <Route path="/ngo-home/:id/meeting-status" element={<Meeting_Status_NGO/>}></Route>

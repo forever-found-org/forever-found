@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { adminFetch } from "../securitymiddlewares/adminFetch";
 
 function ChildrenDetails() {
   const { id } = useParams();
@@ -18,8 +19,8 @@ function ChildrenDetails() {
     const fetchData = async () => {
       try {
         const [childRes, meetingsRes] = await Promise.all([
-          fetch(`/api/admin/children/${id}`, { credentials: "include" }),
-          fetch(`/api/admin/children/${id}/meetings`, { credentials: "include" }),
+          adminFetch(`/api/admin/children/${id}`, { credentials: "include" }),
+          adminFetch(`/api/admin/children/${id}/meetings`, { credentials: "include" }),
         ]);
 
         if (!childRes.ok || !meetingsRes.ok) {
@@ -80,7 +81,7 @@ function ChildrenDetails() {
 
     setActionLoading(true);
     try {
-      const res = await fetch(`/api/admin/children/${id}/block`, {
+      const res = await adminFetch(`/api/admin/children/${id}/block`, {
         method: "PATCH",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -102,7 +103,7 @@ function ChildrenDetails() {
   const handleUnblockChild = async () => {
     setActionLoading(true);
     try {
-      const res = await fetch(`/api/admin/children/${id}/unblock`, {
+      const res = await adminFetch(`/api/admin/children/${id}/unblock`, {
         method: "PATCH",
         credentials: "include",
       });

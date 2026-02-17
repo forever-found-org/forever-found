@@ -4,6 +4,7 @@ import { registerAdopter,verifyAdopterEmail } from "./adopterControllers";
 import { loginAdopter } from "./adopterControllers"; // import your controller
 import { getAdopterById } from "./adopterControllers";
 import { updateAdopter } from "./adopterControllers";
+import { getAdoptionHistoryByAdopter,getSingleAdoptedChild } from "./adopterControllers";
 
 const router = express.Router();
 
@@ -26,5 +27,8 @@ router.post("/login", loginAdopter);
 router.get("/:id",getAdopterById);
 router.put("/:id", updateAdopter);
 
+// Adoption history
+router.get("/:adopterId/adoption-history", getAdoptionHistoryByAdopter);
+router.get( "/:adopterId/adoption-history/:childId",getSingleAdoptedChild);
 
 export default router;

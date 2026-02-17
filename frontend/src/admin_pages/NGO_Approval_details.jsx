@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { adminFetch } from "../securitymiddlewares/adminFetch";
 
 function Ngo_Approval_Details() {
   const { id } = useParams();
@@ -28,7 +29,7 @@ function Ngo_Approval_Details() {
 
   const fetchNgo = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/ngos/${id}`);
+      const res = await adminFetch(`http://localhost:5000/api/admin/ngos/${id}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
       setNgo(data);
@@ -43,7 +44,7 @@ function Ngo_Approval_Details() {
   const handleApprove = async () => {
     try {
       setActionLoading(true);
-      const res = await fetch(
+      const res = await adminFetch(
         `http://localhost:5000/api/admin/ngos/${id}/approve`,
         { method: "PATCH" }
       );
@@ -64,7 +65,7 @@ function Ngo_Approval_Details() {
 
     try {
       setActionLoading(true);
-      const res = await fetch(
+      const res = await adminFetch(
         `http://localhost:5000/api/admin/ngos/${id}/reject`,
         {
           method: "PATCH",

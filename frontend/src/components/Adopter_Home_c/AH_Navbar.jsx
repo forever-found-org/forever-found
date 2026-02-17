@@ -47,7 +47,7 @@ function AH_Navbar({ onLogoutClick }) {
       <button onClick={()=>{navigate(`/adopter/${adopter.id}/meetings`)}}className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold">
         Meetings History
       </button>
-      <button className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold">
+      <button onClick={()=>{navigate(`/adopter/${adopter.id}/adoption-history`)}}className="h-10 mt-3 font-serif border border-white p-2 rounded-md text-white hover:border-2 capitalize hover:bg-white hover:text-black hover:font-bold">
         Adoption History
       </button>
       <button

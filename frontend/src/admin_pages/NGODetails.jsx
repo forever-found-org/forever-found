@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { adminFetch } from "../securitymiddlewares/adminFetch";
 
 const NGODetails = () => {
   const { id } = useParams();
@@ -32,9 +33,9 @@ const NGODetails = () => {
     const fetchData = async () => {
       try {
         const [ngoRes, meetingsRes, adoptedRes] = await Promise.all([
-          fetch(`/api/admin/ngos/${id}`, { credentials: "include" }),
-          fetch(`/api/admin/ngos/${id}/meetings`, { credentials: "include" }),
-          fetch(`/api/admin/ngos/${id}/adopted-children`, {
+          adminFetch(`/api/admin/ngos/${id}`, { credentials: "include" }),
+          adminFetch(`/api/admin/ngos/${id}/meetings`, { credentials: "include" }),
+          adminFetch(`/api/admin/ngos/${id}/adopted-children`, {
             credentials: "include",
           }),
         ]);
@@ -75,7 +76,7 @@ const NGODetails = () => {
     try {
       setActionLoading(true);
 
-      const res = await fetch(`/api/admin/ngos/${id}/block`, {
+      const res = await adminFetch(`/api/admin/ngos/${id}/block`, {
         method: "PATCH",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -84,7 +85,7 @@ const NGODetails = () => {
 
       if (!res.ok) throw new Error();
 
-      const updated = await fetch(`/api/admin/ngos/${id}`, {
+      const updated = await adminFetch(`/api/admin/ngos/${id}`, {
         credentials: "include",
       }).then((r) => r.json());
 
@@ -102,14 +103,14 @@ const NGODetails = () => {
     try {
       setActionLoading(true);
 
-      const res = await fetch(`/api/admin/ngos/${id}/unblock`, {
+      const res = await adminFetch(`/api/admin/ngos/${id}/unblock`, {
         method: "PATCH",
         credentials: "include",
       });
 
       if (!res.ok) throw new Error();
 
-      const updated = await fetch(`/api/admin/ngos/${id}`, {
+      const updated = await adminFetch(`/api/admin/ngos/${id}`, {
         credentials: "include",
       }).then((r) => r.json());
 
