@@ -48,9 +48,6 @@ function ViewNGOs() {
   const approvedCount = ngos.filter(
     (n) => n.status === "approved"
   ).length;
-  const pendingCount = ngos.filter(
-    (n) => n.status === "pending"
-  ).length;
   const rejectedCount = ngos.filter(
     (n) => n.status === "rejected"
   ).length;
@@ -106,7 +103,6 @@ function ViewNGOs() {
         <div className="flex flex-wrap gap-4 mt-2">
           <StatCard label="Total" value={totalNGOs} color="text-slate-700" />
           <StatCard label="Approved" value={approvedCount} color="text-green-600" />
-          <StatCard label="Pending" value={pendingCount} color="text-yellow-600" />
           <StatCard label="Rejected" value={rejectedCount} color="text-red-600" />
         </div>
 
@@ -133,7 +129,6 @@ function ViewNGOs() {
           >
             <option value="ALL">All</option>
             <option value="APPROVED">Approved</option>
-            <option value="PENDING">Pending</option>
             <option value="REJECTED">Rejected</option>
           </select>
         </div>

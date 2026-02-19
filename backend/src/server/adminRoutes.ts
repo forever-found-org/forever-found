@@ -5,6 +5,7 @@ import { getPendingAdopters,approveAdopter,rejectAdopter,getPendingNGOs,approveN
 import { getAdopterDetails,getAdopterMeetings,blockAdopter,unblockAdopter,getAdopterAadhaar,getAdoptedChildren } from "./adminController";
 import { getNGODetails,blockNgo,unblockNgo,getMeetingsForNGO,getAdoptedChildrenByNGO } from "./adminController";
 import { getChildDetailsForAdmin,getMeetingsByChildForAdmin,blockChild,unblockChild } from "./adminController";
+import { getAdopterEditRequestCount,clearAdopterEditRequest } from "./adminController";
 const router = express.Router();
 
 router.post("/login", loginAdmin);
@@ -30,8 +31,10 @@ router.get("/children/:id/meetings",adminAuth, getMeetingsByChildForAdmin);
 router.patch("/children/:id/block",adminAuth, blockChild);
 router.patch("/children/:id/unblock",adminAuth, unblockChild);
 
+router.get("/adopters/edit-requests/count",adminAuth, getAdopterEditRequestCount);
 router.get("/adopters",adminAuth, getAllAdopters);
 router.get("/adopters/:id",adminAuth, getAdopterDetails);
+router.patch("/adopters/:id/clear-edit-request", adminAuth, clearAdopterEditRequest);
 router.get("/adopters/:id/meetings",adminAuth, getAdopterMeetings);
 router.patch("/adopters/:id/block",adminAuth, blockAdopter);
 router.patch("/adopters/:id/unblock",adminAuth, unblockAdopter);

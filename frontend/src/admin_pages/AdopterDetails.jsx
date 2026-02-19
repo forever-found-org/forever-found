@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { adminFetch } from "../securitymiddlewares/adminFetch";
 
@@ -12,51 +12,39 @@ const AdopterDetails = () => {
   const [showAadhaar, setShowAadhaar] = useState(false);
   const [aadhaarData, setAadhaarData] = useState(null);
   const [adoptedChildren, setAdoptedChildren] = useState([]);
-
   const [blockReason, setBlockReason] = useState("");
   const [actionLoading, setActionLoading] = useState(false);
 
-  useEffect(() => {
-    let isMounted = true;
+  /* ---------------- FETCH DATA ---------------- */
+  const fetchData = useCallback(async () => {
+    try {
+      const [adopterRes, meetingsRes, adoptedRes] = await Promise.all([
+        adminFetch(`/api/admin/adopters/${id}`),
+        adminFetch(`/api/admin/adopters/${id}/meetings`),
+        adminFetch(`/api/admin/adopters/${id}/adopted-children`),
+      ]);
 
-    const fetchData = async () => {
-      try {
-        const [adopterRes, meetingsRes, adoptedRes] = await Promise.all([
-          adminFetch(`/api/admin/adopters/${id}`, { credentials: "include" }),
-          adminFetch(`/api/admin/adopters/${id}/meetings`, { credentials: "include" }),
-          adminFetch(`/api/admin/adopters/${id}/adopted-children`, {
-            credentials: "include",
-          }),
-        ]);
-
-        if (!adopterRes.ok || !meetingsRes.ok || !adoptedRes.ok) {
-          throw new Error();
-        }
-
-        const adopterData = await adopterRes.json();
-        const meetingsData = await meetingsRes.json();
-        const adoptedChildrenData = await adoptedRes.json();
-
-        if (isMounted) {
-          setAdopter(adopterData);
-          setMeetings(meetingsData);
-          setAdoptedChildren(adoptedChildrenData);
-        }
-      } catch {
-        console.error("Failed to load adopter data");
-      } finally {
-        if (isMounted) setLoading(false);
+      if (!adopterRes.ok || !meetingsRes.ok || !adoptedRes.ok) {
+        throw new Error();
       }
-    };
 
-    fetchData();
-    const interval = setInterval(fetchData, 5000);
+      const adopterData = await adopterRes.json();
+      const meetingsData = await meetingsRes.json();
+      const adoptedChildrenData = await adoptedRes.json();
 
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
+      setAdopter(adopterData);
+      setMeetings(meetingsData);
+      setAdoptedChildren(adoptedChildrenData);
+    } catch {
+      console.error("Failed to load adopter data");
+    } finally {
+      setLoading(false);
+    }
   }, [id]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   /* ---------- Aadhaar ---------- */
   const fetchAadhaar = async () => {
@@ -64,9 +52,7 @@ const AdopterDetails = () => {
       return;
 
     try {
-      const res = await adminFetch(`/api/admin/adopters/${id}/aadhaar`, {
-        credentials: "include",
-      });
+      const res = await adminFetch(`/api/admin/adopters/${id}/aadhaar`);
       if (!res.ok) throw new Error();
       const data = await res.json();
       setAadhaarData(data);
@@ -76,7 +62,7 @@ const AdopterDetails = () => {
     }
   };
 
-  /* ---------- BLOCK / UNBLOCK ---------- */
+  /* ---------- BLOCK ---------- */
   const handleBlock = async () => {
     if (!blockReason.trim()) return;
 
@@ -85,19 +71,14 @@ const AdopterDetails = () => {
 
       const res = await adminFetch(`/api/admin/adopters/${id}/block`, {
         method: "PATCH",
-        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ reason: blockReason }),
       });
 
       if (!res.ok) throw new Error();
 
-      const updated = await adminFetch(`/api/admin/adopters/${id}`, {
-        credentials: "include",
-      }).then((r) => r.json());
-
-      setAdopter(updated);
       setBlockReason("");
+      await fetchData(); // refresh properly
     } catch {
       alert("Failed to block adopter");
     } finally {
@@ -105,26 +86,38 @@ const AdopterDetails = () => {
     }
   };
 
+  /* ---------- UNBLOCK ---------- */
   const handleUnblock = async () => {
     try {
       setActionLoading(true);
 
       const res = await adminFetch(`/api/admin/adopters/${id}/unblock`, {
         method: "PATCH",
-        credentials: "include",
       });
 
       if (!res.ok) throw new Error();
 
-      const updated = await adminFetch(`/api/admin/adopters/${id}`, {
-        credentials: "include",
-      }).then((r) => r.json());
-
-      setAdopter(updated);
+      await fetchData(); // refresh properly
     } catch {
       alert("Failed to unblock adopter");
     } finally {
       setActionLoading(false);
+    }
+  };
+
+  /* ---------- CLEAR EDIT REQUEST ---------- */
+  const handleClearEditRequest = async () => {
+    try {
+      const res = await adminFetch(
+        `/api/admin/adopters/${id}/clear-edit-request`,
+        { method: "PATCH" }
+      );
+
+      if (!res.ok) throw new Error();
+
+      await fetchData(); // refresh properly
+    } catch {
+      alert("Failed to clear edit request");
     }
   };
 
@@ -162,6 +155,21 @@ const AdopterDetails = () => {
           <h2 className="text-2xl font-bold uppercase tracking-wide mb-6">
             Adopter Details
           </h2>
+
+          {adopter.hasEditRequest && (
+              <div className="bg-yellow-100 border border-yellow-300 p-3 rounded-md mb-4">
+                <p className="font-semibold text-yellow-800">
+                  ⚠️ This adopter has requested profile changes.
+                </p>
+
+                <button
+                  onClick={handleClearEditRequest}
+                  className="mt-2 bg-yellow-600 text-white px-4 py-2 rounded"
+                >
+                  Mark as Reviewed
+                </button>
+              </div>
+            )}
 
           {/* ADMIN */}
           <Section id="admin" title="Admin Controls" bg="bg-[#dbeaf3]">
@@ -277,24 +285,44 @@ const AdopterDetails = () => {
           />
 
           {/* Medical Certificate */}
-          {adopter.medicalCertificates ? (
-            <div className="mt-4">
-              <p className="text-sm text-gray-600 mb-1">
-                Medical Certificate
-              </p>
-              <img
-                src={adopter.medicalCertificates}
-                alt="Medical Certificate"
-                className="border rounded-md max-h-80"
-              />
-            </div>
-          ) : (
-            <p className="mt-3 text-sm italic text-gray-500">
-              No medical certificate uploaded
-            </p>
-          )}
-        </Section>
+            {adopter.medicalCertificates &&
+            (Array.isArray(adopter.medicalCertificates)
+              ? adopter.medicalCertificates.length > 0
+              : true) ? (
 
+              <div className="mt-4">
+                <p className="text-sm text-gray-600 mb-2">
+                  Medical Certificate(s)
+                </p>
+
+                <div className="flex flex-wrap gap-4">
+                  {Array.isArray(adopter.medicalCertificates) ? (
+                    adopter.medicalCertificates.map((cert, index) => (
+                      <img
+                        key={index}
+                        src={cert}
+                        alt={`Medical Certificate ${index + 1}`}
+                        className="border rounded-md max-h-60"
+                      />
+                    ))
+                  ) : (
+                    <img
+                      src={adopter.medicalCertificates}
+                      alt="Medical Certificate"
+                      className="border rounded-md max-h-60"
+                    />
+                  )}
+                </div>
+              </div>
+
+            ) : (
+              <p className="mt-3 text-sm italic text-gray-500">
+                No medical certificate uploaded
+              </p>
+            )}
+          </Section>
+
+           {/* Aadhar */}
           <div className="flex justify-center">
             <button
               onClick={fetchAadhaar}

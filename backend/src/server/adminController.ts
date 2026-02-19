@@ -192,13 +192,15 @@ export const rejectNgo = async (req: Request, res: Response) => {
 
 
 
-
+// Fetch only approved + rejected NGOs
 export const getApprovedNGOsForAdmin = async (
   req: Request,
   res: Response
 ) => {
   try {
-    const ngos = await NGO.find()
+    const ngos = await NGO.find({
+      status: { $in: ["approved", "rejected"] }
+    })
       .select("name city numberOfChildren status canEdit")
       .lean();
 
@@ -222,7 +224,6 @@ export const getApprovedNGOsForAdmin = async (
     });
   }
 };
-
 
 // Get single NGO
 export const getNGODetails = async (req: Request, res: Response) => {
@@ -482,13 +483,14 @@ export const unblockChild = async (req: Request, res: Response) => {
 
 
 
-/* GET ALL ADOPTERS */
+/* GET ALL Approved and Rejected ADOPTERS */
 export const getAllAdopters = async (req: Request, res: Response) => {
   try {
     const adopters = await Adopter.find(
-      {},
-      "fullName gender occupation contactNumber status"
-    ).sort({ createdAt: -1 });
+      { status: { $in: ["approved", "rejected"] } },
+      "fullName gender occupation contactNumber status hasEditRequest"
+    )
+      .sort({ hasEditRequest: -1, createdAt: -1 });
 
     res.status(200).json({
       count: adopters.length,
@@ -501,6 +503,57 @@ export const getAllAdopters = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+// GET: Count of adopter edit profile requests
+export const getAdopterEditRequestCount = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const count = await Adopter.countDocuments({
+      status: "approved",
+      hasEditRequest: true,
+    });
+
+    res.status(200).json({ count });
+  } catch (error) {
+    console.error("Error fetching adopter edit request count:", error);
+    res.status(500).json({
+      message: "Failed to fetch edit request count",
+    });
+  }
+};
+
+// CLEAR EDIT REQUEST
+export const clearAdopterEditRequest = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const adopter = await Adopter.findByIdAndUpdate(
+      req.params.id,
+      { hasEditRequest: false },
+      { new: true }
+    );
+
+    if (!adopter) {
+      return res.status(404).json({ message: "Adopter not found" });
+    }
+
+    res.status(200).json({
+      message: "Edit request cleared",
+      adopter,
+    });
+
+  } catch (error) {
+    console.error("Error clearing edit request:", error);
+    res.status(500).json({
+      message: "Failed to clear edit request",
+    });
+  }
+};
+
 
 /* GET SINGLE ADOPTER DETAILS */
 export const getAdopterDetails = async (req: Request, res: Response) => {

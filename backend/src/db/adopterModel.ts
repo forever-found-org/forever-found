@@ -36,6 +36,17 @@ const adopterSchema = new mongoose.Schema(
       default: "pending",
     },
 
+    // 🔔 Profile Edit Request (Admin Notification)
+    hasEditRequest: {
+      type: Boolean,
+      default: false,
+    },
+
+    editRequestedAt: {
+      type: Date,
+      default: null,
+    },
+
     // Rejection details (NEW)
     rejectionReason: {
       type: String,

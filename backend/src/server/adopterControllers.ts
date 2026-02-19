@@ -246,12 +246,12 @@ export const getAdopterById = async (req: Request, res: Response) => {
   }
 };
 
-//update adopter
+//update adopter 
 export const updateAdopter = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    
+    // Extract fields from req.body
     const {
       occupation,
       salaryPerAnnum,
@@ -262,34 +262,61 @@ export const updateAdopter = async (req: Request, res: Response) => {
       gender,
       maritalStatus,
       numberOfBiologicalChildren,
+      healthStatus,
     } = req.body;
 
-    const adopter = await Adopter.findByIdAndUpdate(
-      id,
-      {
-        occupation,
-        salaryPerAnnum,
-        contactNumber,
-        alternateContactNumber,
-        address,
-        religion,
-        gender,
-        maritalStatus,
-        numberOfBiologicalChildren,
-      },
-      { new: true, runValidators: true } // return updated doc + validate schema
-    ).select("-password"); // don’t send password back
-
-    if (!adopter) {
+    // Load existing adopter
+    const existingAdopter = await Adopter.findById(id);
+    if (!existingAdopter) {
       return res.status(404).json({ message: "Adopter not found" });
     }
 
-    res.json(adopter);
+    // Update only fields that are sent
+    if (occupation !== undefined) existingAdopter.occupation = occupation;
+    if (salaryPerAnnum !== undefined) existingAdopter.salaryPerAnnum = salaryPerAnnum;
+    if (contactNumber !== undefined) existingAdopter.contactNumber = contactNumber;
+    if (alternateContactNumber !== undefined)
+      existingAdopter.alternateContactNumber = alternateContactNumber;
+    if (address !== undefined) existingAdopter.address = address;
+    if (religion !== undefined) existingAdopter.religion = religion;
+    if (gender !== undefined) existingAdopter.gender = gender;
+    if (maritalStatus !== undefined) existingAdopter.maritalStatus = maritalStatus;
+    if (numberOfBiologicalChildren !== undefined)
+      existingAdopter.numberOfBiologicalChildren = numberOfBiologicalChildren;
+
+    // Health status - convert comma-separated string to array
+    if (healthStatus !== undefined) {
+      existingAdopter.healthStatus = healthStatus
+        .split(",")
+        .map((h: string) => h.trim());
+    }
+
+    // Handle new certificate uploads (append, don't delete old ones)
+    if (req.files && Array.isArray(req.files)) {
+      const newCertificates = req.files.map((file: any) => file.path); // Cloudinary URL
+      existingAdopter.medicalCertificates = [
+        ...(existingAdopter.medicalCertificates || []),
+        ...newCertificates,
+      ];
+    }
+
+    // If adopter is approved, trigger edit review notification
+    if (existingAdopter.status === "approved") {
+      existingAdopter.hasEditRequest = true;
+      existingAdopter.editRequestedAt = new Date();
+    }
+
+
+    // Save updated adopter (password remains untouched)
+    await existingAdopter.save();
+
+    res.json(existingAdopter);
   } catch (err: any) {
     console.error("Error updating adopter:", err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+
 
 //get adopter adoption history
 export const getAdoptionHistoryByAdopter = async (

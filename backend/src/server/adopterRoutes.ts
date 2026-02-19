@@ -25,7 +25,7 @@ router.get("/verify-email/:token", verifyAdopterEmail);
 // POST /api/adopters/login
 router.post("/login", loginAdopter);
 router.get("/:id",getAdopterById);
-router.put("/:id", updateAdopter);
+router.put("/:id",cloudUpload.array("medicalCertificates"), updateAdopter);
 
 // Adoption history
 router.get("/:adopterId/adoption-history", getAdoptionHistoryByAdopter);

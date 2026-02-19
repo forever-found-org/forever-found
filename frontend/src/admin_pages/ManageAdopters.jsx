@@ -53,12 +53,13 @@ function ManageAdopters() {
   const approvedCount = adopters.filter(
     (a) => a.status === "approved"
   ).length;
-  const pendingCount = adopters.filter(
-    (a) => a.status === "pending"
-  ).length;
   const rejectedCount = adopters.filter(
     (a) => a.status === "rejected"
   ).length;
+  const editRequestCount = adopters.filter(
+    (a) => a.hasEditRequest
+  ).length;
+
 
   if (loading) {
     return (
@@ -101,8 +102,8 @@ function ManageAdopters() {
           <div className="flex flex-wrap gap-3">
             <StatCard label="Total" value={totalAdopters} color="text-slate-700" />
             <StatCard label="Approved" value={approvedCount} color="text-green-600" />
-            <StatCard label="Pending" value={pendingCount} color="text-yellow-600" />
             <StatCard label="Rejected" value={rejectedCount} color="text-red-600" />
+            <StatCard label="Edit Requests" value={editRequestCount} color="text-yellow-600" />
           </div>
 
           {/* Search + Filter */}
@@ -127,7 +128,6 @@ function ManageAdopters() {
             >
               <option value="ALL">All</option>
               <option value="APPROVED">Approved</option>
-              <option value="PENDING">Pending</option>
               <option value="REJECTED">Rejected</option>
             </select>
           </div>
@@ -148,12 +148,17 @@ function ManageAdopters() {
             </thead>
             <tbody>
               {filteredAdopters.map((adopter) => (
-                <tr
-                  key={adopter._id}
-                  className="border-t hover:bg-slate-50 transition"
-                >
-                  <td className="px-6 py-4 font-medium text-slate-700">
+                <tr key={adopter._id} className={`border-t transition ${adopter.hasEditRequest
+                  ? "bg-yellow-50 border-l-4 border-yellow-500"
+                  : "hover:bg-slate-50" }`}>
+
+                  <td className="px-6 py-4 font-medium text-slate-700 flex items-center gap-2">
                     {adopter.fullName}
+                    {adopter.hasEditRequest && (
+                      <span className="text-xs px-2 py-1 rounded-full bg-yellow-200 text-yellow-800 font-semibold">
+                        Edit Request
+                      </span>
+                    )}
                   </td>
                   <td className="px-6 py-4">{adopter.gender}</td>
                   <td className="px-6 py-4">{adopter.occupation}</td>

@@ -66,6 +66,30 @@ export default function AdopterProfile() {
           <p><span className="font-semibold text-blue-700">Gender:</span> {adopter.gender}</p>
           <p><span className="font-semibold text-blue-700">Marital Status:</span> {adopter.maritalStatus}</p>
           <p><span className="font-semibold text-blue-700">Biological Children:</span> {adopter.numberOfBiologicalChildren}</p>
+          <p>
+            <span className="font-semibold text-blue-700">Health status:</span>{" "}
+            {adopter.healthStatus?.length ? adopter.healthStatus.join(", ") : "-"}
+          </p>
+        </div>
+        
+        {/* Medical Certificates */}
+        <div className="mt-6">
+          <p>
+            <span className="text-lg md:text-xl font-semibold text-blue-700">
+              Medical Certificates:
+            </span>
+          </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+            {adopter.medicalCertificates?.map((cert, index) => (
+              <img
+                key={index}
+                src={cert}
+                alt={`Medical Certificate ${index + 1}`}
+                className="border rounded-lg shadow w-full max-h-80 object-contain"
+              />
+            ))}
+          </div>
         </div>
 
         {/* Back n Edit button */}

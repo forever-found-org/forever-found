@@ -8,6 +8,9 @@ export default function EditAdopterProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [existingCertificates, setExistingCertificates] = useState([]);
+  const [newCertificates, setNewCertificates] = useState([]);
+
 
   const [formData, setFormData] = useState({
     occupation: "",
@@ -19,7 +22,9 @@ export default function EditAdopterProfile() {
     gender: "",
     maritalStatus: "",
     numberOfBiologicalChildren: "",
+    healthStatus: "",
   });
+  
 
   useEffect(() => {
     async function fetchAdopter() {
@@ -38,7 +43,9 @@ export default function EditAdopterProfile() {
           gender: data.gender || "",
           maritalStatus: data.maritalStatus || "",
           numberOfBiologicalChildren: data.numberOfBiologicalChildren || 0,
+          healthStatus: data.healthStatus?.join(", ") || "",
         });
+        setExistingCertificates(data.medicalCertificates || []);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -52,23 +59,46 @@ export default function EditAdopterProfile() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleCertificateUpload = (e) => {
+  setNewCertificates(Array.from(e.target.files));
+};
+
+
   const handleSave = async () => {
-    setSaving(true);
-    try {
-      const res = await fetch(`http://localhost:5000/api/adopter/${id}`, {
+  setSaving(true);
+
+  try {
+    const formDataToSend = new FormData();
+
+    // Append normal fields
+    Object.keys(formData).forEach((key) => {
+      formDataToSend.append(key, formData[key]);
+    });
+
+    // Append new certificates
+    newCertificates.forEach((file) => {
+      formDataToSend.append("medicalCertificates", file);
+    });
+
+    const res = await fetch(
+      `http://localhost:5000/api/adopter/${id}`,
+      {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      if (!res.ok) throw new Error("Failed to update profile");
-      const data = await res.json();
-      navigate(`/adopter-home/${id}`); // go back to profile page
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setSaving(false);
-    }
-  };
+        body: formDataToSend,
+      }
+    );
+
+    if (!res.ok) throw new Error("Failed to update profile");
+
+    navigate(`/adopter-home/${id}`);
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setSaving(false);
+  }
+};
+
+
 
   if (loading)
     return <p className="text-center mt-20 text-xl font-serif font-semibold text-gray-700">Loading...</p>;
@@ -200,6 +230,56 @@ export default function EditAdopterProfile() {
               min={0}
             />
           </div>
+          <div>
+            <label className="font-semibold text-blue-700">
+              Health Status:
+            </label>
+            <input
+              type="text"
+              name="healthStatus"
+              value={formData.healthStatus}
+              onChange={handleChange}
+              placeholder="e.g. No chronic illness, Asthma"
+              className="w-full border p-2 rounded mt-1"
+            />
+            <p className="text-sm text-gray-500 mt-1 ml-1">
+              Enter multiple conditions separated by commas.
+            </p>
+          </div>
+
+          {/* Existing Certificates */}
+<div className="md:col-span-2">
+  <label className="font-semibold text-blue-700">
+    Existing Medical Certificates:
+  </label>
+
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3">
+    {existingCertificates.map((cert, index) => (
+      <img
+        key={index}
+        src={cert}
+        alt="Medical Certificate"
+        className="rounded-lg shadow border"
+      />
+    ))}
+  </div>
+</div>
+
+{/* Upload New Certificates */}
+<div className="md:col-span-2 mt-6">
+  <label className="font-semibold text-blue-700">
+    Upload Additional Certificate:
+  </label>
+  <input
+    type="file"
+    multiple
+    accept="image/*"
+    onChange={handleCertificateUpload}
+    className="w-full border p-2 rounded mt-1"
+  />
+</div>
+
+
         </div>
 
         {/* Buttons */}

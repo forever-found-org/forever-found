@@ -9,21 +9,22 @@ const run = async () => {
     console.log("✅ Connected to MongoDB");
 
     const res = await mongoose.connection
-      .collection("ngos")
+      .collection("adopters")
       .updateMany(
         {},
         {
-          $unset: {
-            image: "",
+          $set: {
+            hasEditRequest: false,
+            editRequestedAt: null,
           },
         }
       );
 
-    console.log("NGOs matched:", res.matchedCount);
-    console.log("NGOs modified:", res.modifiedCount);
+    console.log("Adopters matched:", res.matchedCount);
+    console.log("Adopters modified:", res.modifiedCount);
 
     await mongoose.disconnect();
-    console.log("✅ image field removed from NGOs");
+    console.log("✅ Edit request fields added to all adopters");
   } catch (err) {
     console.error("❌ Migration failed:", err);
     process.exit(1);
