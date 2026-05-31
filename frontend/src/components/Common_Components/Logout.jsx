@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 function Logout({onNoLogout}) {
   const navigate = useNavigate();
   const handleLogout = () => {
-     localStorage.removeItem("adopter");
-    navigate('/');
+     localStorage.removeItem("token");
+    navigate('/',{replace:true});
   };
 
   return (

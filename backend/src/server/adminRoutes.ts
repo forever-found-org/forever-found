@@ -1,6 +1,6 @@
 import express from "express";
 import { adminAuth } from "../securitymiddlewares/adminAuth";
-import { loginAdmin,getApprovedNGOsForAdmin,getAllChildrenForAdmin,getAllAdopters } from "./adminController";
+import { loginAdmin,getApprovedNGOsForAdmin,getAllChildrenForAdmin,getAllAdopters, getAdminProfile, changeAdminPassword } from "./adminController";
 import { getPendingAdopters,approveAdopter,rejectAdopter,getPendingNGOs,approveNgo,rejectNgo } from "./adminController";
 import { getAdopterDetails,getAdopterMeetings,blockAdopter,unblockAdopter,getAdopterAadhaar,getAdoptedChildren } from "./adminController";
 import { getNGODetails,blockNgo,unblockNgo,getMeetingsForNGO,getAdoptedChildrenByNGO } from "./adminController";
@@ -53,5 +53,8 @@ router.get("/adoption-requests/count", adminAuth, getAdoptionRequestCount);
 router.get("/adoption-requests",adminAuth, getAllAdoptionRequests);
 router.get("/adoption-requests/:requestId", adminAuth, getAdoptionRequestById);
 router.patch("/adoption-requests/:requestId/verify", adminAuth, verifyAdoptionRequest);
+
+router.get("/profile", adminAuth, getAdminProfile);
+router.patch("/change-password", adminAuth, changeAdminPassword);
 
 export default router;

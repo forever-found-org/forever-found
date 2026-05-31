@@ -45,6 +45,7 @@ function FormValidator(adopterData) {
 
   const children = Number(adopterData.bioChildren);
   if (isNaN(children) || children < 0 || !Number.isInteger(children)) errors.bioChildren = "*Use positive integer.";
+  if ((children > 0) && (adopterData.maritalStatus === "single")) errors.bioChildren = "*Single adopters cannot have biological children.";
   if (!regexPattern.occupation.test(adopterData.occupation)) errors.occupation = "*Use only alphabets and spaces.";
 
   const salary = Number(adopterData.salary);

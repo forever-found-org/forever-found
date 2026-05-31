@@ -47,6 +47,7 @@ import NGO_Approval from './admin_pages/NGO_Approval';
 import NGO_Approval_details from './admin_pages/NGO_Approval_details';
 import AdoptionRequests_Admin from './admin_pages/AdoptionRequests_Admin';
 import AdoptionRequestDetails_Admin from './admin_pages/AdoptionRequestDetails_Admin';
+import Admin_Profile from './admin_pages/Admin_Profile';
 
 function App() {
  
@@ -111,7 +112,8 @@ function App() {
 
       <Route path="/admin/adoption-requests" element={<AdoptionRequests_Admin/>}></Route>
       <Route path="/admin/adoption-requests/:requestId" element={<AdoptionRequestDetails_Admin/>}></Route>
-
+      
+      <Route path="/admin/profile" element={<Admin_Profile />} />
       </Routes>
     </Router>  
   );

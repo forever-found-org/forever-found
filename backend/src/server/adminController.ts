@@ -971,3 +971,55 @@ export const getAdoptionRequestCount = async (
     });
   }
 };
+
+export const getAdminProfile = async (req: Request, res: Response) => {
+  try {
+    const adminId = (req as any).admin?.id; // from JWT token via adminAuth middleware
+
+    const admin = await Admin.findById(adminId).select("-password"); // exclude password
+
+    if (!admin) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    res.status(200).json(admin);
+
+  } catch (error) {
+    console.error("Error fetching admin profile:", error);
+    res.status(500).json({ message: "Failed to fetch admin profile" });
+  }
+};
+
+export const changeAdminPassword = async (req: Request, res: Response) => {
+  try {
+    const adminId = (req as any).admin?.id;
+    const { oldPassword, newPassword } = req.body;
+
+    // 1. Find admin
+    const admin = await Admin.findById(adminId);
+    if (!admin) return res.status(404).json({ message: "Admin not found" });
+
+    // 2. Verify old password
+    const isMatch = await bcrypt.compare(oldPassword, admin.password);
+    if (!isMatch) return res.status(400).json({ message: "Incorrect old password" });
+
+    // 3. Check new password not same as old
+    const isSame = await bcrypt.compare(newPassword, admin.password);
+    if (isSame) return res.status(400).json({ message: "New password cannot be same as old password" });
+
+    // 4. Validate minimum length
+    if (newPassword.length < 6) return res.status(400).json({ message: "Password must be at least 6 characters" });
+
+    // 5. Hash and update
+    const hashed = await bcrypt.hash(newPassword, 10);
+    admin.password = hashed;
+    admin.updatedAt = new Date();
+    await admin.save();
+
+    res.status(200).json({ message: "Password changed successfully" });
+
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).json({ message: "Failed to change password" });
+  }
+};
